@@ -37,28 +37,24 @@ import javafx.stage.Stage;
             MenuBar menuBar = new MenuBar();
 
             Menu menuFile = new Menu("File");
+
             ImageView img = new ImageView(new Image(this.getClass().getResource("plus-circle.png").toString()));
             img.setFitHeight(16);
             img.setFitWidth(16);
+
             MenuItem add = new MenuItem("Exit", img);
             add.setOnAction((ActionEvent t) -> {
                 Platform.exit();
                 System.exit(0);
             });
 
+            MenuItem about = new MenuItem("About");
+
+            menuFile.getItems().add(about);
+
             menuFile.getItems().addAll(add);
 
-            // --- Menu File
-            //Menu menuFile = new Menu("File");
-
-            // --- Menu Edit
-            Menu menuEdit = new Menu("About");
-
-            // --- Menu View
-            Menu menuView = new Menu("View");
-
-            menuBar.getMenus().addAll(menuFile, menuEdit, menuView);
-
+            menuBar.getMenus().addAll(menuFile);
 
             ((VBox) scene.getRoot()).getChildren().addAll(menuBar);
 
