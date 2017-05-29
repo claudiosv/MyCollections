@@ -28,15 +28,10 @@ public class Login extends Application {
 
         @Override
         public void start(Stage primaryStage) {
-            //Stage dialog = new Stage();
-            //dialog.initStyle(StageStyle.UTILITY);
-            //Scene scene = new Scene(new Group(new Text(25, 25, "Hello World!")));
-            //dialog.setScene(scene);
-            //dialog.show();
+            //new RecordView();
 
             scene = new Scene(new VBox(), 400, 350);
             primaryStage.setTitle("JavaFX Welcome");
-
 
             MenuBar menuBar = new MenuBar();
 

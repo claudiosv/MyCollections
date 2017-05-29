@@ -22,11 +22,10 @@ public class RecordSearchQueryTest {
         //query.setAddress("Druso");
         //String sql = query.toLikeQuery(true);
 
-        DatabaseHandler handler = new DatabaseHandler();
-        handler.initialise();
-        handler.insertRecord(null);
-        assertTrue(handler.userExists(1));
-        assertFalse(handler.userExists(5000));
+        DatabaseHandler.getInstance().initialise();
+        DatabaseHandler.getInstance().insertRecord(null);
+        assertTrue(DatabaseHandler.getInstance().userExists(1));
+        assertFalse(DatabaseHandler.getInstance().userExists(5000));
 
     }
 

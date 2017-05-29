@@ -16,6 +16,14 @@ import java.util.ArrayList;
 public class DatabaseHandler {
     public Connection c = null;
 
+    private static DatabaseHandler instance = new DatabaseHandler();
+
+    private DatabaseHandler(){}
+
+    public static DatabaseHandler getInstance(){
+            return instance;
+    }
+
     public void initialise()
     {
 
@@ -70,7 +78,7 @@ public class DatabaseHandler {
         System.out.println("Opened database successfully");
     }
 
-    public void addUser(User user)
+    public void addUser(User user) throws Exception
     {
 
         //TODO: check if user exists!
@@ -88,41 +96,139 @@ public class DatabaseHandler {
 
 
     //TODO: update user
-    public void updateUser(int userId)
+    public void updateUser(User user) throws Exception
     {
+        if(userExists(user.getId()))
+        {
+            String sql = "UPDATE users SET " +
+                    "username = ?," +
+                    "password = ?," +
+                    "picture = ?" +
+                    "WHERE id = ?;";
+            PreparedStatement stmt = c.prepareStatement(sql);
+            stmt.setString(1, user.getUsername());
 
+            stmt.setString(2, user.getPasswordHash());
+
+            stmt.setBytes(3, user.getUserImageArray());
+
+            stmt.setInt(4, user.getId());
+
+            stmt.execute();
+            return;
+        }
+        throw new Exception("user doesn't exist"); //TODO: custom exception
     }
 
     //TODO: insert record
     public void insertRecord(Record record)
     {
         try {
-            String sql = "INSERT INTO records (userid,firstname) VALUES (?,?);";
+            if(recordExists(record.getRecordId())) return;
+            String sql = "INSERT INTO records (userid, firstname, lastname, companyname, address, telephonenumber, email, picture) VALUES (?,?,?,?,?,?,?,?);";
             PreparedStatement stmt = c.prepareStatement(sql);
-            stmt.setInt(1, 1);
-            stmt.setString(2, "test");
-            //stmt.setBytes(3, user.getUserImageArray());
-            /*first name, last name, company name, address, telephone number, e-mail address,*/
+
+            stmt.setInt(1, record.getOwnerUserId());
+
+            stmt.setString(2, record.getFirstName());
+
+            stmt.setString(3, record.getLastName());
+
+            stmt.setString(4, record.getCompanyName());
+
+            stmt.setString(5, record.getAddress());
+
+            stmt.setString(6, record.getTelephoneNumber());
+
+            stmt.setString(7, record.getEmailAddress());
+
+            stmt.setBytes(8, record.getRecordImageArray());
             stmt.execute();
         } catch (Exception ex){ex.printStackTrace();}
     }
 
     //TODO: delete user
-    public void deleteUser(int userId)
+    public void deleteUser(int userId) throws Exception
     {
-
+        if(userExists(userId))
+        {
+            String sql = "DELETE FROM users WHERE id = ?;";
+            PreparedStatement stmt = c.prepareStatement(sql);
+            stmt.setInt(1, userId);
+            stmt.execute();
+            return;
+        }
+        throw new Exception("user doesn't exist"); //TODO: custom exception
     }
 
     //TODO: delete record
     public void deleteRecord(int recordId)
     {
+        try {
 
+
+            if (recordExists(recordId)) {
+                String sql = "DELETE FROM records WHERE id = ?;";
+                PreparedStatement stmt = c.prepareStatement(sql);
+                stmt.setInt(1, recordId);
+                stmt.execute();
+                return;
+            }
+              }catch (Exception ex){}
+        //throw new Exception("record doesn't exist"); //TODO: custom exception
     }
 
     //TODO: update record
-    public void updateRecord(Record record)
+    public void updateRecord(Record record) throws SQLException, IOException, Exception
     {
+        if(recordExists(record.getRecordId()))
+        {
+            String sql = "UPDATE records SET " +
+                    "userid = ?," +
+                    "firstname = ?," +
+                    "lastname = ?," +
+                    "companyname = ?," +
+                    "address = ?," +
+                    "telephonenumber = ?," +
+                    "email = ?," +
+                    "picture = ?" +
+                    "WHERE id = ?;";
+            PreparedStatement stmt = c.prepareStatement(sql);
+            stmt.setInt(1, record.getOwnerUserId());
 
+            stmt.setString(2, record.getFirstName());
+
+            stmt.setString(3, record.getLastName());
+
+            stmt.setString(4, record.getCompanyName());
+
+            stmt.setString(5, record.getAddress());
+
+            stmt.setString(6, record.getTelephoneNumber());
+
+            stmt.setString(7, record.getEmailAddress());
+
+            stmt.setBytes(8, record.getRecordImageArray());
+
+            stmt.setInt(9, record.getRecordId());
+
+            stmt.execute();
+        }
+        throw new Exception("record doesn't exist"); //TODO: custom exception
+    }
+
+    public boolean recordExists(int id) throws SQLException
+    {
+        String sql = "SELECT COUNT(*) FROM records WHERE id = ?;";
+        PreparedStatement stmt = c.prepareStatement(sql);
+        stmt.setInt(1, id);
+        ResultSet result = stmt.executeQuery();
+        while(result.next())
+        {
+            if(result.getInt(1) > 0) return true;
+        }
+
+        return false;
     }
 
     public boolean userExists(int id) throws SQLException
@@ -250,7 +356,29 @@ public class DatabaseHandler {
         PreparedStatement s = c.prepareStatement("SELECT * FROM records WHERE userid = ?");
         s.setInt(1, userId);
         return resultSetConverter(s.executeQuery());
+    }
 
+    public Record getRecord(int userId, int recordId) throws SQLException, IOException, Exception
+    {
+        PreparedStatement s = c.prepareStatement("SELECT * FROM records WHERE userid = ? AND id = ?");
+        s.setInt(1, userId);
+        s.setInt(2, recordId);
+        ResultSet result = s.executeQuery();
+
+        while(result.next()) {
+            Record databaseRecord = new Record();
+            databaseRecord.setRecordId(result.getInt("id"));
+            databaseRecord.setOwnerUserId(result.getInt("userid"));
+            databaseRecord.setFirstName(result.getString("firstname"));
+            databaseRecord.setLastName(result.getString("lastname"));
+            databaseRecord.setCompanyName(result.getString("companyname"));
+            databaseRecord.setAddress(result.getString("address"));
+            databaseRecord.setTelephoneNumber(result.getString("telephonenumber"));
+            databaseRecord.setEmailAddress(result.getString("email"));
+            databaseRecord.setBufImage(ImageIO.read(result.getBinaryStream("picture")));
+            return databaseRecord;
+        }
+        throw new Exception("record not found"); //TODO: record not found
     }
 
     public ArrayList<Record> resultSetConverter(ResultSet result) throws SQLException, IOException
@@ -266,7 +394,7 @@ public class DatabaseHandler {
             databaseRecord.setAddress(result.getString("address"));
             databaseRecord.setTelephoneNumber(result.getString("telephonenumber"));
             databaseRecord.setEmailAddress(result.getString("email"));
-            databaseRecord.setImage(new Image(result.getBinaryStream("picture")));
+            databaseRecord.setBufImage(ImageIO.read(result.getBinaryStream("picture")));
 
             records.add(databaseRecord);
         }

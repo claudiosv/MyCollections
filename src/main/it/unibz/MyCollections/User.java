@@ -41,7 +41,7 @@ public class User {
 
     public byte[] getUserImageArray() throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ImageIO.write(userImage, "jpg", baos);
+        ImageIO.write(userImage, "png", baos);
         byte[] bytes = baos.toByteArray();
         return bytes;
     }

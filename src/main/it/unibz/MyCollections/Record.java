@@ -3,7 +3,12 @@ package main.it.unibz.MyCollections;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.image.*;
 
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 
 /**
@@ -12,20 +17,27 @@ import java.util.HashMap;
 public class Record {
     private int recordId;
     private int ownerUserId;
-    //private String firstName;
+    private String firstName;
     private String lastName;
     private String companyName;
     private String address;
     private String telephoneNumber;
     private String emailAddress;
+    private BufferedImage bufImage;
     private Image image;
     private ImageView imageView;
-    private SimpleStringProperty firstName;
+    //private SimpleStringProperty firstName;
 
     public Record(String firstName) {
-        this.firstName = new SimpleStringProperty(firstName);
+        this.firstName = firstName;//new SimpleStringProperty(firstName);
+        //Image img = new Image(new ByteArrayInputStream(getRecordImageArray()), 48, 48, true, true);
         this.image = new Image("default_user.png", 48, 48, true, true);
-        this.imageView = getImageView();
+        try {
+            this.imageView = getImageView();
+            Image test = imageView.getImage();
+            System.out.print("flce");
+        }catch (Exception ex){}
+
     }
 
     public Record() {
@@ -52,11 +64,11 @@ public class Record {
     }
 
     public String getFirstName() {
-        return firstName.get();
+        return firstName;
     }
 
     public void setFirstName(String firstName) {
-        this.firstName.set(firstName);
+        this.firstName = firstName;
     }
 
     public String getLastName() {
@@ -103,12 +115,32 @@ public class Record {
         return image;
     }
 
-    public void setImage(Image image) {
-        this.image = image;
+    //public void setImage(Image image) {
+    //    this.image = image;
+    //}
+
+
+    public BufferedImage getBufImage() {
+        return bufImage;
     }
 
-    public ImageView getImageView() {
-        ImageView img = new ImageView(getImage());
-        return img;
+    public byte[] getRecordImageArray() throws IOException {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ImageIO.write(bufImage, "png", baos);
+        byte[] bytes = baos.toByteArray();
+        return bytes;
     }
+
+    public void setBufImage(BufferedImage bufImage) {
+        this.bufImage = bufImage;
+    }
+
+    public ImageView getImageView() throws IOException {
+            ImageView imgv = new ImageView(image);
+            return imgv;
+    }
+
+    //public void setImageView(ImageView imageView) {
+    //    this.imageView = imageView;
+    //}
 }

@@ -23,7 +23,11 @@ public class RecordsView {
     public VBox box()
     {
         ObservableList<Record> data =
-                FXCollections.observableArrayList(new Record("John"));
+                FXCollections.observableArrayList();
+        try {
+            data.addAll(DatabaseHandler.getInstance().getRecords(1));
+        } catch (Exception ex){ex.printStackTrace();}
+
         GridPane grid = new GridPane();
         grid.setHgap(10);
         grid.setVgap(10);
@@ -44,7 +48,7 @@ public class RecordsView {
 
         TableColumn<Record, ImageView> imageCol = new TableColumn<Record, ImageView>("Image");
         imageCol.setCellValueFactory(
-                new PropertyValueFactory<Record, ImageView>("imageView"));
+                new PropertyValueFactory<>("imageView"));
         imageCol.setPrefWidth(53);
 
         TableColumn<Record, String> firstNameCol = new TableColumn<Record, String>("First Name");
@@ -53,9 +57,13 @@ public class RecordsView {
         firstNameCol.setCellFactory(TextFieldTableCell.<Record>forTableColumn());
         firstNameCol.setOnEditCommit(
                 t -> {
-                    ((Record) t.getTableView().getItems().get(
+                    Record record = ((Record) t.getTableView().getItems().get(
                             t.getTablePosition().getRow())
-                    ).setFirstName(t.getNewValue());
+                    );
+                    record.setFirstName(t.getNewValue());
+                    try {
+                        DatabaseHandler.getInstance().updateRecord(record);
+                    } catch (Exception ex){}
                 });
 
         TableColumn<Record, String> lastNameCol = new TableColumn<Record, String>("Last Name");
@@ -64,9 +72,13 @@ public class RecordsView {
         lastNameCol.setCellFactory(TextFieldTableCell.<Record>forTableColumn());
         lastNameCol.setOnEditCommit(
                 t -> {
-                    ((Record) t.getTableView().getItems().get(
+                    Record record = ((Record) t.getTableView().getItems().get(
                             t.getTablePosition().getRow())
-                    ).setLastName(t.getNewValue());
+                    );
+                    record.setLastName(t.getNewValue());
+                    try {
+                        DatabaseHandler.getInstance().updateRecord(record);
+                    } catch (Exception ex){ex.printStackTrace();}
                 });
 
         TableColumn<Record, String> companyNameCol = new TableColumn<Record, String>("Company");
@@ -124,6 +136,7 @@ public class RecordsView {
                     @Override
                     public void handle(ActionEvent event) {
                         table.getItems().remove(row.getItem());
+                        DatabaseHandler.getInstance().deleteRecord(row.getItem().getRecordId());
                     }
                 });
                 contextMenu.getItems().add(removeMenuItem);
@@ -133,6 +146,13 @@ public class RecordsView {
                                 .then((ContextMenu)null)
                                 .otherwise(contextMenu)
                 );
+                row.setOnMouseClicked(event -> {
+                    if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                        Record rowData = row.getItem();
+                        System.out.println(rowData.getFirstName());
+                    }
+                });
+
                 return row ;
             }
         });

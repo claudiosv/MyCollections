@@ -6,7 +6,7 @@ public class Main {
 
     public static void main(String[] args) {
         System.out.println(System.getProperty("java.class.path"));
-        new DatabaseHandler().initialise();
+        DatabaseHandler.getInstance().initialise();
         Login login = new Login();
         login.main(args);
         //refactor database to soft delete records
