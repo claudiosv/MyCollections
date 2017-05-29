@@ -1,5 +1,7 @@
 package main.it.unibz.MyCollections;
 
+import javafx.scene.image.Image;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
@@ -159,7 +161,7 @@ public class DatabaseHandler {
     }
 
     public User getUser(int id) throws Exception {
-        if(id < 1) throw new Exception();
+        if(id < 1) throw new Exception(Integer.toString(id));
         String sql = "SELECT id,username,password,picture FROM users WHERE id = ?;";
         PreparedStatement stmt = c.prepareStatement(sql);
         stmt.setInt(1, id);
@@ -245,8 +247,6 @@ public class DatabaseHandler {
 
     public ArrayList<Record> getRecords(int userId) throws SQLException, IOException
     {
-
-
         PreparedStatement s = c.prepareStatement("SELECT * FROM records WHERE userid = ?");
         s.setInt(1, userId);
         return resultSetConverter(s.executeQuery());
@@ -266,7 +266,7 @@ public class DatabaseHandler {
             databaseRecord.setAddress(result.getString("address"));
             databaseRecord.setTelephoneNumber(result.getString("telephonenumber"));
             databaseRecord.setEmailAddress(result.getString("email"));
-            databaseRecord.setImage(ImageIO.read(result.getBinaryStream("picture")));
+            databaseRecord.setImage(new Image(result.getBinaryStream("picture")));
 
             records.add(databaseRecord);
         }

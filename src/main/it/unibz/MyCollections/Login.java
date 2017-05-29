@@ -3,17 +3,14 @@ package main.it.unibz.MyCollections;
 /**
  * Created by claudio on 11/05/2017.
  */
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -23,16 +20,23 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-    public class Login extends Application {
-
+public class Login extends Application {
+        Scene scene;
         public static void main(String[] args) {
             launch(args);
         }
 
         @Override
         public void start(Stage primaryStage) {
+            //Stage dialog = new Stage();
+            //dialog.initStyle(StageStyle.UTILITY);
+            //Scene scene = new Scene(new Group(new Text(25, 25, "Hello World!")));
+            //dialog.setScene(scene);
+            //dialog.show();
+
+            scene = new Scene(new VBox(), 400, 350);
             primaryStage.setTitle("JavaFX Welcome");
-            Scene scene = new Scene(new VBox(), 400, 350);
+
 
             MenuBar menuBar = new MenuBar();
 
@@ -44,6 +48,7 @@ import javafx.stage.Stage;
 
             MenuItem add = new MenuItem("Exit");
             add.setOnAction((ActionEvent t) -> {
+                //TODO: save
                 Platform.exit();
                 System.exit(0);
             });
@@ -88,21 +93,22 @@ import javafx.stage.Stage;
 
             final Text actiontarget = new Text();
             grid.add(actiontarget, 1, 6);
+            ((VBox) scene.getRoot()).getChildren().addAll(grid);
+            RecordsView view = new RecordsView();
 
-            RecordView view = new RecordView();
             VBox box = view.box();
+            Scene scene1 = new Scene(box, 600, 500);
 
-            btn.setOnAction(new EventHandler<ActionEvent>() {
+            btn.setOnAction((event) -> {
 
-                @Override
-                public void handle(ActionEvent e) {
                     actiontarget.setFill(Color.FIREBRICK);
                     actiontarget.setText("Sign in button pressed");
-                    ((VBox) scene.getRoot()).getChildren().clear();
-                    ((VBox) scene.getRoot()).getChildren().addAll(box);
-                }
+                primaryStage.setScene(scene1);
+                    //((VBox) scene.getRoot()).getChildren().clear();
+                    //((VBox) scene.getRoot()).getChildren().addAll(box);
+
             });
-            ((VBox) scene.getRoot()).getChildren().addAll(grid);
+
 
 
             //Scene scene = new Scene(grid, 300, 275);

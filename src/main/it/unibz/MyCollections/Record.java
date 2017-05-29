@@ -19,11 +19,13 @@ public class Record {
     private String telephoneNumber;
     private String emailAddress;
     private Image image;
+    private ImageView imageView;
     private SimpleStringProperty firstName;
 
     public Record(String firstName) {
         this.firstName = new SimpleStringProperty(firstName);
-        this.image = new Image("/1496072626_user.png")
+        this.image = new Image("default_user.png", 48, 48, true, true);
+        this.imageView = getImageView();
     }
 
     public Record() {
