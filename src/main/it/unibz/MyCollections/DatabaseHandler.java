@@ -94,7 +94,15 @@ public class DatabaseHandler {
     //TODO: insert record
     public void insertRecord(Record record)
     {
-
+        try {
+            String sql = "INSERT INTO records (userid,firstname) VALUES (?,?);";
+            PreparedStatement stmt = c.prepareStatement(sql);
+            stmt.setInt(1, 1);
+            stmt.setString(2, "test");
+            //stmt.setBytes(3, user.getUserImageArray());
+            /*first name, last name, company name, address, telephone number, e-mail address,*/
+            stmt.execute();
+        } catch (Exception ex){ex.printStackTrace();}
     }
 
     //TODO: delete user

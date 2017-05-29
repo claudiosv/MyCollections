@@ -1,5 +1,8 @@
 package main.it.unibz.MyCollections;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.scene.image.*;
+
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
@@ -9,13 +12,23 @@ import java.util.HashMap;
 public class Record {
     private int recordId;
     private int ownerUserId;
-    private String firstName;
+    //private String firstName;
     private String lastName;
     private String companyName;
     private String address;
     private String telephoneNumber;
     private String emailAddress;
-    private BufferedImage image;
+    private Image image;
+    private SimpleStringProperty firstName;
+
+    public Record(String firstName) {
+        this.firstName = new SimpleStringProperty(firstName);
+        this.image = new Image("/1496072626_user.png")
+    }
+
+    public Record() {
+
+    }
 
     public void save(){};
     public void delete(){};
@@ -37,11 +50,11 @@ public class Record {
     }
 
     public String getFirstName() {
-        return firstName;
+        return firstName.get();
     }
 
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        this.firstName.set(firstName);
     }
 
     public String getLastName() {
@@ -84,11 +97,16 @@ public class Record {
         this.emailAddress = emailAddress;
     }
 
-    public BufferedImage getImage() {
+    public Image getImage() {
         return image;
     }
 
-    public void setImage(BufferedImage image) {
+    public void setImage(Image image) {
         this.image = image;
+    }
+
+    public ImageView getImageView() {
+        ImageView img = new ImageView(getImage());
+        return img;
     }
 }

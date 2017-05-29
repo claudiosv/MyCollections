@@ -20,10 +20,11 @@ public class RecordSearchQueryTest {
         query.setFirstName("Test*");
 
         //query.setAddress("Druso");
-        String sql = query.toLikeQuery(true);
+        //String sql = query.toLikeQuery(true);
 
         DatabaseHandler handler = new DatabaseHandler();
         handler.initialise();
+        handler.insertRecord(null);
         assertTrue(handler.userExists(1));
         assertFalse(handler.userExists(5000));
 

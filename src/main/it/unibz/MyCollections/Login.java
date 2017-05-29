@@ -38,11 +38,11 @@ import javafx.stage.Stage;
 
             Menu menuFile = new Menu("File");
 
-            ImageView img = new ImageView(new Image(this.getClass().getResource("plus-circle.png").toString()));
-            img.setFitHeight(16);
-            img.setFitWidth(16);
+            //ImageView img = new ImageView(new Image(this.getClass().getResource("plus-circle.png").toString()));
+            //img.setFitHeight(16);
+            //img.setFitWidth(16);
 
-            MenuItem add = new MenuItem("Exit", img);
+            MenuItem add = new MenuItem("Exit");
             add.setOnAction((ActionEvent t) -> {
                 Platform.exit();
                 System.exit(0);
@@ -89,22 +89,8 @@ import javafx.stage.Stage;
             final Text actiontarget = new Text();
             grid.add(actiontarget, 1, 6);
 
-
-            final Label label = new Label("Address Book");
-            label.setFont(new Font("Arial", 20));
-            TableView table = new TableView();
-            table.setEditable(true);
-
-            TableColumn firstNameCol = new TableColumn("First Name");
-            TableColumn lastNameCol = new TableColumn("Last Name");
-            TableColumn emailCol = new TableColumn("Email");
-
-            table.getColumns().addAll(firstNameCol, lastNameCol, emailCol);
-
-            final VBox vbox = new VBox();
-            vbox.setSpacing(5);
-            vbox.setPadding(new Insets(10, 0, 0, 10));
-            vbox.getChildren().addAll(label, table);
+            RecordView view = new RecordView();
+            VBox box = view.box();
 
             btn.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -113,7 +99,7 @@ import javafx.stage.Stage;
                     actiontarget.setFill(Color.FIREBRICK);
                     actiontarget.setText("Sign in button pressed");
                     ((VBox) scene.getRoot()).getChildren().clear();
-                    ((VBox) scene.getRoot()).getChildren().addAll(vbox);
+                    ((VBox) scene.getRoot()).getChildren().addAll(box);
                 }
             });
             ((VBox) scene.getRoot()).getChildren().addAll(grid);
