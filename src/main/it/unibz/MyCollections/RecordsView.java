@@ -1,5 +1,6 @@
 package main.it.unibz.MyCollections;
 
+import com.sun.org.apache.regexp.internal.RE;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -25,7 +26,7 @@ public class RecordsView {
         ObservableList<Record> data =
                 FXCollections.observableArrayList();
         try {
-            data.addAll(DatabaseHandler.getInstance().getRecords(1));
+            data.addAll(DatabaseHandler.getInstance().getAllRecords());
         } catch (Exception ex){ex.printStackTrace();}
 
         GridPane grid = new GridPane();
@@ -48,7 +49,7 @@ public class RecordsView {
 
         TableColumn<Record, ImageView> imageCol = new TableColumn<Record, ImageView>("Image");
         imageCol.setCellValueFactory(
-                new PropertyValueFactory<>("imageView"));
+                new PropertyValueFactory<Record, ImageView>("imageView"));
         imageCol.setPrefWidth(53);
 
         TableColumn<Record, String> firstNameCol = new TableColumn<Record, String>("First Name");
@@ -63,7 +64,7 @@ public class RecordsView {
                     record.setFirstName(t.getNewValue());
                     try {
                         DatabaseHandler.getInstance().updateRecord(record);
-                    } catch (Exception ex){}
+                    } catch (Exception ex){ex.printStackTrace();}
                 });
 
         TableColumn<Record, String> lastNameCol = new TableColumn<Record, String>("Last Name");
@@ -87,9 +88,13 @@ public class RecordsView {
         companyNameCol.setCellFactory(TextFieldTableCell.<Record>forTableColumn());
         companyNameCol.setOnEditCommit(
                 t -> {
-                    ((Record) t.getTableView().getItems().get(
+                    Record record = ((Record) t.getTableView().getItems().get(
                             t.getTablePosition().getRow())
-                    ).setCompanyName(t.getNewValue());
+                    );
+                    record.setCompanyName(t.getNewValue());
+                    try {
+                        DatabaseHandler.getInstance().updateRecord(record);
+                    } catch (Exception ex){ex.printStackTrace();}
                 });
 
 
@@ -99,9 +104,13 @@ public class RecordsView {
         addressCol.setCellFactory(TextFieldTableCell.<Record>forTableColumn());
         addressCol.setOnEditCommit(
                 t -> {
-                    ((Record) t.getTableView().getItems().get(
+                    Record record = ((Record) t.getTableView().getItems().get(
                             t.getTablePosition().getRow())
-                    ).setAddress(t.getNewValue());
+                    );
+                    record.setAddress(t.getNewValue());
+                    try {
+                        DatabaseHandler.getInstance().updateRecord(record);
+                    } catch (Exception ex){ex.printStackTrace();}
                 });
 
         TableColumn<Record, String> telephoneCol = new TableColumn<Record, String>("Telephone");
@@ -110,9 +119,13 @@ public class RecordsView {
         telephoneCol.setCellFactory(TextFieldTableCell.<Record>forTableColumn());
         telephoneCol.setOnEditCommit(
                 t -> {
-                    ((Record) t.getTableView().getItems().get(
+                    Record record = ((Record) t.getTableView().getItems().get(
                             t.getTablePosition().getRow())
-                    ).setTelephoneNumber(t.getNewValue());
+                    );
+                    record.setTelephoneNumber(t.getNewValue());
+                    try {
+                        DatabaseHandler.getInstance().updateRecord(record);
+                    } catch (Exception ex){ex.printStackTrace();}
                 });
 
         TableColumn<Record, String> emailCol = new TableColumn<Record, String>("Email");
@@ -121,9 +134,13 @@ public class RecordsView {
         emailCol.setCellFactory(TextFieldTableCell.<Record>forTableColumn());
         emailCol.setOnEditCommit(
                 t -> {
-                    ((Record) t.getTableView().getItems().get(
+                    Record record = ((Record) t.getTableView().getItems().get(
                             t.getTablePosition().getRow())
-                    ).setEmailAddress(t.getNewValue());
+                    );
+                    record.setEmailAddress(t.getNewValue());
+                    try {
+                        DatabaseHandler.getInstance().updateRecord(record);
+                    } catch (Exception ex){ex.printStackTrace();}
                 });
 
         table.setRowFactory(new Callback<TableView<Record>, TableRow<Record>>() {
@@ -149,7 +166,12 @@ public class RecordsView {
                 row.setOnMouseClicked(event -> {
                     if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
                         Record rowData = row.getItem();
-                        System.out.println(rowData.getFirstName());
+                        RecordView view = new EditRecordView(rowData);
+                        row.setItem(view.getRecord());
+                        table.refresh();
+                        try {
+                            DatabaseHandler.getInstance().updateRecord(row.getItem());
+                        } catch (Exception ex){ex.printStackTrace();}
                     }
                 });
 

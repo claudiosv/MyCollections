@@ -69,12 +69,12 @@ public class DatabaseHandler {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
             System.exit(0);
         }
-        User user = new User();
-        user.setPassword(get_SHA_1_SecurePassword("test1"));
-        user.setUsername("test");
+        //User user = new User();
+        //user.setPassword(get_SHA_1_SecurePassword("test1"));
+       // user.setUsername("test");
         //addUser(user);
-        User test = getUser("test", "test1");
-        test.getUsername();
+        //User test = getUser("test", "test1");
+        //test.getUsername();
         System.out.println("Opened database successfully");
     }
 
@@ -192,7 +192,7 @@ public class DatabaseHandler {
                     "telephonenumber = ?," +
                     "email = ?," +
                     "picture = ?" +
-                    "WHERE id = ?;";
+                    " WHERE id = ?;";
             PreparedStatement stmt = c.prepareStatement(sql);
             stmt.setInt(1, record.getOwnerUserId());
 
@@ -213,6 +213,7 @@ public class DatabaseHandler {
             stmt.setInt(9, record.getRecordId());
 
             stmt.execute();
+            return;
         }
         throw new Exception("record doesn't exist"); //TODO: custom exception
     }
@@ -394,8 +395,9 @@ public class DatabaseHandler {
             databaseRecord.setAddress(result.getString("address"));
             databaseRecord.setTelephoneNumber(result.getString("telephonenumber"));
             databaseRecord.setEmailAddress(result.getString("email"));
-            databaseRecord.setBufImage(ImageIO.read(result.getBinaryStream("picture")));
-
+            byte[] imageBytes = result.getBytes("picture");
+            if(imageBytes != null)
+                databaseRecord.setBufImage(ImageIO.read(new ByteArrayInputStream(imageBytes)));
             records.add(databaseRecord);
         }
         return records;
