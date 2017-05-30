@@ -4,15 +4,16 @@ package main.it.unibz.MyCollections;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
 /**
  * Created by claudio on 29/05/2017.
  */
 public class EditRecordView extends RecordView {
 
-    public EditRecordView(Record passRecord)
+    public EditRecordView(Record passRecord, Stage parentStage)
     {
-        super(passRecord);
+        super(passRecord, parentStage);
         Button saveButton = new Button("Save");
         saveButton.setOnAction((event) -> {
             record.setFirstName(firstNameTxt.getText());

@@ -9,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -24,10 +25,12 @@ public class RecordView {
     TextField telephoneNumbeTxt;
     TextField emailAddressTxt;
     Record record;
-    public RecordView(Record record)
+    public RecordView(Record record, Stage parentStage)
     {
         this.record = record;
         dialog = new Stage();
+        dialog.initOwner(parentStage);
+        dialog.initModality(Modality.APPLICATION_MODAL);
         Scene scene = new Scene(new VBox(), 300, 350);
         grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
@@ -77,12 +80,18 @@ public class RecordView {
         ((VBox) scene.getRoot()).getChildren().add(grid);
 
         dialog.setScene(scene);
-        dialog.show();
+
     }
 
 
-    public Record getRecord()
+   // public Record getRecord()
+  //  {
+ //       return record;
+  //  }
+
+    public Record show()
     {
+        dialog.showAndWait();
         return record;
     }
 }

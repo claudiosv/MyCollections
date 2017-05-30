@@ -9,6 +9,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by claudio on 30/03/2017.
@@ -38,12 +40,13 @@ public class DatabaseHandler {
                     + "	picture BLOB\n"
                     + ");";
             stmt1.execute(sql1);
+            stmt1.close();
 
 
             Statement stmt = c.createStatement();
             String sql = "CREATE TABLE IF NOT EXISTS records (\n"
                     + "	id integer PRIMARY KEY AUTOINCREMENT,\n"
-                    + "	userid integer NOT NULL,\n"
+                    + "	userid INTEGER NOT NULL,\n"
                     + "	firstname TEXT,\n"
                     + "	lastname TEXT,\n"
                     + "	companyname TEXT,\n"
@@ -51,17 +54,19 @@ public class DatabaseHandler {
                     + "	telephonenumber TEXT,\n"
                     + "	email TEXT,\n"
                     + "	picture BLOB\n,"
+                    + "	deleted INTEGER NOT NULL\n,"
                     + " FOREIGN KEY(userid) REFERENCES users(id)"
                     + ");";
             stmt.execute(sql);
+            stmt.close();
 
 
             String sql3 = "INSERT INTO users (username,password) VALUES ('test', ?);";
                     String sql4 =
                     "INSERT INTO records (userid,firstname,lastname,companyname,address,telephonenumber,email) VALUES (1,'Test first','Test last','None','Druso','9438583','myemail');";
-            PreparedStatement create = c.prepareStatement(sql3);
+            //PreparedStatement create = c.prepareStatement(sql3);
             String pass = get_SHA_1_SecurePassword("test1");
-            create.setString(1, pass);
+            //create.setString(1, pass);
            // create.execute();
 
            // c.createStatement().execute(sql4);
@@ -91,6 +96,7 @@ public class DatabaseHandler {
             //stmt.setBytes(3, user.getUserImageArray());
             /*first name, last name, company name, address, telephone number, e-mail address,*/
             stmt.execute();
+            stmt.close();
         } catch (Exception ex){ex.printStackTrace();}
     }
 
@@ -115,6 +121,7 @@ public class DatabaseHandler {
             stmt.setInt(4, user.getId());
 
             stmt.execute();
+            stmt.close();
             return;
         }
         throw new Exception("user doesn't exist"); //TODO: custom exception
@@ -125,7 +132,7 @@ public class DatabaseHandler {
     {
         try {
             if(recordExists(record.getRecordId())) return;
-            String sql = "INSERT INTO records (userid, firstname, lastname, companyname, address, telephonenumber, email, picture) VALUES (?,?,?,?,?,?,?,?);";
+            String sql = "INSERT INTO records (userid, firstname, lastname, companyname, address, telephonenumber, email, picture) VALUES (?,?,?,?,?,?,?,?,0);";
             PreparedStatement stmt = c.prepareStatement(sql);
 
             stmt.setInt(1, record.getOwnerUserId());
@@ -143,7 +150,9 @@ public class DatabaseHandler {
             stmt.setString(7, record.getEmailAddress());
 
             stmt.setBytes(8, record.getRecordImageArray());
+
             stmt.execute();
+            stmt.close();
         } catch (Exception ex){ex.printStackTrace();}
     }
 
@@ -156,6 +165,7 @@ public class DatabaseHandler {
             PreparedStatement stmt = c.prepareStatement(sql);
             stmt.setInt(1, userId);
             stmt.execute();
+            stmt.close();
             return;
         }
         throw new Exception("user doesn't exist"); //TODO: custom exception
@@ -165,13 +175,12 @@ public class DatabaseHandler {
     public void deleteRecord(int recordId)
     {
         try {
-
-
             if (recordExists(recordId)) {
-                String sql = "DELETE FROM records WHERE id = ?;";
+                String sql = "UPDATE records SET deleted = 1 WHERE id = ?;";
                 PreparedStatement stmt = c.prepareStatement(sql);
                 stmt.setInt(1, recordId);
                 stmt.execute();
+                stmt.close();
                 return;
             }
               }catch (Exception ex){}
@@ -213,6 +222,7 @@ public class DatabaseHandler {
             stmt.setInt(9, record.getRecordId());
 
             stmt.execute();
+            stmt.close();
             return;
         }
         throw new Exception("record doesn't exist"); //TODO: custom exception
@@ -220,7 +230,7 @@ public class DatabaseHandler {
 
     public boolean recordExists(int id) throws SQLException
     {
-        String sql = "SELECT COUNT(*) FROM records WHERE id = ?;";
+        String sql = "SELECT COUNT(*) FROM records WHERE id = ? AND deleted = 0;";
         PreparedStatement stmt = c.prepareStatement(sql);
         stmt.setInt(1, id);
         ResultSet result = stmt.executeQuery();
@@ -228,6 +238,8 @@ public class DatabaseHandler {
         {
             if(result.getInt(1) > 0) return true;
         }
+        result.close();
+        stmt.close();
 
         return false;
     }
@@ -242,14 +254,14 @@ public class DatabaseHandler {
         {
             if(result.getInt(1) > 0) return true;
         }
-
+        result.close();
+        stmt.close();
         return false;
     }
 
-    public User getUser(String username, String password)
+    public User getUser(String username, String password) throws Exception
     {
         String passwordHash = get_SHA_1_SecurePassword(password);
-        try {
             String sql = "SELECT id,username,password FROM users WHERE username = ? AND password = ? LIMIT 1;";
             PreparedStatement stmt = c.prepareStatement(sql);
             stmt.setString(1, username);
@@ -261,31 +273,30 @@ public class DatabaseHandler {
             while(set.next()) {
                 userId = set.getInt("id");
             }
-
+        set.close();
+        stmt.close();
             return getUser(userId); //we could also make a JOIN query instead of a separate one
-        } catch (Exception ex){ex.printStackTrace();}
-        return null;
     }
 
     public User getUser(int id) throws Exception {
         if(id < 1) throw new Exception(Integer.toString(id));
-        String sql = "SELECT id,username,password,picture FROM users WHERE id = ?;";
+        String sql = "SELECT username,password,picture FROM users WHERE id = ?;";
         PreparedStatement stmt = c.prepareStatement(sql);
         stmt.setInt(1, id);
 
-
-            /*first name, last name, company name, address, telephone number, e-mail address,*/
         ResultSet set = stmt.executeQuery();
-        User user = new User();
-        user.setId(id);
+        User user = null;
 
         while(set.next()) {
+            user = new User();
+            user.setId(id);
             user.setUsername(set.getString("username"));
             user.setPassword(set.getString("password"));
             InputStream stream = set.getBinaryStream("picture");
             if(stream != null) user.setUserImage(ImageIO.read(stream));
         }
-
+        set.close();
+        stmt.close();
         return user;
     }
     /**
@@ -335,7 +346,7 @@ public class DatabaseHandler {
     {
         String sql = query.toLikeQuery(true);
 
-        PreparedStatement s = c.prepareStatement("SELECT * FROM records WHERE userid = ? AND " +sql);
+        PreparedStatement s = c.prepareStatement("SELECT * FROM records WHERE deleted = 0 AND userid = ? AND " +sql);
         int counter = 2;
         s.setInt(1, userId);
         for(String part : query.getParametreValueBuilder())
@@ -349,19 +360,19 @@ public class DatabaseHandler {
 
     public ArrayList<Record> getAllRecords() throws SQLException, IOException {
         Statement s = c.createStatement();
-        return resultSetConverter(s.executeQuery("SELECT * FROM records"));
+        return resultSetConverter(s.executeQuery("SELECT * FROM records WHERE deleted = 0"));
     }
 
     public ArrayList<Record> getRecords(int userId) throws SQLException, IOException
     {
-        PreparedStatement s = c.prepareStatement("SELECT * FROM records WHERE userid = ?");
+        PreparedStatement s = c.prepareStatement("SELECT * FROM records WHERE userid = ? AND deleted = 0");
         s.setInt(1, userId);
         return resultSetConverter(s.executeQuery());
     }
 
     public Record getRecord(int userId, int recordId) throws SQLException, IOException, Exception
     {
-        PreparedStatement s = c.prepareStatement("SELECT * FROM records WHERE userid = ? AND id = ?");
+        PreparedStatement s = c.prepareStatement("SELECT * FROM records WHERE userid = ? AND id = ? AND deleted = 0");
         s.setInt(1, userId);
         s.setInt(2, recordId);
         ResultSet result = s.executeQuery();
@@ -379,6 +390,9 @@ public class DatabaseHandler {
             databaseRecord.setBufImage(ImageIO.read(result.getBinaryStream("picture")));
             return databaseRecord;
         }
+
+        result.close();
+        s.close();
         throw new Exception("record not found"); //TODO: record not found
     }
 
@@ -400,6 +414,24 @@ public class DatabaseHandler {
                 databaseRecord.setBufImage(ImageIO.read(new ByteArrayInputStream(imageBytes)));
             records.add(databaseRecord);
         }
+
+        result.close();
         return records;
+    }
+
+    public boolean isValidUsername(String username)
+    {
+         return username.matches("^[a-zA-Z0-9._-]{5,}$") && stringMatchesChars(username, Arrays.asList('-', '_', '.'));
+    }
+
+    private boolean stringMatchesChars(final String str, final List<Character> characters) { //TODO: this is stolen!
+        return (str.chars()
+                .filter(ch -> characters.contains((char)ch))
+                .count() < 2);
+    }
+
+    public boolean isValidPassword(String password)
+    {
+        return password.length() > 4;
     }
 }

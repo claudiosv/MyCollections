@@ -32,6 +32,22 @@ public class Record {
         return lastName;
     }
 
+    public SimpleStringProperty companyNameProperty() {
+        return companyName;
+    }
+
+    public SimpleStringProperty addressProperty() {
+        return address;
+    }
+
+    public SimpleStringProperty telephoneNumberProperty() {
+        return telephoneNumber;
+    }
+
+    public SimpleStringProperty emailAddressProperty() {
+        return emailAddress;
+    }
+
     public Record() {
         try {
             InputStream st = this.getClass().getResourceAsStream("default_user.png");
@@ -135,6 +151,23 @@ public class Record {
 
     public ImageView getImageView() throws IOException {
             return new ImageView(image);
+    }
+
+    public boolean isEmpty()
+    {
+        if(firstName != null && !firstName.getValue().trim().equals("")) return false;
+        if(lastName != null && !lastName.getValue().trim().equals("")) return false;
+        if(companyName != null && !companyName.getValue().trim().equals("")) return false;
+        if(address != null && !address.getValue().trim().equals("")) return false;
+        if(telephoneNumber != null && !telephoneNumber.getValue().trim().equals("")) return false;
+        if(emailAddress != null && !emailAddress.getValue().trim().equals("")) return false;
+        return true;
+    }
+
+    @Override
+    public String toString()
+    {
+        return this.getFirstName();
     }
 
     //public void setImageView(ImageView imageView) {

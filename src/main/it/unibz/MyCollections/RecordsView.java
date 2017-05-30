@@ -11,17 +11,20 @@ import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.image.*;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 
 /**
  * Created by claudio on 28/05/2017.
  */
 public class RecordsView {
-    public VBox box()
+    public VBox box(Stage parentStage)
     {
         ObservableList<Record> data =
                 FXCollections.observableArrayList();
@@ -32,21 +35,40 @@ public class RecordsView {
         GridPane grid = new GridPane();
         grid.setHgap(10);
         grid.setVgap(10);
-        grid.setPadding(new Insets(10, 10, 0, 10));
+        grid.setPadding(new Insets(10, 10, 10, 10));
         final Label label = new Label("Address Book");
         label.setFont(new Font("Arial", 20));
         grid.add(label, 0, 0, 1, 1);
 
         final Button button = new Button("Add Record");
         button.setFont(new Font("Arial", 13));
-        button.setGraphic(new ImageView(new Image("plus-circle.png", 16, 16, true, true)));
+        button.setGraphic(new ImageView(new Image("plus-button.png")));
        button.setPrefSize(110, 25);
         grid.add(button, 1, 0, 1, 1);
 
-        TableView table = new TableView();
-        grid.add(table, 0, 1, 2, 1);
-        table.setEditable(true);
+        final Button buttonSearch = new Button("Search");
+        buttonSearch.setFont(new Font("Arial", 13));
+        buttonSearch.setGraphic(new ImageView(new Image("magnifier.png")));
+        buttonSearch.setPrefSize(110, 25);
+        grid.add(buttonSearch, 2, 0, 1, 1);
 
+        TableView table = new TableView();
+        grid.add(table, 0, 1, 3, 1);
+        table.setEditable(true);
+        button.setOnAction((event -> {
+            Record rowData = new Record();
+            RecordView view = new AddRecordView(rowData, parentStage);
+            Record newData = view.show();
+            if (newData != null && !newData.isEmpty()) {
+                data.add(rowData);
+                table.refresh();
+                try {
+                    DatabaseHandler.getInstance().insertRecord(rowData);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }));
         TableColumn<Record, ImageView> imageCol = new TableColumn<Record, ImageView>("Image");
         imageCol.setCellValueFactory(
                 new PropertyValueFactory<Record, ImageView>("imageView"));
@@ -149,6 +171,7 @@ public class RecordsView {
                 final TableRow<Record> row = new TableRow<>();
                 final ContextMenu contextMenu = new ContextMenu();
                 final MenuItem removeMenuItem = new MenuItem("Remove");
+                removeMenuItem.setGraphic(new ImageView(new Image("minus-button.png")));
                 removeMenuItem.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
@@ -156,7 +179,20 @@ public class RecordsView {
                         DatabaseHandler.getInstance().deleteRecord(row.getItem().getRecordId());
                     }
                 });
-                contextMenu.getItems().add(removeMenuItem);
+
+                final MenuItem copyMenuItem = new MenuItem("Copy");
+                copyMenuItem.setGraphic(new ImageView(new Image("clipboard-sign.png")));
+                copyMenuItem.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        ClipboardContent content = new ClipboardContent();
+                        content.putString(row.getItem().toString());
+                        Clipboard.getSystemClipboard().setContent(content);
+                    }
+                });
+
+
+                contextMenu.getItems().addAll(copyMenuItem, removeMenuItem);
                 // Set context menu on row, but use a binding to make it only show for non-empty rows:
                 row.contextMenuProperty().bind(
                         Bindings.when(row.emptyProperty())
@@ -166,19 +202,23 @@ public class RecordsView {
                 row.setOnMouseClicked(event -> {
                     if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
                         Record rowData = row.getItem();
-                        RecordView view = new EditRecordView(rowData);
-                        row.setItem(view.getRecord());
-                        table.refresh();
-                        try {
-                            DatabaseHandler.getInstance().updateRecord(row.getItem());
-                        } catch (Exception ex){ex.printStackTrace();}
+                        RecordView view = new EditRecordView(rowData, parentStage);
+                        Record newRec = view.show();
+                        if(!newRec.isEmpty())
+                        {
+                            row.setItem(newRec);
+                            table.refresh();
+                            try {
+                                DatabaseHandler.getInstance().updateRecord(row.getItem());
+                            } catch (Exception ex){ex.printStackTrace();}
+                        }
                     }
                 });
 
                 return row ;
             }
         });
-        //data.add(new Record());
+
         table.setItems(data);
         table.getColumns().addAll(imageCol, firstNameCol, lastNameCol, companyNameCol, addressCol, telephoneCol, emailCol);
 
