@@ -145,8 +145,14 @@ public class Record {
         return bytes;
     }
 
-    public void setBufImage(BufferedImage bufImage) {
+    public void setBufImage(BufferedImage bufImage) throws IOException {
         this.bufImage = bufImage;
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        if(bufImage==null) return;
+        ImageIO.write(bufImage, "jpg", os);
+        InputStream is = new ByteArrayInputStream(os.toByteArray());
+        this.image = new Image(is, 48, 48, true, true);
+        this.imageView = getImageView();
     }
 
     public ImageView getImageView() throws IOException {

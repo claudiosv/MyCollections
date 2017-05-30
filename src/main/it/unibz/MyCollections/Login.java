@@ -53,6 +53,7 @@ public class Login extends Application {
             });
 
             MenuItem about = new MenuItem("About");
+            about.setOnAction((event -> new AboutView(primaryStage)));
             about.setGraphic(new ImageView(new Image("information-button.png")));
 
             MenuItem importData = new MenuItem("Import");

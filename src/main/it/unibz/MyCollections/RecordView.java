@@ -3,14 +3,20 @@ package main.it.unibz.MyCollections;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
+import javax.imageio.ImageIO;
+import java.io.File;
 
 /**
  * Created by claudio on 29/05/2017.
@@ -29,6 +35,7 @@ public class RecordView {
     {
         this.record = record;
         dialog = new Stage();
+        dialog.setTitle("JavaFX Welcome");
         dialog.initOwner(parentStage);
         dialog.initModality(Modality.APPLICATION_MODAL);
         Scene scene = new Scene(new VBox(), 300, 350);
@@ -44,6 +51,28 @@ public class RecordView {
             imageView.setFitHeight(64);
             imageView.setFitWidth(64);
             grid.add(imageView, 0, 0);
+            Button openButton = new Button("Open file...");
+            openButton.setGraphic(new ImageView(new Image("blue-folder-open-image.png")));
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Open Profile Picture");
+            fileChooser.getExtensionFilters().addAll(
+                    new FileChooser.ExtensionFilter("JPG", "*.jpg"),
+                    new FileChooser.ExtensionFilter("PNG", "*.png"),
+                    new FileChooser.ExtensionFilter("All Images", "*.*")
+            );
+
+            openButton.setOnAction((event) -> {
+                File file = fileChooser.showOpenDialog(dialog);
+                if (file != null) {
+                    try {
+                        record.setBufImage(ImageIO.read(file));
+                        imageView.setImage(record.getImage());
+                    }catch (Exception e){}
+                    //openFile(file);
+                }
+            });
+            grid.add(openButton, 1, 0);
+
         }catch (Exception ex){}
 
 

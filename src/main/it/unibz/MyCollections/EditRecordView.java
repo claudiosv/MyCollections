@@ -3,6 +3,8 @@ package main.it.unibz.MyCollections;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -15,6 +17,7 @@ public class EditRecordView extends RecordView {
     {
         super(passRecord, parentStage);
         Button saveButton = new Button("Save");
+        saveButton.setGraphic(new ImageView(new Image("disk-black.png")));
         saveButton.setOnAction((event) -> {
             record.setFirstName(firstNameTxt.getText());
             record.setLastName(lastNameTxt.getText());
