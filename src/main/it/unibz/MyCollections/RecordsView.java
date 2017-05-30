@@ -1,22 +1,20 @@
 package main.it.unibz.MyCollections;
 
-import com.sun.org.apache.regexp.internal.RE;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.text.Font;
-import javafx.scene.image.*;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -24,36 +22,56 @@ import javafx.util.Callback;
  * Created by claudio on 28/05/2017.
  */
 public class RecordsView {
-    public VBox box(Stage parentStage)
-    {
+    public Pane box(Stage parentStage) {
         ObservableList<Record> data =
                 FXCollections.observableArrayList();
         try {
             data.addAll(DatabaseHandler.getInstance().getAllRecords());
-        } catch (Exception ex){ex.printStackTrace();}
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
 
         GridPane grid = new GridPane();
         grid.setHgap(10);
         grid.setVgap(10);
+        RowConstraints c = new RowConstraints();
+        c.setPercentHeight(10);
+        grid.getRowConstraints().add(c);
+        c = new RowConstraints();
+        c.setPercentHeight(90);
+        grid.getRowConstraints().add(c);
+
+
+        ColumnConstraints c1 = new ColumnConstraints();
+        c1.setPercentWidth(100);
+        grid.getColumnConstraints().add(c1);
+        //c = new RowConstraints();
+        //c.setPercentHeight(90);
+       // grid.getRowConstraints().add(c);
+
+
+        HBox hbox = new HBox();
+
         grid.setPadding(new Insets(10, 10, 10, 10));
         final Label label = new Label("Address Book");
         label.setFont(new Font("Arial", 20));
-        grid.add(label, 0, 0, 1, 1);
+        //grid.add(label, 0, 0, 1, 1);
 
         final Button button = new Button("Add Record");
         button.setFont(new Font("Arial", 13));
         button.setGraphic(new ImageView(new Image("plus-button.png")));
-       button.setPrefSize(110, 25);
-        grid.add(button, 1, 0, 1, 1);
+        button.setPrefSize(110, 25);
+        //grid.add(button, 1, 0, 1, 1);
 
         final Button buttonSearch = new Button("Search");
         buttonSearch.setFont(new Font("Arial", 13));
         buttonSearch.setGraphic(new ImageView(new Image("magnifier.png")));
         buttonSearch.setPrefSize(110, 25);
-        grid.add(buttonSearch, 2, 0, 1, 1);
-
+        //grid.add(buttonSearch, 2, 0, 1, 1);
+        hbox.getChildren().addAll(label, button, buttonSearch);
+        grid.add(hbox, 0, 0);
         TableView table = new TableView();
-        grid.add(table, 0, 1, 3, 1);
+        grid.add(table, 0, 1);
         table.setEditable(true);
         button.setOnAction((event -> {
             Record rowData = new Record();
@@ -76,7 +94,7 @@ public class RecordsView {
 
         TableColumn<Record, String> firstNameCol = new TableColumn<Record, String>("First Name");
         firstNameCol.setCellValueFactory(
-            new PropertyValueFactory<>("firstName"));
+                new PropertyValueFactory<>("firstName"));
         firstNameCol.setCellFactory(TextFieldTableCell.<Record>forTableColumn());
         firstNameCol.setOnEditCommit(
                 t -> {
@@ -86,7 +104,9 @@ public class RecordsView {
                     record.setFirstName(t.getNewValue());
                     try {
                         DatabaseHandler.getInstance().updateRecord(record);
-                    } catch (Exception ex){ex.printStackTrace();}
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
                 });
 
         TableColumn<Record, String> lastNameCol = new TableColumn<Record, String>("Last Name");
@@ -101,7 +121,9 @@ public class RecordsView {
                     record.setLastName(t.getNewValue());
                     try {
                         DatabaseHandler.getInstance().updateRecord(record);
-                    } catch (Exception ex){ex.printStackTrace();}
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
                 });
 
         TableColumn<Record, String> companyNameCol = new TableColumn<Record, String>("Company");
@@ -116,7 +138,9 @@ public class RecordsView {
                     record.setCompanyName(t.getNewValue());
                     try {
                         DatabaseHandler.getInstance().updateRecord(record);
-                    } catch (Exception ex){ex.printStackTrace();}
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
                 });
 
 
@@ -132,12 +156,14 @@ public class RecordsView {
                     record.setAddress(t.getNewValue());
                     try {
                         DatabaseHandler.getInstance().updateRecord(record);
-                    } catch (Exception ex){ex.printStackTrace();}
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
                 });
 
         TableColumn<Record, String> telephoneCol = new TableColumn<Record, String>("Telephone");
         telephoneCol.setCellValueFactory(
-                new PropertyValueFactory<>("telephone"));
+                new PropertyValueFactory<>("telephoneNumber"));
         telephoneCol.setCellFactory(TextFieldTableCell.<Record>forTableColumn());
         telephoneCol.setOnEditCommit(
                 t -> {
@@ -147,12 +173,14 @@ public class RecordsView {
                     record.setTelephoneNumber(t.getNewValue());
                     try {
                         DatabaseHandler.getInstance().updateRecord(record);
-                    } catch (Exception ex){ex.printStackTrace();}
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
                 });
 
         TableColumn<Record, String> emailCol = new TableColumn<Record, String>("Email");
         emailCol.setCellValueFactory(
-                new PropertyValueFactory<>("email"));
+                new PropertyValueFactory<>("emailAddress"));
         emailCol.setCellFactory(TextFieldTableCell.<Record>forTableColumn());
         emailCol.setOnEditCommit(
                 t -> {
@@ -162,7 +190,9 @@ public class RecordsView {
                     record.setEmailAddress(t.getNewValue());
                     try {
                         DatabaseHandler.getInstance().updateRecord(record);
-                    } catch (Exception ex){ex.printStackTrace();}
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
                 });
 
         table.setRowFactory(new Callback<TableView<Record>, TableRow<Record>>() {
@@ -196,36 +226,37 @@ public class RecordsView {
                 // Set context menu on row, but use a binding to make it only show for non-empty rows:
                 row.contextMenuProperty().bind(
                         Bindings.when(row.emptyProperty())
-                                .then((ContextMenu)null)
+                                .then((ContextMenu) null)
                                 .otherwise(contextMenu)
                 );
                 row.setOnMouseClicked(event -> {
-                    if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                    if (event.getClickCount() == 2 && (!row.isEmpty())) {
                         Record rowData = row.getItem();
                         RecordView view = new EditRecordView(rowData, parentStage);
                         Record newRec = view.show();
-                        if(!newRec.isEmpty())
-                        {
+                        if (!newRec.isEmpty()) {
                             row.setItem(newRec);
                             table.refresh();
                             try {
                                 DatabaseHandler.getInstance().updateRecord(row.getItem());
-                            } catch (Exception ex){ex.printStackTrace();}
+                            } catch (Exception ex) {
+                                ex.printStackTrace();
+                            }
                         }
                     }
                 });
 
-                return row ;
+                return row;
             }
         });
 
         table.setItems(data);
         table.getColumns().addAll(imageCol, firstNameCol, lastNameCol, companyNameCol, addressCol, telephoneCol, emailCol);
 
-        final VBox vbox = new VBox();
-        vbox.setSpacing(5);
+        //final VBox vbox = new VBox();
+        //vbox.setSpacing(5);
         //vbox.setPadding(new Insets(10, 10, 0, 10));
-        vbox.getChildren().addAll(grid);
-        return vbox;
+        //vbox.getChildren().addAll(grid);
+        return grid;
     }
 }

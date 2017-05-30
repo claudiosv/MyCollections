@@ -15,6 +15,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -30,8 +31,6 @@ public class Login extends Application {
 
         @Override
         public void start(Stage primaryStage) {
-            //new RecordView();
-
             scene = new Scene(new VBox(), 400, 350);
             primaryStage.setTitle("JavaFX Welcome");
 
@@ -57,12 +56,15 @@ public class Login extends Application {
             about.setGraphic(new ImageView(new Image("information-button.png")));
 
             MenuItem importData = new MenuItem("Import");
+            importData.setOnAction((event -> new ImportDataView(primaryStage)));
             importData.setGraphic(new ImageView(new Image("card-import.png")));
 
             MenuItem exportData = new MenuItem("Export");
+            exportData.setOnAction((event -> new ExportDataView(primaryStage)));
             exportData.setGraphic(new ImageView(new Image("card-export.png")));
 
             MenuItem summaryData = new MenuItem("Summary of data");
+            summaryData.setOnAction((event -> new DataSummaryView(primaryStage)));
             summaryData.setGraphic(new ImageView(new Image("dashboard.png")));
 
             SeparatorMenuItem separatorMenuItem = new SeparatorMenuItem();
@@ -127,8 +129,8 @@ public class Login extends Application {
             });
             RecordsView view = new RecordsView();
 
-            VBox box = view.box(primaryStage);
-            //Scene scene1 = new Scene(box, 600, 500);
+            Pane box = view.box(primaryStage);
+            Scene scene1 = new Scene(box, 600, 500);
 
             btn.setOnAction((event) -> {
                 User user = null;
@@ -147,9 +149,12 @@ public class Login extends Application {
                     ((VBox) scene.getRoot()).setMinHeight(500);
                     ((VBox) scene.getRoot()).setMinWidth(600);
                     primaryStage.sizeToScene();
-                    //primaryStage.setScene(scene1);
+                   // primaryStage.setScene();
                     //((VBox) scene.getRoot()).getChildren().clear();
-                    ((VBox) scene.getRoot()).getChildren().addAll(box);
+                   ((VBox) scene.getRoot()).getChildren().add(box);
+                    //scene.setRoot(box);
+                    //primaryStage.setScene(scene1);
+
                 }
             });
 

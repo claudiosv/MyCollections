@@ -24,5 +24,8 @@ public class Main {
         //create view to edit user
         //create view to create user
         //create view for summary of data
+        //make menu context aware
+        //make record store id once inserted
+
     }
 }

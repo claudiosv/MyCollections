@@ -26,9 +26,9 @@ public class RecordView {
     Stage dialog;
     TextField firstNameTxt;
     TextField lastNameTxt;
-    TextField companyNameeTxt;
+    TextField companyNameTxt;
     TextField addressTxt;
-    TextField telephoneNumbeTxt;
+    TextField telephoneNumberTxt;
     TextField emailAddressTxt;
     Record record;
     public RecordView(Record record, Stage parentStage)
@@ -88,8 +88,8 @@ public class RecordView {
 
         Label companyNameLbl = new Label("Company:");
         grid.add(companyNameLbl, 0, 3);
-        companyNameeTxt = new TextField(record.getCompanyName());
-        grid.add(companyNameeTxt, 1, 3);
+        companyNameTxt = new TextField(record.getCompanyName());
+        grid.add(companyNameTxt, 1, 3);
 
         Label addressLbl = new Label("Address:");
         grid.add(addressLbl, 0, 4);
@@ -98,8 +98,8 @@ public class RecordView {
 
         Label telephoneNumberLbl = new Label("Telephone:");
         grid.add(telephoneNumberLbl, 0, 5);
-        telephoneNumbeTxt = new TextField(record.getTelephoneNumber());
-        grid.add(telephoneNumbeTxt, 1, 5);
+        telephoneNumberTxt = new TextField(record.getTelephoneNumber());
+        grid.add(telephoneNumberTxt, 1, 5);
 
         Label emailAddressLbl = new Label("Email Address:");
         grid.add(emailAddressLbl, 0, 6);

@@ -132,7 +132,7 @@ public class DatabaseHandler {
     {
         try {
             if(recordExists(record.getRecordId())) return;
-            String sql = "INSERT INTO records (userid, firstname, lastname, companyname, address, telephonenumber, email, picture) VALUES (?,?,?,?,?,?,?,?,0);";
+            String sql = "INSERT INTO records (userid, firstname, lastname, companyname, address, telephonenumber, email, picture, deleted) VALUES (?,?,?,?,?,?,?,?,0);";
             PreparedStatement stmt = c.prepareStatement(sql);
 
             stmt.setInt(1, record.getOwnerUserId());
@@ -153,6 +153,7 @@ public class DatabaseHandler {
 
             stmt.execute();
             stmt.close();
+            //int id = c.
         } catch (Exception ex){ex.printStackTrace();}
     }
 

@@ -14,9 +14,9 @@ public class AddRecordView extends RecordView {
         saveButton.setOnAction((event) -> {
             record.setFirstName(firstNameTxt.getText());
             record.setLastName(lastNameTxt.getText());
-            record.setCompanyName(companyNameeTxt.getText());
+            record.setCompanyName(companyNameTxt.getText());
             record.setAddress(addressTxt.getText());
-            record.setTelephoneNumber(telephoneNumbeTxt.getText());
+            record.setTelephoneNumber(telephoneNumberTxt.getText());
             record.setEmailAddress(emailAddressTxt.getText());
             dialog.hide();
         });
