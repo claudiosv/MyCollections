@@ -1,4 +1,4 @@
-package main.it.unibz.MyCollections;
+package main.it.unibz.MyCollections.views;
 
 import javafx.stage.Stage;
 
@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 public class ImportDataView {
     public ImportDataView(Stage parentStage)
     {
-
+//file
+        //format
     }
 }

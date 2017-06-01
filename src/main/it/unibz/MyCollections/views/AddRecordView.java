@@ -1,7 +1,8 @@
-package main.it.unibz.MyCollections;
+package main.it.unibz.MyCollections.views;
 
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import main.it.unibz.MyCollections.Record;
 
 /**
  * Created by claudio on 29/05/2017.

@@ -1,12 +1,11 @@
-package main.it.unibz.MyCollections;
+package main.it.unibz.MyCollections.views;
 
 
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import main.it.unibz.MyCollections.Record;
 
 /**
  * Created by claudio on 29/05/2017.

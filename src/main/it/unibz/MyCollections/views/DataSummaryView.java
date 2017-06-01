@@ -1,4 +1,4 @@
-package main.it.unibz.MyCollections;
+package main.it.unibz.MyCollections.views;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

@@ -1,4 +1,4 @@
-package main.it.unibz.MyCollections;
+package main.it.unibz.MyCollections.views;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -14,6 +14,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import main.it.unibz.MyCollections.Record;
 
 import javax.imageio.ImageIO;
 import java.io.File;

@@ -12,14 +12,12 @@ public class Main {
         //create exceptions
         //implement logging
         //document everything
+        //users need an is admin property
         //refactor entire project to fit design patterns
         //split into MVC
         //over do the whole inheritance thing e.g. DatabaseHandler interface,
         //then implement SQLiteHandler, etc.
         //aim for 100% test coverage
-        //refactor databasehandler functions into Models to act as an ORM
-        //extend any components needed
-        // --> menus for export, import, save db, manage users, summary of data
         //create view to manage users
         //create view to edit user
         //create view to create user

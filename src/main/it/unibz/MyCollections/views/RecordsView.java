@@ -1,4 +1,4 @@
-package main.it.unibz.MyCollections;
+package main.it.unibz.MyCollections.views;
 
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -17,6 +17,8 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import main.it.unibz.MyCollections.DatabaseHandler;
+import main.it.unibz.MyCollections.Record;
 
 /**
  * Created by claudio on 28/05/2017.
@@ -67,11 +69,18 @@ public class RecordsView {
         buttonSearch.setFont(new Font("Arial", 13));
         buttonSearch.setGraphic(new ImageView(new Image("magnifier.png")));
         buttonSearch.setPrefSize(110, 25);
+        buttonSearch.setOnAction(event -> { new SearchView(parentStage); });
         //grid.add(buttonSearch, 2, 0, 1, 1);
         hbox.getChildren().addAll(label, button, buttonSearch);
         grid.add(hbox, 0, 0);
         TableView table = new TableView();
-        grid.add(table, 0, 1);
+        final VBox vbox = new VBox();
+        vbox.setSpacing(5);
+        vbox.setPadding(new Insets(10, 10, 0, 10));
+        VBox.setVgrow(table, Priority.ALWAYS);
+        vbox.getChildren().add(table);
+
+        grid.add(vbox, 0, 1);
         table.setEditable(true);
         button.setOnAction((event -> {
             Record rowData = new Record();
@@ -253,10 +262,7 @@ public class RecordsView {
         table.setItems(data);
         table.getColumns().addAll(imageCol, firstNameCol, lastNameCol, companyNameCol, addressCol, telephoneCol, emailCol);
 
-        //final VBox vbox = new VBox();
-        //vbox.setSpacing(5);
-        //vbox.setPadding(new Insets(10, 10, 0, 10));
-        //vbox.getChildren().addAll(grid);
+
         return grid;
     }
 }

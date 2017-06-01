@@ -22,6 +22,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import main.it.unibz.MyCollections.views.*;
 
 public class Login extends Application {
         Scene scene;
@@ -67,9 +68,13 @@ public class Login extends Application {
             summaryData.setOnAction((event -> new DataSummaryView(primaryStage)));
             summaryData.setGraphic(new ImageView(new Image("dashboard.png")));
 
+            MenuItem manageUsers = new MenuItem("Manage Users");
+            manageUsers.setOnAction((event -> new ManageUsersView(primaryStage)));
+            manageUsers.setGraphic(new ImageView(new Image("user.png")));
+
             SeparatorMenuItem separatorMenuItem = new SeparatorMenuItem();
 
-            menuFile.getItems().addAll(about, importData, exportData, summaryData, separatorMenuItem, exit);
+            menuFile.getItems().addAll(about, importData, exportData, summaryData, manageUsers, separatorMenuItem, exit);
 
             menuBar.getMenus().addAll(menuFile);
 

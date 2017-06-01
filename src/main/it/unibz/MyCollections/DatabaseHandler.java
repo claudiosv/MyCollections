@@ -153,7 +153,7 @@ public class DatabaseHandler {
 
             stmt.execute();
             stmt.close();
-            //int id = c.
+            //int id = c. select last_insert_rowid();
         } catch (Exception ex){ex.printStackTrace();}
     }
 

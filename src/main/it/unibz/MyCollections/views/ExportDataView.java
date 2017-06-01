@@ -1,11 +1,9 @@
-package main.it.unibz.MyCollections;
+package main.it.unibz.MyCollections.views;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -15,18 +13,14 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import javax.imageio.ImageIO;
-import java.io.File;
-
 /**
- * Created by claudio on 30/05/2017.
+ * Created by claudio on 31/05/2017.
  */
-public class AboutView {
-    public AboutView(Stage parentStage)
+public class ExportDataView {
+    public ExportDataView(Stage parentStage)
     {
         Stage dialog = new Stage();
         dialog.setTitle("JavaFX Welcome");
@@ -66,6 +60,7 @@ public class AboutView {
 
         dialog.setScene(scene);
         dialog.showAndWait();
+        //file
+        //format
     }
-
 }
