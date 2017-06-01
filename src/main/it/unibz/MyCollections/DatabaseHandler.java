@@ -37,7 +37,9 @@ public class DatabaseHandler {
                     + "	id integer PRIMARY KEY AUTOINCREMENT,\n"
                     + "	username TEXT,\n"
                     + "	password TEXT,\n"
-                    + "	picture BLOB\n"
+                    + "	picture BLOB\n,"
+                    + "	admin INTEGER NOT NULL\n,"
+                    + "	deleted INTEGER NOT NULL\n"
                     + ");";
             stmt1.execute(sql1);
             stmt1.close();
@@ -70,14 +72,16 @@ public class DatabaseHandler {
            // create.execute();
 
            // c.createStatement().execute(sql4);
+
+            User user = new User();
+            user.setPassword(get_SHA_1_SecurePassword("admin"));
+            user.setUsername("admin");
+            addUser(user);
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
             System.exit(0);
         }
-        //User user = new User();
-        //user.setPassword(get_SHA_1_SecurePassword("test1"));
-       // user.setUsername("test");
-        //addUser(user);
+
         //User test = getUser("test", "test1");
         //test.getUsername();
         System.out.println("Opened database successfully");
@@ -86,13 +90,14 @@ public class DatabaseHandler {
     public void addUser(User user) throws Exception
     {
 
-        //TODO: check if user exists!
+        //TODO: throw exception rather than return
         try {
-            if(userExists(user.getId())) return;
-            String sql = "INSERT INTO users (username,password) VALUES (?,?);";
+            if(userExists(user.getUsername())) return;
+            String sql = "INSERT INTO users (username,password,admin,deleted) VALUES (?,?,?,0);";
             PreparedStatement stmt = c.prepareStatement(sql);
             stmt.setString(1, user.getUsername());
             stmt.setString(2, user.getPasswordHash());
+            stmt.setBoolean(3, user.isAdmin());
             //stmt.setBytes(3, user.getUserImageArray());
             /*first name, last name, company name, address, telephone number, e-mail address,*/
             stmt.execute();
@@ -260,10 +265,25 @@ public class DatabaseHandler {
         return false;
     }
 
+    public boolean userExists(String username) throws SQLException
+    {
+        String sql = "SELECT COUNT(*) FROM users WHERE username = ?;";
+        PreparedStatement stmt = c.prepareStatement(sql);
+        stmt.setString(1, username);
+        ResultSet result = stmt.executeQuery();
+        while(result.next())
+        {
+            if(result.getInt(1) > 0) return true;
+        }
+        result.close();
+        stmt.close();
+        return false;
+    }
+
     public User getUser(String username, String password) throws Exception
     {
         String passwordHash = get_SHA_1_SecurePassword(password);
-            String sql = "SELECT id,username,password FROM users WHERE username = ? AND password = ? LIMIT 1;";
+            String sql = "SELECT id,username,password FROM users WHERE username = ? AND password = ? AND deleted=0 LIMIT 1;";
             PreparedStatement stmt = c.prepareStatement(sql);
             stmt.setString(1, username);
             stmt.setString(2, passwordHash);
@@ -281,7 +301,7 @@ public class DatabaseHandler {
 
     public User getUser(int id) throws Exception {
         if(id < 1) throw new Exception(Integer.toString(id));
-        String sql = "SELECT username,password,picture FROM users WHERE id = ?;";
+        String sql = "SELECT username,password,picture FROM users WHERE id = ? AND deleted=0;";
         PreparedStatement stmt = c.prepareStatement(sql);
         stmt.setInt(1, id);
 
@@ -295,6 +315,7 @@ public class DatabaseHandler {
             user.setPassword(set.getString("password"));
             InputStream stream = set.getBinaryStream("picture");
             if(stream != null) user.setUserImage(ImageIO.read(stream));
+            user.setAdmin(set.getBoolean("admin"));
         }
         set.close();
         stmt.close();
@@ -369,6 +390,21 @@ public class DatabaseHandler {
         PreparedStatement s = c.prepareStatement("SELECT * FROM records WHERE userid = ? AND deleted = 0");
         s.setInt(1, userId);
         return resultSetConverter(s.executeQuery());
+    }
+
+    public int getRecordCount(int userId) throws SQLException, IOException
+    {
+        PreparedStatement s = c.prepareStatement("SELECT COUNT(*) FROM records WHERE userid = ? AND deleted = 0");
+        s.setInt(1, userId);
+        ResultSet result = s.executeQuery();
+        int count = 0;
+        while(result.next())
+        {
+            if(result.getInt(1) > -1) count = result.getInt(1);
+        }
+        result.close();
+        s.close();
+        return count;
     }
 
     public Record getRecord(int userId, int recordId) throws SQLException, IOException, Exception

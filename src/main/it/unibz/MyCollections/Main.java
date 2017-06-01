@@ -5,25 +5,24 @@ import java.sql.*;
 public class Main {
 
     public static void main(String[] args) {
-        System.out.println(System.getProperty("java.class.path"));
+        //System.out.println(System.getProperty("java.class.path"));
         DatabaseHandler.getInstance().initialise();
         Login login = new Login();
         login.main(args);
-        //create exceptions
-        //implement logging
-        //document everything
-        //users need an is admin property
-        //refactor entire project to fit design patterns
-        //split into MVC
-        //over do the whole inheritance thing e.g. DatabaseHandler interface,
-        //then implement SQLiteHandler, etc.
-        //aim for 100% test coverage
-        //create view to manage users
-        //create view to edit user
-        //create view to create user
-        //create view for summary of data
-        //make menu context aware
-        //make record store id once inserted
+
+        //Create exceptions needed for User and Record errors, etc.
+        //Implement loggers
+        //Add documentation
+        //Add property for admin users
+        //Refactor to fit design patterns
+        //Split into MVC
+        //Refactor things to work with inheritance e.g. SQLiteHandler
+        //Write tests, aim for maximum coverage
+        //Make main menu context aware
+        //Add more options to context menu
+        //Make record store id once inserted
+        //Correct titles, add icons
+
 
     }
 }

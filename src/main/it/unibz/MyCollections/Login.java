@@ -94,7 +94,7 @@ public class Login extends Application {
             grid.add(userName, 0, 1);
 
             TextField userTextField = new TextField();
-            userTextField.setText("test");
+            userTextField.setText("admin");
             //userTextField.setPromptText("admin");
             grid.add(userTextField, 1, 1);
 
@@ -103,7 +103,7 @@ public class Login extends Application {
 
             PasswordField pwBox = new PasswordField();
 
-            pwBox.setText("test1");
+            pwBox.setText("admin");
             //pwBox.setPromptText("admin");
             grid.add(pwBox, 1, 2);
 
@@ -144,6 +144,7 @@ public class Login extends Application {
                     user = DatabaseHandler.getInstance().getUser(userTextField.getText(), pwBox.getText());
                 }catch (Exception ex)
                 {
+                    ex.printStackTrace();
                     actiontarget.setFill(Color.FIREBRICK);
                     actiontarget.setText("Wrong username or password");
                     return;

@@ -13,10 +13,20 @@ public class User {
     private String passwordHash;
     private BufferedImage userImage;
     private int id;
+    private boolean isAdmin = false;
+
 
     public void delete()
     {
 
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
     }
 
     public String getUsername() {

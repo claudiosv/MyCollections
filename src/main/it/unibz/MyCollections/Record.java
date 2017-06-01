@@ -147,6 +147,7 @@ public class Record {
 
     public void setBufImage(BufferedImage bufImage) throws IOException {
         this.bufImage = bufImage;
+        //SwingFXUtils.fromFXImage
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         if(bufImage==null) return;
         ImageIO.write(bufImage, "jpg", os);
