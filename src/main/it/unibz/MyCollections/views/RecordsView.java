@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import main.it.unibz.MyCollections.DatabaseHandler;
 import main.it.unibz.MyCollections.Record;
+import main.it.unibz.MyCollections.RecordSearchQuery;
 
 /**
  * Created by claudio on 28/05/2017.
@@ -52,7 +53,7 @@ public class RecordsView {
        // grid.getRowConstraints().add(c);
 
 
-        HBox hbox = new HBox();
+        HBox hbox = new HBox(10);
 
         grid.setPadding(new Insets(10, 10, 10, 10));
         final Label label = new Label("Address Book");
@@ -69,7 +70,13 @@ public class RecordsView {
         buttonSearch.setFont(new Font("Arial", 13));
         buttonSearch.setGraphic(new ImageView(new Image("magnifier.png")));
         buttonSearch.setPrefSize(110, 25);
-        buttonSearch.setOnAction(event -> { new SearchView(parentStage); });
+        buttonSearch.setOnAction(event -> {
+            SearchView search = new SearchView(parentStage);
+            RecordSearchQuery query = search.show();
+            try {
+                data.setAll(DatabaseHandler.getInstance().searchRecords(query));
+            }catch (Exception ex){ex.printStackTrace();}
+        });
         //grid.add(buttonSearch, 2, 0, 1, 1);
         hbox.getChildren().addAll(label, button, buttonSearch);
         grid.add(hbox, 0, 0);
@@ -87,10 +94,10 @@ public class RecordsView {
             RecordView view = new AddRecordView(rowData, parentStage);
             Record newData = view.show();
             if (newData != null && !newData.isEmpty()) {
-                data.add(rowData);
-                table.refresh();
+
                 try {
-                    DatabaseHandler.getInstance().insertRecord(rowData);
+                    data.add(DatabaseHandler.getInstance().insertRecord(rowData));
+                    table.refresh();
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }

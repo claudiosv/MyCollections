@@ -1,20 +1,31 @@
 package main.it.unibz.MyCollections.views;
 
+import javafx.beans.binding.Bindings;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.CheckBoxTableCell;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Callback;
+import main.it.unibz.MyCollections.DatabaseHandler;
 import main.it.unibz.MyCollections.Record;
+import main.it.unibz.MyCollections.User;
 
 import java.io.File;
 
@@ -24,6 +35,10 @@ import java.io.File;
 public class ManageUsersView {
     public ManageUsersView(Stage parentStage)
     {
+        try {
+       //     UserView userView = new EditUserView(DatabaseHandler.getInstance().getUser(1), parentStage);
+        //userView.show();
+        }catch (Exception ex){ex.printStackTrace();}
         Stage dialog = new Stage();
         dialog.setTitle("Manage Users");
         //all properties of user
@@ -39,43 +54,119 @@ public class ManageUsersView {
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
 
+        TableView usersTable = new TableView<User>();
+        usersTable.setEditable(true);
 
-        Label filePathLabel = new Label("Path to file:");
-        grid.add(filePathLabel, 0, 0, 2, 1);
-        TextField filePath = new TextField();
-        filePath.setPrefWidth(300);
-        grid.add(filePath, 0, 1, 1, 1);
-        Button browseBtn = new Button("...");
-        browseBtn.setOnAction(event -> {
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Open File");
+        TableColumn<User, ImageView> imageCol = new TableColumn<User, ImageView>("Image");
+        imageCol.setCellValueFactory(
+                new PropertyValueFactory<User, ImageView>("imageView"));
+        imageCol.setPrefWidth(53);
 
-            fileChooser.getExtensionFilters().addAll(
-                    new FileChooser.ExtensionFilter("CSV", "*.csv"),
-                    new FileChooser.ExtensionFilter("XML", "*.xml"),
-                    new FileChooser.ExtensionFilter("SQLite DB", "*.db"),
-                    new FileChooser.ExtensionFilter("All Files", "*.*")
-            );
-            File file = fileChooser.showOpenDialog(parentStage);
-            if (file != null) {
-                if(file.getName().endsWith("csv"))
-                {
-                    fileTypeCombo.getSelectionModel().select(0);
-                } else if(file.getName().endsWith("xml"))
-                {
-                    fileTypeCombo.getSelectionModel().select(1);
-                } else  if(file.getName().endsWith("db")) {
-                    fileTypeCombo.getSelectionModel().select(2);
+        TableColumn<User, String> userNameCol = new TableColumn<User, String>("Username");
+        userNameCol.setCellValueFactory(
+                new PropertyValueFactory<>("username"));
+        userNameCol.setCellFactory(TextFieldTableCell.<User>forTableColumn());
+        userNameCol.setOnEditCommit(
+                t -> {
+                    User user = ((User) t.getTableView().getItems().get(
+                            t.getTablePosition().getRow())
+                    );
+                    user.setUsername(t.getNewValue());
+                    try {
+                        DatabaseHandler.getInstance().updateUser(user);
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                });
+
+        TableColumn<User, Boolean> isAdminCol = new TableColumn<User, Boolean>("Admin");
+        isAdminCol.setCellValueFactory(
+                new PropertyValueFactory<>("isAdmin"));
+        isAdminCol.setCellFactory(CheckBoxTableCell.forTableColumn(isAdminCol));
+        isAdminCol.setOnEditCommit(
+                t -> {
+                    User user = ((User) t.getTableView().getItems().get(
+                            t.getTablePosition().getRow())
+                    );
+                    user.setAdmin(Boolean.valueOf(t.getNewValue()));
+                    try {
+                        DatabaseHandler.getInstance().updateUser(user);
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                });
+
+        usersTable.setRowFactory(new Callback<TableView<User>, TableRow<User>>() {
+        @Override
+        public TableRow<User> call(TableView<User> tableView) {
+            final TableRow<User> row = new TableRow<>();
+            final ContextMenu contextMenu = new ContextMenu();
+            final MenuItem removeMenuItem = new MenuItem("Remove");
+            removeMenuItem.setGraphic(new ImageView(new Image("minus-button.png")));
+            removeMenuItem.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    usersTable.getItems().remove(row.getItem());
+                    try {
+                        DatabaseHandler.getInstance().deleteUser(row.getItem().getId());
+                    }catch(Exception ex){}
                 }
-            }});
-        grid.add(browseBtn, 1, 1, 1, 1);
+            });
 
-        Label fileTypeLabel = new Label("File type:");
-        fileTypeLabel.setPrefWidth(200);
-        grid.add(fileTypeLabel, 0, 2, 2, 1);
+            final MenuItem copyMenuItem = new MenuItem("Copy");
+            copyMenuItem.setGraphic(new ImageView(new Image("clipboard-sign.png")));
+            copyMenuItem.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    ClipboardContent content = new ClipboardContent();
+                    content.putString(row.getItem().toString());
+                    Clipboard.getSystemClipboard().setContent(content);
+                }
+            });
 
-        fileTypeCombo.getItems().addAll("Comma-Separated Values", "Extensible Markup Language", "SQLite Database");
-        grid.add(fileTypeCombo, 0, 3, 2, 1);
+
+            contextMenu.getItems().addAll(copyMenuItem, removeMenuItem);
+            // Set context menu on row, but use a binding to make it only show for non-empty rows:
+            row.contextMenuProperty().bind(
+                    Bindings.when(row.emptyProperty())
+                            .then((ContextMenu) null)
+                            .otherwise(contextMenu)
+            );
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (!row.isEmpty())) {
+                    User userData = row.getItem();
+                    EditUserView view = new EditUserView(userData, parentStage);
+                    User newRec = view.show();
+                    if (!newRec.isEmpty()) {
+                        row.setItem(newRec);
+                        usersTable.refresh();
+                        try {
+                            DatabaseHandler.getInstance().updateUser(row.getItem());
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
+                    }
+                }
+            });
+
+            return row;
+        }
+    });
+        ObservableList<User> data = FXCollections.observableArrayList();
+
+        try {
+           data =
+                    FXCollections.observableArrayList(DatabaseHandler.getInstance().getAllUsers());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        userNameCol.setStyle("-fx-alignment: CENTER-LEFT;");
+        usersTable.setItems(data);
+        usersTable.getColumns().addAll(imageCol, userNameCol, isAdminCol);
+        grid.add(usersTable, 0, 0);
+
+
 
         Button btn = new Button("Close");
         btn.setGraphic(new ImageView(new Image("cross-button.png")));
@@ -83,15 +174,19 @@ public class ManageUsersView {
             dialog.hide();
         });
 
-        Button btnExport = new Button("Import");
-        btnExport.setGraphic(new ImageView(new Image("card-import.png")));
-        btnExport.setOnAction((event) -> {
-            dialog.hide();
+        Button btnAddUser = new Button("Add User");
+        btnAddUser.setGraphic(new ImageView(new Image("user-plus.png")));
+        btnAddUser.setOnAction((event) -> {
+            User user = new User();
+            AddUserView addUser = new AddUserView(user, parentStage);
+            usersTable.getItems().add(addUser.show());
         });
+
+
         HBox hbBtn = new HBox(10);
 
         hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
-        hbBtn.getChildren().addAll(btn, btnExport);
+        hbBtn.getChildren().addAll(btn, btnAddUser);
 
         grid.add(hbBtn, 0, 4, 2, 1);
 

@@ -3,6 +3,7 @@ package main.it.unibz.MyCollections;
 import javafx.scene.image.Image;
 
 import javax.imageio.ImageIO;
+import javax.swing.plaf.nimbus.State;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.security.MessageDigest;
@@ -73,13 +74,14 @@ public class DatabaseHandler {
 
            // c.createStatement().execute(sql4);
 
-            User user = new User();
-            user.setPassword(get_SHA_1_SecurePassword("admin"));
-            user.setUsername("admin");
-            addUser(user);
+            //User user = new User();
+            //user.setPassword(get_SHA_1_SecurePassword("admin"));
+            //user.setUsername("admin");
+            //addUser(user);
         } catch ( Exception e ) {
+            e.printStackTrace();
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-            System.exit(0);
+            //System.exit(0);
         }
 
         //User test = getUser("test", "test1");
@@ -114,8 +116,9 @@ public class DatabaseHandler {
             String sql = "UPDATE users SET " +
                     "username = ?," +
                     "password = ?," +
-                    "picture = ?" +
-                    "WHERE id = ?;";
+                    "picture = ?," +
+                    "admin = ?" +
+                    " WHERE id = ?;";
             PreparedStatement stmt = c.prepareStatement(sql);
             stmt.setString(1, user.getUsername());
 
@@ -123,7 +126,11 @@ public class DatabaseHandler {
 
             stmt.setBytes(3, user.getUserImageArray());
 
-            stmt.setInt(4, user.getId());
+            stmt.setInt(4, user.isAdmin() ? 1 : 0);
+
+            stmt.setInt(5, user.getId());
+
+
 
             stmt.execute();
             stmt.close();
@@ -133,10 +140,11 @@ public class DatabaseHandler {
     }
 
     //TODO: insert record
-    public void insertRecord(Record record)
+    public Record insertRecord(Record record) throws Exception
     {
+        if(recordExists(record.getRecordId())) throw new Exception("record exists");
         try {
-            if(recordExists(record.getRecordId())) return;
+
             String sql = "INSERT INTO records (userid, firstname, lastname, companyname, address, telephonenumber, email, picture, deleted) VALUES (?,?,?,?,?,?,?,?,0);";
             PreparedStatement stmt = c.prepareStatement(sql);
 
@@ -158,8 +166,20 @@ public class DatabaseHandler {
 
             stmt.execute();
             stmt.close();
+
+            Statement lastId = c.createStatement();
+            ResultSet result = lastId.executeQuery("SELECT last_insert_rowid() FROM records;");
+            int recordId = 0;
+            while(result.next())
+            {
+                recordId = result.getInt(1);
+            }
+            lastId.close();
+            Session.setRecordsAdded(Session.getRecordsAdded() + 1);
+            return getRecord(record.getOwnerUserId(), recordId);
             //int id = c. select last_insert_rowid();
         } catch (Exception ex){ex.printStackTrace();}
+        return null;
     }
 
     //TODO: delete user
@@ -167,7 +187,7 @@ public class DatabaseHandler {
     {
         if(userExists(userId))
         {
-            String sql = "DELETE FROM users WHERE id = ?;";
+            String sql = "UPDATE users SET deleted = 1 WHERE id = ?;";
             PreparedStatement stmt = c.prepareStatement(sql);
             stmt.setInt(1, userId);
             stmt.execute();
@@ -187,6 +207,7 @@ public class DatabaseHandler {
                 stmt.setInt(1, recordId);
                 stmt.execute();
                 stmt.close();
+                Session.setRecordsDeleted(Session.getRecordsDeleted() + 1);
                 return;
             }
               }catch (Exception ex){}
@@ -296,12 +317,35 @@ public class DatabaseHandler {
             }
         set.close();
         stmt.close();
+        if(userId == 0) throw new Exception("User not found");
             return getUser(userId); //we could also make a JOIN query instead of a separate one
     }
 
+    public ArrayList<User> getAllUsers() throws Exception
+    {
+        ArrayList<User> users = new ArrayList<>();
+        Statement s = c.createStatement();
+        ResultSet result = s.executeQuery("SELECT * FROM users WHERE deleted = 0");
+        while(result.next()) {
+            User user = new User();
+            user.setId(result.getInt("id"));
+            user.setUsername(result.getString("username"));
+            user.setPassword(result.getString("password"));
+            user.setAdmin(result.getBoolean("admin"));
+            byte[] imageBytes = result.getBytes("picture");
+            if (imageBytes != null)
+                user.setUserImage(ImageIO.read(new ByteArrayInputStream(imageBytes)));
+            users.add(user);
+        }
+
+        result.close();
+        s.close();
+        return users;
+    }
+
     public User getUser(int id) throws Exception {
-        if(id < 1) throw new Exception(Integer.toString(id));
-        String sql = "SELECT username,password,picture FROM users WHERE id = ? AND deleted=0;";
+        if(id < 1) throw new Exception("Invalid user: " + Integer.toString(id));
+        String sql = "SELECT username,password,picture,admin FROM users WHERE id = ? AND deleted=0;";
         PreparedStatement stmt = c.prepareStatement(sql);
         stmt.setInt(1, id);
 
@@ -315,7 +359,7 @@ public class DatabaseHandler {
             user.setPassword(set.getString("password"));
             InputStream stream = set.getBinaryStream("picture");
             if(stream != null) user.setUserImage(ImageIO.read(stream));
-            user.setAdmin(set.getBoolean("admin"));
+            user.setAdmin(set.getInt("admin") == 1 ? true : false);
         }
         set.close();
         stmt.close();
@@ -344,7 +388,7 @@ public class DatabaseHandler {
         return bos != null ? bos.toByteArray() : null;
     }
 
-    private static String get_SHA_1_SecurePassword(String passwordToHash)
+    public static String get_SHA_1_SecurePassword(String passwordToHash)
     {
         String generatedPassword = null;
         try {
@@ -380,6 +424,21 @@ public class DatabaseHandler {
         return resultSetConverter(s.executeQuery());
     }
 
+    public ArrayList<Record> searchRecords(RecordSearchQuery query) throws SQLException, IOException
+    {
+        String sql = query.toLikeQuery(query.isExclusive());
+
+        PreparedStatement s = c.prepareStatement("SELECT * FROM records WHERE deleted = 0 AND " +sql);
+        int counter = 1;
+        for(String part : query.getParametreValueBuilder())
+        {
+            s.setString(counter, part);
+            counter++;
+        }
+
+        return resultSetConverter(s.executeQuery());
+    }
+
     public ArrayList<Record> getAllRecords() throws SQLException, IOException {
         Statement s = c.createStatement();
         return resultSetConverter(s.executeQuery("SELECT * FROM records WHERE deleted = 0"));
@@ -397,6 +456,20 @@ public class DatabaseHandler {
         PreparedStatement s = c.prepareStatement("SELECT COUNT(*) FROM records WHERE userid = ? AND deleted = 0");
         s.setInt(1, userId);
         ResultSet result = s.executeQuery();
+        int count = 0;
+        while(result.next())
+        {
+            if(result.getInt(1) > -1) count = result.getInt(1);
+        }
+        result.close();
+        s.close();
+        return count;
+    }
+
+    public int getRecordCount() throws SQLException, IOException
+    {
+        Statement s = c.createStatement();
+        ResultSet result = s.executeQuery("SELECT COUNT(*) FROM records WHERE deleted = 0");
         int count = 0;
         while(result.next())
         {

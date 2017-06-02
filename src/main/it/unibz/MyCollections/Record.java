@@ -1,6 +1,7 @@
 package main.it.unibz.MyCollections;
 
 import javafx.beans.property.SimpleStringProperty;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.*;
 
 import javax.imageio.ImageIO;
@@ -50,9 +51,9 @@ public class Record {
 
     public Record() {
         try {
-            InputStream st = this.getClass().getResourceAsStream("default_user.png");
-            this.image = new Image(st, 48, 48, true, true);
-            this.setBufImage(ImageIO.read(st));
+            //InputStream st = this.getClass().getResourceAsStream();
+            this.image = new Image("default_user.png", 48, 48, true, true);
+            this.setBufImage(SwingFXUtils.fromFXImage(image, null));//ImageIO.read(st));
             this.imageView = getImageView();
         }catch (Exception ex){ex.printStackTrace();}
     }
@@ -175,7 +176,7 @@ public class Record {
     public String toString()
     {
         return this.getFirstName();
-    }
+    } //TODO: write more!
 
     //public void setImageView(ImageView imageView) {
     //    this.imageView = imageView;

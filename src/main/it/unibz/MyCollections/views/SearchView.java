@@ -12,6 +12,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import main.it.unibz.MyCollections.Record;
+import main.it.unibz.MyCollections.RecordSearchQuery;
 
 import javax.imageio.ImageIO;
 import java.io.File;
@@ -28,11 +29,13 @@ public class SearchView {
     TextField addressTxt;
     TextField telephoneNumberTxt;
     TextField emailAddressTxt;
+    RadioButton rb2;
+    RadioButton rb1;
 
     public SearchView(Stage parentStage)
     {
         dialog = new Stage();
-        dialog.setTitle("JavaFX Welcome");
+        dialog.setTitle("Search Records");
         dialog.initOwner(parentStage);
         dialog.initModality(Modality.APPLICATION_MODAL);
         Scene scene = new Scene(new VBox(), 300, 350);
@@ -74,13 +77,13 @@ public class SearchView {
 
         final ToggleGroup group = new ToggleGroup();
 
-        RadioButton rb1 = new RadioButton("Exclusive (This and this...)");
+        rb1 = new RadioButton("Exclusive (This and this...)");
         rb1.setToggleGroup(group);
         rb1.setSelected(true);
 
         grid.add(rb1, 0, 7, 2, 1);
 
-        RadioButton rb2 = new RadioButton("Inclusive (This or this...)");
+        rb2 = new RadioButton("Inclusive (This or this...)");
         rb2.setToggleGroup(group);
 
         grid.add(rb2, 0, 8, 2, 1);
@@ -96,6 +99,20 @@ public class SearchView {
         ((VBox) scene.getRoot()).getChildren().add(grid);
 
         dialog.setScene(scene);
+
+    }
+
+    public RecordSearchQuery show()
+    {
         dialog.showAndWait();
+        RecordSearchQuery query = new RecordSearchQuery();
+        query.setAddress(addressTxt.getText());
+        query.setCompanyName(companyNameTxt.getText());
+        query.setEmailAddress(emailAddressTxt.getText());
+        query.setFirstName(firstNameTxt.getText());
+        query.setLastName(lastNameTxt.getText());
+        query.setTelephoneNumber(telephoneNumberTxt.getText());
+        query.setExclusive(rb1.isSelected());
+        return query;
     }
 }

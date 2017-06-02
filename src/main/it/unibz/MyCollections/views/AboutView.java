@@ -29,10 +29,10 @@ public class AboutView {
     public AboutView(Stage parentStage)
     {
         Stage dialog = new Stage();
-        dialog.setTitle("JavaFX Welcome");
+        dialog.setTitle("About MyCollections");
         dialog.initOwner(parentStage);
         dialog.initModality(Modality.APPLICATION_MODAL);
-        Scene scene = new Scene(new VBox(), 550, 250);
+        Scene scene = new Scene(new VBox(), 550, 270);
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(10);
@@ -46,7 +46,8 @@ public class AboutView {
         scenetitle.setTextAlignment(TextAlignment.JUSTIFY);
         grid.add(scenetitle, 1, 0);
 
-        Text userName = new Text("Claudio Spiess is a first year computer science student at the Free University of Bolzano-Bozen. Claudio started programming in VB.NET and eventually began working in Java with the popular game \"Minecraft\", in 2011. He also has experience in PHP & C#. MyCollections is his exam project for the course \"Advanced Programming\" lectured by Prof. Marko Tkalčič. MyCollections is a JavaFX-based address book application using SQLite.");
+        Text userName = new Text("Claudio Spiess is a first year computer science student at the Free University of Bolzano-Bozen. Claudio started programming in VB.NET and eventually began working in Java with the popular game \"Minecraft\", in 2011. He also has years of experience in PHP & C#. MyCollections is his exam project for the course \"Advanced Programming\" lectured by Prof. Marko Tkalčič. MyCollections is a JavaFX-based address book application using SQLite." +
+                "\nAll icons are © Yusuke Kamiyamane made licensed under a Creative Commons Attribution 3.0 License from http://p.yusukekamiyamane.com/");
         userName.setWrappingWidth(350);
         grid.add(userName, 1, 1, 1, 1);
 

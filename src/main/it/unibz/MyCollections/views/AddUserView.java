@@ -7,17 +7,15 @@ import javafx.stage.Stage;
 import main.it.unibz.MyCollections.DatabaseHandler;
 import main.it.unibz.MyCollections.User;
 
-import javax.xml.crypto.Data;
-
 /**
- * Created by claudio on 31/05/2017.
+ * Created by Claudio on 02/06/2017.
  */
-public class EditUserView extends UserView {
-    public EditUserView(User user, Stage parentStage)
+public class AddUserView extends UserView {
+    public AddUserView(User user1, Stage parentStage)
     {
-        super(user, parentStage);
-        Button saveButton = new Button("Save");
-        saveButton.setGraphic(new ImageView(new Image("disk-black.png")));
+        super(user1, parentStage);
+        Button saveButton = new Button("Add");
+        //saveButton.setGraphic(new ImageView(new Image("disk-black.png")));
         saveButton.setOnAction((event) -> {
             user.setUsername(usernameTxt.getText());
             if(passwordField.getText().equals(passwordFieldConf.getText()) && passwordField.getText().length() >= 5)
@@ -26,6 +24,9 @@ public class EditUserView extends UserView {
             }
 
             user.setAdmin(adminCheckbox.selectedProperty().get());
+            try {
+                DatabaseHandler.getInstance().addUser(user);
+            } catch (Exception ex){ex.printStackTrace();}
             dialog.hide();
         });
         grid.add(saveButton, 1, 5);

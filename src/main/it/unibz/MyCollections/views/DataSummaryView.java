@@ -16,6 +16,10 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import main.it.unibz.MyCollections.DatabaseHandler;
+import main.it.unibz.MyCollections.Session;
+
+import java.nio.file.Paths;
 
 /**
  * Created by claudio on 30/05/2017.
@@ -38,23 +42,24 @@ public class DataSummaryView {
 
         Label dataF = new Label("File path to the data file:");
         grid.add(dataF, 0, 0);
-        Label path = new Label(System.getProperty("user.dir") + "/test.db"); //TODO: rewrite where db is saved
+        Label path = new Label(Paths.get(System.getProperty("user.dir"), "test.db").toString()); //TODO: rewrite where db is saved
         path.setWrapText(true);
         grid.add(path, 1, 0);
 
         Label number = new Label("Total number of data records:");
         grid.add(number, 0, 1);
-        Label number1 = new Label("123"); //TODO: rewrite where db is saved
-        grid.add(number1, 1, 1);
-
+        try {
+            Label number1 = new Label(Integer.toString(DatabaseHandler.getInstance().getRecordCount())); //TODO: make use actual session
+            grid.add(number1, 1, 1);
+        }catch (Exception ex) {}
         Label number2 = new Label("Total number of added records:");
         grid.add(number2, 0, 2);
-        Label number3 = new Label("123"); //TODO: rewrite where db is saved
+        Label number3 = new Label(Integer.toString(Session.getRecordsAdded())); //TODO: rewrite where db is saved
         grid.add(number3, 1, 2);
 
         Label number4 = new Label("Total number of deleted records:");
         grid.add(number4, 0, 3);
-        Label number5 = new Label("123"); //TODO: rewrite where db is saved
+        Label number5 = new Label(Integer.toString(Session.getRecordsDeleted())); //TODO: rewrite where db is saved
         grid.add(number5, 1, 3);
 
         Button btn = new Button("Close");

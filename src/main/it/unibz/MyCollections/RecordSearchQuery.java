@@ -15,6 +15,15 @@ public class RecordSearchQuery {
     private String telephoneNumber;
     private String emailAddress;
     private ArrayList<String> parametreValueBuilder = new ArrayList<>();
+    private boolean exclusive;
+
+    public boolean isExclusive() {
+        return exclusive;
+    }
+
+    public void setExclusive(boolean exclusive) {
+        this.exclusive = exclusive;
+    }
 
     public ArrayList<String> getParametreValueBuilder() {
         return parametreValueBuilder;

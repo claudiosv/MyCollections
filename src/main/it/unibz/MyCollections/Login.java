@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -109,6 +110,12 @@ public class Login extends Application {
 
             Button btn = new Button("Sign in");
             //TODO: btn.setDisable(true);
+            pwBox.setOnKeyPressed((event) -> {
+                if(event.getCode() == KeyCode.ENTER) {
+                    btn.fire();
+                }
+            });
+
             HBox hbBtn = new HBox(10);
             hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
             hbBtn.getChildren().add(btn);
@@ -144,7 +151,7 @@ public class Login extends Application {
                     user = DatabaseHandler.getInstance().getUser(userTextField.getText(), pwBox.getText());
                 }catch (Exception ex)
                 {
-                    ex.printStackTrace();
+                    //ex.printStackTrace();
                     actiontarget.setFill(Color.FIREBRICK);
                     actiontarget.setText("Wrong username or password");
                     return;
