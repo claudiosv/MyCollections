@@ -26,13 +26,16 @@ import javafx.stage.Stage;
 import main.it.unibz.MyCollections.views.*;
 
 public class Login extends Application {
-        Scene scene;
+        public Scene scene;
+    public MenuItem importData;
+    public Stage primaryStage;
         public static void main(String[] args) {
             launch(args);
         }
 
         @Override
-        public void start(Stage primaryStage) {
+        public void start(Stage parentStage) {
+            primaryStage = parentStage;
             scene = new Scene(new VBox(), 400, 350);
             primaryStage.setTitle("JavaFX Welcome");
 
@@ -57,8 +60,7 @@ public class Login extends Application {
             about.setOnAction((event -> new AboutView(primaryStage)));
             about.setGraphic(new ImageView(new Image("information-button.png")));
 
-            MenuItem importData = new MenuItem("Import");
-            importData.setOnAction((event -> new ImportDataView(primaryStage)));
+            importData = new MenuItem("Import");
             importData.setGraphic(new ImageView(new Image("card-import.png")));
 
             MenuItem exportData = new MenuItem("Export");
@@ -141,7 +143,7 @@ public class Login extends Application {
             });
             RecordsView view = new RecordsView();
 
-            Pane box = view.box(primaryStage);
+            Pane box = view.box(this);
             Scene scene1 = new Scene(box, 600, 500);
 
             btn.setOnAction((event) -> {

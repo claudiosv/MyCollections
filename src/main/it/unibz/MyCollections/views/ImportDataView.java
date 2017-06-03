@@ -1,5 +1,6 @@
 package main.it.unibz.MyCollections.views;
 
+import com.sun.org.apache.regexp.internal.RE;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -15,21 +16,28 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import main.it.unibz.MyCollections.CsvImporter;
+import main.it.unibz.MyCollections.Importer;
+import main.it.unibz.MyCollections.Record;
 
 import java.io.File;
+import java.nio.file.Path;
+import java.util.ArrayList;
 
 /**
  * Created by claudio on 31/05/2017.
  */
 public class ImportDataView {
     ComboBox fileTypeCombo = new ComboBox();
+    ArrayList<Record> importedRecords = new ArrayList<>();
+    Stage dialog;
     public ImportDataView(Stage parentStage)
     {
-        Stage dialog = new Stage();
+        dialog = new Stage();
         dialog.setTitle("Import Data");
         dialog.initOwner(parentStage);
         dialog.initModality(Modality.APPLICATION_MODAL);
-        Scene scene = new Scene(new VBox(), 250, 200);
+        Scene scene = new Scene(new VBox(), 350, 200);
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(10);
@@ -64,6 +72,7 @@ public class ImportDataView {
                 } else  if(file.getName().endsWith("db")) {
                     fileTypeCombo.getSelectionModel().select(2);
                 }
+                filePath.setText(file.getPath());
             }});
         grid.add(browseBtn, 1, 1, 1, 1);
 
@@ -83,6 +92,16 @@ public class ImportDataView {
         Button btnExport = new Button("Import");
         btnExport.setGraphic(new ImageView(new Image("card-import.png")));
         btnExport.setOnAction((event) -> {
+            switch(fileTypeCombo.getValue().toString())
+            {
+                case "Comma-Separated Values":
+                    Importer csvImport = new CsvImporter();
+                    importedRecords = csvImport.importRecords(new File(filePath.getText()).toPath());
+                    //TODO: maybe add a count of how many records added, etc?
+                    dialog.hide();
+                default:
+                    break;
+            }
             dialog.hide();
         });
         HBox hbBtn = new HBox(10);
@@ -96,6 +115,10 @@ public class ImportDataView {
         ((VBox) scene.getRoot()).getChildren().add(grid);
 
         dialog.setScene(scene);
+    }
+
+    public ArrayList<Record> show() {
         dialog.showAndWait();
+        return importedRecords;
     }
 }

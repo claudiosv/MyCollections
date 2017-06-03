@@ -25,6 +25,10 @@ public class Main {
         //Refactor password checking
         //Add button to end search mode
         //Rewrite any equality checks on strings etc to use .equals
+        //Add check for usernames
+        //Create 50 dummy records
+        //Check users for permissions when working with stuff
+        //Make sessions have an impact on records, etc. i.e. make sessions work
 
 
     }

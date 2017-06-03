@@ -35,12 +35,15 @@ public class CsvImporter implements Importer {
                 newRecord.setEmailAddress(recordData[5]);
 //firstname,lastname,companyname,address,telephonenumber,email
                 records.add(newRecord);
-
+                DatabaseHandler.getInstance().insertRecord(newRecord);
             }
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e)
+        {
             e.printStackTrace();
         } finally {
             if (br != null) {

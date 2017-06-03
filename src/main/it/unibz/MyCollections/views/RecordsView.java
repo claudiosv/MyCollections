@@ -13,11 +13,14 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import main.it.unibz.MyCollections.DatabaseHandler;
+import main.it.unibz.MyCollections.Login;
 import main.it.unibz.MyCollections.Record;
 import main.it.unibz.MyCollections.RecordSearchQuery;
 
@@ -25,8 +28,9 @@ import main.it.unibz.MyCollections.RecordSearchQuery;
  * Created by claudio on 28/05/2017.
  */
 public class RecordsView {
-    public Pane box(Stage parentStage) {
-        ObservableList<Record> data =
+    ObservableList<Record> data;
+    public Pane box(Login parentStage) {
+        data =
                 FXCollections.observableArrayList();
         try {
             data.addAll(DatabaseHandler.getInstance().getAllRecords());
@@ -71,7 +75,7 @@ public class RecordsView {
         buttonSearch.setGraphic(new ImageView(new Image("magnifier.png")));
         buttonSearch.setPrefSize(110, 25);
         buttonSearch.setOnAction(event -> {
-            SearchView search = new SearchView(parentStage);
+            SearchView search = new SearchView(parentStage.primaryStage);
             RecordSearchQuery query = search.show();
             try {
                 data.setAll(DatabaseHandler.getInstance().searchRecords(query));
@@ -91,7 +95,7 @@ public class RecordsView {
         table.setEditable(true);
         button.setOnAction((event -> {
             Record rowData = new Record();
-            RecordView view = new AddRecordView(rowData, parentStage);
+            RecordView view = new AddRecordView(rowData, parentStage.primaryStage);
             Record newData = view.show();
             if (newData != null && !newData.isEmpty()) {
 
@@ -211,6 +215,26 @@ public class RecordsView {
                     }
                 });
 
+        table.setOnKeyPressed( new EventHandler<KeyEvent>()
+        {
+            @Override
+            public void handle( final KeyEvent keyEvent )
+            {
+                final Record selectedItem = (Record)table.getSelectionModel().getSelectedItem();
+
+                if ( selectedItem != null )
+                {
+                    if ( keyEvent.getCode().equals( KeyCode.DELETE ) )
+                    {
+                        //Delete or whatever you like:
+                        data.removeAll(selectedItem);
+                        table.refresh();
+                    }
+
+                    //... other keyevents
+                }
+            }
+        } );
         table.setRowFactory(new Callback<TableView<Record>, TableRow<Record>>() {
             @Override
             public TableRow<Record> call(TableView<Record> tableView) {
@@ -248,7 +272,7 @@ public class RecordsView {
                 row.setOnMouseClicked(event -> {
                     if (event.getClickCount() == 2 && (!row.isEmpty())) {
                         Record rowData = row.getItem();
-                        RecordView view = new EditRecordView(rowData, parentStage);
+                        RecordView view = new EditRecordView(rowData, parentStage.primaryStage);
                         Record newRec = view.show();
                         if (!newRec.isEmpty()) {
                             row.setItem(newRec);
@@ -268,7 +292,10 @@ public class RecordsView {
 
         table.setItems(data);
         table.getColumns().addAll(imageCol, firstNameCol, lastNameCol, companyNameCol, addressCol, telephoneCol, emailCol);
-
+        parentStage.importData.setOnAction((event -> {
+            ImportDataView dataView = new ImportDataView(parentStage.primaryStage);
+            data.addAll(dataView.show());
+        }));
 
         return grid;
     }
