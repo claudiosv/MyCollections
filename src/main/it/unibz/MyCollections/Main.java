@@ -1,13 +1,29 @@
 package main.it.unibz.MyCollections;
 
+import java.io.IOException;
+import java.util.logging.*;
+
 public class Main {
+    private static final Logger logger = Logger.getLogger("main.it.unibz.MyCollections");
 
     public static void main(String[] args) {
-        DatabaseHandler.getInstance().initialise();
-        Login login = new Login();
-        login.launch(args);
+        logger.setLevel(Level.FINE);
+        //logger.addHandler(new ConsoleHandler());
 
-        //TODO: Create exceptions needed for User and Record errors, etc.
+        try {
+            FileHandler handler = new FileHandler("MyCollections-log.%u.%g.txt", 1024 * 1024 * 8, 10, true);
+            handler.setFormatter(new SimpleFormatter());
+            logger.addHandler(handler);
+        } catch (IOException ex)
+        {
+            logger.log(Level.SEVERE, "Log file failed to open", ex);
+        }
+
+        logger.log(Level.INFO, "Logging started, opening database");
+        DatabaseHandler.getInstance().initialise("test.db");
+        Login login = new Login();
+        login.main(args);
+
         //TODO: Implement loggers
         //TODO: Add documentation
         //TODO: Refactor to fit design patterns
@@ -17,15 +33,13 @@ public class Main {
         //TODO: Make main menu context aware
         //TODO: Add more options to context menus
         //TODO: Correct titles, add icons
-
         //TODO: Refactor password checking
         //TODO: Add button to end search mode
         //TODO: Rewrite any equality checks on strings etc to use .equals
-        //TODO: Add check for usernames
-        //TODO: Create 50 dummy records
+        //TODO: Add check for username, passwords
         //TODO: Check users for permissions when working with stuff
         //TODO: Make sessions have an impact on records, etc. i.e. make sessions work
-
+        //TODO: fix user image too
 
     }
 }

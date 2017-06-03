@@ -25,7 +25,7 @@ public class CsvImporter implements Importer {
                 // use comma as separator
                 String[] recordData = line.split(cvsSplitBy);
                 if (recordData[0].equals("firstname")) continue;
-                //TODO: make sure to ignore first line!
+
                 Record newRecord = new Record();
                 try {
                     newRecord.setFirstName(recordData[0]);

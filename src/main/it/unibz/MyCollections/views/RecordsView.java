@@ -18,10 +18,10 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.util.Callback;
-import main.it.unibz.MyCollections.DatabaseHandler;
-import main.it.unibz.MyCollections.Login;
-import main.it.unibz.MyCollections.Record;
-import main.it.unibz.MyCollections.RecordSearchQuery;
+import main.it.unibz.MyCollections.*;
+import main.it.unibz.MyCollections.exceptions.RecordNotFoundException;
+
+import java.sql.SQLException;
 
 /**
  * Created by claudio on 28/05/2017.
@@ -212,7 +212,7 @@ public class RecordsView {
                     record.setEmailAddress(t.getNewValue());
                     try {
                         DatabaseHandler.getInstance().updateRecord(record);
-                    } catch (Exception ex) {
+                    } catch (Exception ex) { //TODO: add dialogs
                         ex.printStackTrace();
                     }
                 });
@@ -224,12 +224,9 @@ public class RecordsView {
 
                 if (selectedItem != null) {
                     if (keyEvent.getCode().equals(KeyCode.DELETE)) {
-                        //Delete or whatever you like:
                         data.removeAll(selectedItem);
                         table.refresh();
                     }
-
-                    //... other keyevents
                 }
             }
         });
@@ -244,7 +241,10 @@ public class RecordsView {
                     @Override
                     public void handle(ActionEvent event) {
                         table.getItems().remove(row.getItem());
-                        DatabaseHandler.getInstance().deleteRecord(row.getItem().getRecordId());
+                        try {
+                            DatabaseHandler.getInstance().deleteRecord(row.getItem().getRecordId());
+                        } catch (SQLException ex){}catch (RecordNotFoundException ex){}
+
                     }
                 });
 
@@ -296,6 +296,11 @@ public class RecordsView {
         }));
 
         parentStage.exportData.setOnAction((event -> new ExportDataView(parentStage.primaryStage, data)));
+
+        parentStage.menuFile.getItems().add(1, parentStage.summaryData);
+        parentStage.menuFile.getItems().add(2, parentStage.exportData);
+        parentStage.menuFile.getItems().add(3, parentStage.importData);
+        if(Session.getActiveUser().isAdmin()) parentStage.menuFile.getItems().add(4, parentStage.manageUsers);
 
         return grid;
     }

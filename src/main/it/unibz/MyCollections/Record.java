@@ -18,25 +18,23 @@ import java.io.InputStream;
 public class Record {
     private int recordId;
     private int ownerUserId;
-    //private String firstName;
     private SimpleStringProperty firstName = new SimpleStringProperty("");
     private SimpleStringProperty lastName = new SimpleStringProperty("");
     private SimpleStringProperty companyName = new SimpleStringProperty("");
     private SimpleStringProperty address = new SimpleStringProperty("");
     private SimpleStringProperty telephoneNumber = new SimpleStringProperty("");
     private SimpleStringProperty emailAddress = new SimpleStringProperty("");
-    private BufferedImage bufImage;
     private Image image;
     private ImageView imageView;
 
     public Record() {
         try {
-            //InputStream st = this.getClass().getResourceAsStream();
             this.image = new Image("default_user.png", 48, 48, true, true);
-            this.setBufImage(SwingFXUtils.fromFXImage(image, null));//ImageIO.read(st));
-            this.imageView = getImageView();
-        } catch (IOException ex) {
-            ex.printStackTrace(); //TODO: logger
+            imageView = new ImageView(image);
+            imageView.setFitHeight(48);
+            imageView.setFitWidth(48);
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 
@@ -63,16 +61,6 @@ public class Record {
     public SimpleStringProperty emailAddressProperty() {
         return emailAddress;
     }
-
-    public void save() {
-    }
-
-
-
-    public void delete() {
-    }
-
-    
 
     public int getRecordId() {
         return recordId;
@@ -142,36 +130,23 @@ public class Record {
         return image;
     }
 
-    //public void setImage(Image image) {
-    //    this.image = image;
-    //}
-
-
-    public BufferedImage getBufImage() {
-        return bufImage;
+    public void setImage(Image image) {
+        this.image = image;
+        imageView = new ImageView(image);
+        imageView.setFitHeight(48);
+        imageView.setFitWidth(48);
     }
 
-    public void setBufImage(BufferedImage bufImage) throws IOException {
-        this.bufImage = bufImage;
-        //SwingFXUtils.fromFXImage
-        ByteArrayOutputStream os = new ByteArrayOutputStream();
-        if (bufImage == null) return;
-        ImageIO.write(bufImage, "jpg", os);
-        InputStream is = new ByteArrayInputStream(os.toByteArray());
-        this.image = new Image(is, 48, 48, true, true);
-        this.imageView = getImageView();
-    }
-
-    public byte[] getRecordImageArray() throws IOException {
+    public byte[] getImageArray() throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        BufferedImage bufImage = SwingFXUtils.fromFXImage(image, null);
         if (bufImage == null) return null;
-        ImageIO.write(bufImage, "png", baos);
-        byte[] bytes = baos.toByteArray();
-        return bytes;
+        ImageIO.write(bufImage, "jpg", baos);
+        return baos.toByteArray();
     }
 
-    public ImageView getImageView() throws IOException {
-        return new ImageView(image);
+    public ImageView getImageView() {
+        return imageView;
     }
 
     public boolean isEmpty() {
@@ -188,8 +163,4 @@ public class Record {
     public String toString() {
         return this.getFirstName();
     } //TODO: write more!
-
-    //public void setImageView(ImageView imageView) {
-    //    this.imageView = imageView;
-    //}
 }

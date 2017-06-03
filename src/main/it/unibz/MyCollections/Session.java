@@ -5,8 +5,10 @@ package main.it.unibz.MyCollections;
  */
 public class Session {
     private static User activeUser;
+    private static boolean loggedIn;
     private static int recordsAdded;
     private static int recordsDeleted;
+    private static RecordsHandler recordsHandler;
 
     public static User getActiveUser() {
         return activeUser;
@@ -30,5 +32,31 @@ public class Session {
 
     public static void setRecordsDeleted(int recordsDeleted) {
         Session.recordsDeleted = recordsDeleted;
+    }
+
+    public static void incrementRecordsAdded()
+    {
+        Session.recordsAdded++;
+    }
+
+    public static void incrementRecordsDeleted()
+    {
+        Session.recordsDeleted++;
+    }
+
+    public static RecordsHandler getRecordsHandler() {
+        return recordsHandler;
+    }
+
+    public static void setRecordsHandler(RecordsHandler recordsHandler) {
+        Session.recordsHandler = recordsHandler;
+    }
+
+    public static boolean isLoggedIn() {
+        return loggedIn;
+    }
+
+    public static void setLoggedIn(boolean loggedIn) {
+        Session.loggedIn = loggedIn;
     }
 }

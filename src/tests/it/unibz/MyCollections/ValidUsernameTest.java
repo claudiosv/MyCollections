@@ -20,8 +20,8 @@ public class ValidUsernameTest {
                     "mkyong34", "mkyong_2002","mky@ong-2002" ,"mk3-4_yong", "..", "natsruhalrhtl-", "natsruhalrhtl_", "natsruhalrhtl.","natsruhalrhtl-.", "natsruhalrhtl_.", "natsruhalrhtl.."
             };
             for(String temp : strings){
-                boolean valid = DatabaseHandler.getInstance().isValidUsername(temp);
-                System.out.println("Username is valid : " + temp + " , " + valid);
+                //boolean valid = DatabaseHandler.getInstance().isValidUsername(temp);
+               // System.out.println("Username is valid : " + temp + " , " + valid);
 
             }
         }

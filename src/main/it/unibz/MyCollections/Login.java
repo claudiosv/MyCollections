@@ -23,36 +23,47 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import main.it.unibz.MyCollections.exceptions.UserNotFoundException;
 import main.it.unibz.MyCollections.views.AboutView;
 import main.it.unibz.MyCollections.views.DataSummaryView;
 import main.it.unibz.MyCollections.views.ManageUsersView;
 import main.it.unibz.MyCollections.views.RecordsView;
 
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class Login extends Application {
+    private static final Logger logger = Logger.getLogger(Login.class.getName());
     public Scene scene;
     public MenuItem importData;
     public MenuItem exportData;
     public Stage primaryStage;
+    public MenuItem summaryData;
+    public MenuItem manageUsers;
+    public Menu menuFile;
+
+
+    public void main(String[] args) {
+        launch(args);
+    }
 
     @Override
     public void start(Stage parentStage) {
+        logger.entering(getClass().getName(), "start");
         primaryStage = parentStage;
         scene = new Scene(new VBox(), 400, 350);
-        primaryStage.setTitle("JavaFX Welcome");
+        primaryStage.setTitle("MyCollections Login");
 
         MenuBar menuBar = new MenuBar();
 
-        Menu menuFile = new Menu("File");
+        menuFile = new Menu("File");
 
         MenuItem exit = new MenuItem("Exit");
         exit.setGraphic(new ImageView(new Image("cross-button.png")));
         exit.setOnAction((ActionEvent t) -> {
-            //TODO: save
-            try {
-                DatabaseHandler.getInstance().c.commit();
-            } catch (Exception ex) { //TODO: logger
-            }
-
+            DatabaseHandler.getInstance().save();
             Platform.exit();
             System.exit(0);
         });
@@ -65,20 +76,19 @@ public class Login extends Application {
         importData.setGraphic(new ImageView(new Image("card-import.png")));
 
         exportData = new MenuItem("Export");
-
         exportData.setGraphic(new ImageView(new Image("card-export.png")));
 
-        MenuItem summaryData = new MenuItem("Summary of data");
+        summaryData = new MenuItem("Summary of data");
         summaryData.setOnAction((event -> new DataSummaryView(primaryStage)));
         summaryData.setGraphic(new ImageView(new Image("dashboard.png")));
 
-        MenuItem manageUsers = new MenuItem("Manage Users");
+        manageUsers = new MenuItem("Manage Users");
         manageUsers.setOnAction((event -> new ManageUsersView(primaryStage)));
         manageUsers.setGraphic(new ImageView(new Image("user.png")));
 
         SeparatorMenuItem separatorMenuItem = new SeparatorMenuItem();
 
-        menuFile.getItems().addAll(about, importData, exportData, summaryData, manageUsers, separatorMenuItem, exit);
+        menuFile.getItems().addAll(about, separatorMenuItem, exit);
 
         menuBar.getMenus().addAll(menuFile);
 
@@ -129,44 +139,42 @@ public class Login extends Application {
         grid.add(actiontarget, 1, 6);
         ((VBox) scene.getRoot()).getChildren().addAll(grid);
         pwBox.textProperty().addListener((obs, oldText, newText) -> {
-            if (pwBox.getText().length() < 5) {
-                btn.setDisable(true);
-                actiontarget.setFill(Color.FIREBRICK);
-                actiontarget.setText("Password cannot be less than 5 characters");
-            } else {
+            if (Validator.isValidPassword(pwBox.getText())) {
                 btn.setDisable(false);
                 actiontarget.setFill(Color.FIREBRICK);
                 actiontarget.setText("");
+            } else {
+                btn.setDisable(true);
+                actiontarget.setFill(Color.FIREBRICK);
+                actiontarget.setText("Password cannot be less than 5 characters");
             }
         });
-        RecordsView view = new RecordsView();
 
-        Pane box = view.box(this);
-        Scene scene1 = new Scene(box, 600, 500);
 
         btn.setOnAction((event) -> {
             User user = null;
-
             try {
-                user = DatabaseHandler.getInstance().getUser(userTextField.getText(), pwBox.getText());
-            } catch (Exception ex) {  //TODO: use custom exception
-                //ex.printStackTrace();
+                HasherFactory hasherFactory = new HasherFactory();
+                user = DatabaseHandler.getInstance().getUser(userTextField.getText(), hasherFactory.getHasher("sha512").hash(pwBox.getText()));
+            } catch (UserNotFoundException ex) {
+                logger.log(Level.WARNING, "Login failed", ex);
                 actiontarget.setFill(Color.FIREBRICK); //TODO: logger
                 actiontarget.setText("Wrong username or password");
                 return;
+            } catch (SQLException ex) {
+                logger.log(Level.SEVERE, "SQL error", ex);
+            } catch (IOException ex) {
+                logger.log(Level.SEVERE, "IO error", ex);
             }
 
             if (user != null) {
+                Session.setActiveUser(user);
+                RecordsView view = new RecordsView();
+                Pane box = view.box(this);
                 ((VBox) scene.getRoot()).getChildren().removeAll(grid);
                 ((VBox) scene.getRoot()).setMinHeight(500);
                 ((VBox) scene.getRoot()).setMinWidth(600);
-                primaryStage.sizeToScene();
-                // primaryStage.setScene();
-                //((VBox) scene.getRoot()).getChildren().clear();
                 ((VBox) scene.getRoot()).getChildren().add(box);
-                //scene.setRoot(box);
-                //primaryStage.setScene(scene1);
-
             }
         });
 
@@ -174,5 +182,6 @@ public class Login extends Application {
         //Scene scene = new Scene(grid, 300, 275);
         primaryStage.setScene(scene);
         primaryStage.show();
+        logger.exiting(getClass().getName(), "start");
     }
 }

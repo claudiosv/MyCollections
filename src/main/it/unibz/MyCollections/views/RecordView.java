@@ -1,5 +1,6 @@
 package main.it.unibz.MyCollections.views;
 
+import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -17,6 +18,7 @@ import main.it.unibz.MyCollections.Record;
 
 import javax.imageio.ImageIO;
 import java.io.File;
+import java.io.FileInputStream;
 
 /**
  * Created by claudio on 29/05/2017.
@@ -38,7 +40,7 @@ public class RecordView {
         dialog.setTitle("JavaFX Welcome");
         dialog.initOwner(parentStage);
         dialog.initModality(Modality.APPLICATION_MODAL);
-        Scene scene = new Scene(new VBox(), 300, 350);
+        Scene scene = new Scene(new VBox(), 300, 420);
         grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(10);
@@ -46,9 +48,10 @@ public class RecordView {
         grid.setPadding(new Insets(25, 25, 25, 25));
 
         try {
-            ImageView imageView = record.getImageView();
-            imageView.setFitHeight(64);
-            imageView.setFitWidth(64);
+            ImageView imageView = new ImageView();
+            imageView.setFitHeight(128);
+            imageView.setFitWidth(128);
+            imageView.setImage(record.getImage());
             grid.add(imageView, 0, 0);
             Button openButton = new Button("Open file...");
 
@@ -66,12 +69,12 @@ public class RecordView {
                 File file = fileChooser.showOpenDialog(dialog);
                 if (file != null) {
                     try {
-                        record.setBufImage(ImageIO.read(file));
+                        record.setImage(SwingFXUtils.toFXImage(ImageIO.read(file), null));
                         imageView.setImage(record.getImage());
                     } catch (Exception e) {
+                        e.printStackTrace();
                         //TODO: logger
                     }
-                    //openFile(file);
                 }
             });
             grid.add(openButton, 1, 0);
@@ -116,12 +119,6 @@ public class RecordView {
         dialog.setScene(scene);
 
     }
-
-
-    // public Record getRecord()
-    //  {
-    //       return record;
-    //  }
 
     public Record show() {
         dialog.showAndWait();

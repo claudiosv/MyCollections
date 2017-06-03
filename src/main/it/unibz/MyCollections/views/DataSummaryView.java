@@ -43,18 +43,18 @@ public class DataSummaryView {
         Label number = new Label("Total number of data records:");
         grid.add(number, 0, 1);
         try {
-            Label number1 = new Label(Integer.toString(DatabaseHandler.getInstance().getRecordCount())); //TODO: make use actual session
+            Label number1 = new Label(Integer.toString(DatabaseHandler.getInstance().getRecordCount()));
             grid.add(number1, 1, 1);
         } catch (Exception ex) { //TODO: logger
         }
         Label number2 = new Label("Total number of added records:");
         grid.add(number2, 0, 2);
-        Label number3 = new Label(Integer.toString(Session.getRecordsAdded())); //TODO: rewrite where db is saved
+        Label number3 = new Label(Integer.toString(Session.getRecordsAdded()));
         grid.add(number3, 1, 2);
 
         Label number4 = new Label("Total number of deleted records:");
         grid.add(number4, 0, 3);
-        Label number5 = new Label(Integer.toString(Session.getRecordsDeleted())); //TODO: rewrite where db is saved
+        Label number5 = new Label(Integer.toString(Session.getRecordsDeleted()));
         grid.add(number5, 1, 3);
 
         Button btn = new Button("Close");

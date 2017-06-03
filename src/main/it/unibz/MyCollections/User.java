@@ -5,6 +5,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -90,18 +91,20 @@ public class User {
 
     public byte[] getUserImageArray() throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ImageIO.write(bufImage, "png", baos);
+        ImageIO.write(bufImage, "jpg", baos);
         byte[] bytes = baos.toByteArray();
         return bytes;
     }
 
     public void setBufImage(BufferedImage bufImage) throws IOException {
         this.bufImage = bufImage;
-        ByteArrayOutputStream os = new ByteArrayOutputStream(); //SwingFXUtils.fromFXImage(bufImage)
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
         if (bufImage == null) return;
-        ImageIO.write(bufImage, "png", os);
+        ImageIO.write(bufImage, "jpg", os);
+
         InputStream is = new ByteArrayInputStream(os.toByteArray());
-        this.image = new Image(is, 48, 48, true, true);
+        this.image = new Image(is, 128, 128, true, true);//SwingFXUtils.toFXImage(bufImage, null);
+        //new Image(is, 128, 128, true, true);
         this.imageView = getImageView();
     }
 

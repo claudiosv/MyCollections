@@ -15,19 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class RecordSearchQueryTest {
     @Test
     void toLikeQuery() throws SQLException {
-        RecordSearchQuery query = new RecordSearchQuery();
-        query.setAddress("Druso");
-        query.setFirstName("Test*");
 
-        //query.setAddress("Druso");
-        //String sql = query.toLikeQuery(true);
-
-        DatabaseHandler.getInstance().initialise();
-        try {
-            DatabaseHandler.getInstance().insertRecord(null);
-        }catch (Exception ex) {}
-        assertTrue(DatabaseHandler.getInstance().userExists(1));
-        assertFalse(DatabaseHandler.getInstance().userExists(5000));
 
     }
 

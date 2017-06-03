@@ -42,8 +42,8 @@ public class UserView {
 
         try {
             ImageView imageView = user.getImageView();
-            imageView.setFitHeight(64);
-            imageView.setFitWidth(64);
+            imageView.minHeight(128);
+            imageView.minWidth(128);
             grid.add(imageView, 0, 0);
             Button openButton = new Button("Open file...");
             openButton.setGraphic(new ImageView(new Image("blue-folder-open-image.png")));
