@@ -1,11 +1,8 @@
 package main.it.unibz.MyCollections;
 
-import java.sql.*;
-
 public class Main {
 
     public static void main(String[] args) {
-        //System.out.println(System.getProperty("java.class.path"));
         DatabaseHandler.getInstance().initialise();
         Login login = new Login();
         login.main(args);
@@ -13,7 +10,6 @@ public class Main {
         //Create exceptions needed for User and Record errors, etc.
         //Implement loggers
         //Add documentation
-        //Add property for admin users
         //Refactor to fit design patterns
         //Split into MVC
         //Refactor things to work with inheritance e.g. SQLiteHandler

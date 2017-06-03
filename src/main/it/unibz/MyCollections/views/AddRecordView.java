@@ -8,8 +8,7 @@ import main.it.unibz.MyCollections.Record;
  * Created by claudio on 29/05/2017.
  */
 public class AddRecordView extends RecordView {
-    public AddRecordView(Record passRecord, Stage parentStage)
-    {
+    public AddRecordView(Record passRecord, Stage parentStage) {
         super(passRecord, parentStage);
         Button saveButton = new Button("Add");
         saveButton.setOnAction((event) -> {

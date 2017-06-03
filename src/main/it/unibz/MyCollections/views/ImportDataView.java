@@ -1,6 +1,5 @@
 package main.it.unibz.MyCollections.views;
 
-import com.sun.org.apache.regexp.internal.RE;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -21,7 +20,6 @@ import main.it.unibz.MyCollections.Importer;
 import main.it.unibz.MyCollections.Record;
 
 import java.io.File;
-import java.nio.file.Path;
 import java.util.ArrayList;
 
 /**
@@ -31,8 +29,8 @@ public class ImportDataView {
     ComboBox fileTypeCombo = new ComboBox();
     ArrayList<Record> importedRecords = new ArrayList<>();
     Stage dialog;
-    public ImportDataView(Stage parentStage)
-    {
+
+    public ImportDataView(Stage parentStage) {
         dialog = new Stage();
         dialog.setTitle("Import Data");
         dialog.initOwner(parentStage);
@@ -54,33 +52,28 @@ public class ImportDataView {
         browseBtn.setOnAction(event -> {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Open File");
-
             fileChooser.getExtensionFilters().addAll(
+                    new FileChooser.ExtensionFilter("All Files", "*.*"),
                     new FileChooser.ExtensionFilter("CSV", "*.csv"),
-                    new FileChooser.ExtensionFilter("XML", "*.xml"),
-                    new FileChooser.ExtensionFilter("SQLite DB", "*.db"),
-                    new FileChooser.ExtensionFilter("All Files", "*.*")
+                    new FileChooser.ExtensionFilter("XML", "*.xml")
             );
             File file = fileChooser.showOpenDialog(parentStage);
             if (file != null) {
-                if(file.getName().endsWith("csv"))
-                {
+                if (file.getName().endsWith("csv")) {
                     fileTypeCombo.getSelectionModel().select(0);
-                } else if(file.getName().endsWith("xml"))
-                {
+                } else if (file.getName().endsWith("xml")) {
                     fileTypeCombo.getSelectionModel().select(1);
-                } else  if(file.getName().endsWith("db")) {
-                    fileTypeCombo.getSelectionModel().select(2);
                 }
                 filePath.setText(file.getPath());
-            }});
+            }
+        });
         grid.add(browseBtn, 1, 1, 1, 1);
 
         Label fileTypeLabel = new Label("File type:");
         fileTypeLabel.setPrefWidth(200);
         grid.add(fileTypeLabel, 0, 2, 2, 1);
 
-        fileTypeCombo.getItems().addAll("Comma-Separated Values", "Extensible Markup Language", "SQLite Database");
+        fileTypeCombo.getItems().addAll("Comma-Separated Values", "Extensible Markup Language");
         grid.add(fileTypeCombo, 0, 3, 2, 1);
 
         Button btn = new Button("Close");
@@ -92,8 +85,7 @@ public class ImportDataView {
         Button btnExport = new Button("Import");
         btnExport.setGraphic(new ImageView(new Image("card-import.png")));
         btnExport.setOnAction((event) -> {
-            switch(fileTypeCombo.getValue().toString())
-            {
+            switch (fileTypeCombo.getValue().toString()) {
                 case "Comma-Separated Values":
                     Importer csvImport = new CsvImporter();
                     importedRecords = csvImport.importRecords(new File(filePath.getText()).toPath());

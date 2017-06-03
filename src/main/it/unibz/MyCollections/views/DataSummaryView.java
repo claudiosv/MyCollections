@@ -10,10 +10,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import main.it.unibz.MyCollections.DatabaseHandler;
@@ -25,8 +21,7 @@ import java.nio.file.Paths;
  * Created by claudio on 30/05/2017.
  */
 public class DataSummaryView {
-    public DataSummaryView(Stage parentStage)
-    {
+    public DataSummaryView(Stage parentStage) {
         Stage dialog = new Stage();
         dialog.setTitle("Summary of data");
         dialog.initOwner(parentStage);
@@ -37,7 +32,6 @@ public class DataSummaryView {
         grid.setHgap(10);
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
-
 
 
         Label dataF = new Label("File path to the data file:");
@@ -51,7 +45,8 @@ public class DataSummaryView {
         try {
             Label number1 = new Label(Integer.toString(DatabaseHandler.getInstance().getRecordCount())); //TODO: make use actual session
             grid.add(number1, 1, 1);
-        }catch (Exception ex) {}
+        } catch (Exception ex) {
+        }
         Label number2 = new Label("Total number of added records:");
         grid.add(number2, 0, 2);
         Label number3 = new Label(Integer.toString(Session.getRecordsAdded())); //TODO: rewrite where db is saved

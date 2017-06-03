@@ -1,6 +1,5 @@
 package main.it.unibz.MyCollections.views;
 
-import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -13,28 +12,27 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import main.it.unibz.MyCollections.CsvExporter;
+import main.it.unibz.MyCollections.Exporter;
+import main.it.unibz.MyCollections.Record;
 
-import javax.imageio.ImageIO;
 import java.io.File;
+import java.util.List;
 
 /**
  * Created by claudio on 31/05/2017.
  */
 public class ExportDataView {
-    public ExportDataView(Stage parentStage)
-    {
+    ComboBox fileTypeCombo;
+    public ExportDataView(Stage parentStage, List<Record> records) {
         Stage dialog = new Stage();
         dialog.setTitle("Export Data");
         dialog.initOwner(parentStage);
         dialog.initModality(Modality.APPLICATION_MODAL);
-        Scene scene = new Scene(new VBox(), 250, 200);
+        Scene scene = new Scene(new VBox(), 350, 200);
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(10);
@@ -51,18 +49,28 @@ public class ExportDataView {
         browseBtn.setOnAction(event -> {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Save File");
-
+            fileChooser.getExtensionFilters().addAll(
+                    new FileChooser.ExtensionFilter("All Files", "*.*"),
+                    new FileChooser.ExtensionFilter("CSV", "*.csv"),
+                    new FileChooser.ExtensionFilter("XML", "*.xml")
+            );
             File file = fileChooser.showSaveDialog(parentStage);
-            if (file != null) {
-
-            }});
+            if (file.getPath() != null) {
+                if (file.getName().endsWith("csv")) {
+                    fileTypeCombo.getSelectionModel().select(0);
+                } else if (file.getName().endsWith("xml")) {
+                    fileTypeCombo.getSelectionModel().select(1);
+                }
+                filePath.setText(file.getPath());
+            }
+        });
         grid.add(browseBtn, 1, 1, 1, 1);
 
         Label fileTypeLabel = new Label("File type:");
         fileTypeLabel.setPrefWidth(200);
         grid.add(fileTypeLabel, 0, 2, 2, 1);
-        ComboBox fileTypeCombo = new ComboBox();
-        fileTypeCombo.getItems().addAll("Comma-Separated Values", "Extensible Markup Language", "SQLite Database");
+        fileTypeCombo = new ComboBox();
+        fileTypeCombo.getItems().addAll("Comma-Separated Values", "Extensible Markup Language");
         grid.add(fileTypeCombo, 0, 3, 2, 1);
 
         Button btn = new Button("Close");
@@ -74,6 +82,16 @@ public class ExportDataView {
         Button btnExport = new Button("Export");
         btnExport.setGraphic(new ImageView(new Image("card-export.png")));
         btnExport.setOnAction((event) -> {
+            switch (fileTypeCombo.getValue().toString()) {
+                case "Comma-Separated Values":
+                    Exporter csvExport = new CsvExporter();
+                    csvExport.exportRecords(records, new File(filePath.getText()).toPath());
+                    //TODO: maybe add a count of how many records added, etc?
+                    dialog.hide();
+                default:
+                    break;
+            }
+            dialog.hide();
             dialog.hide();
         });
         HBox hbBtn = new HBox(10);

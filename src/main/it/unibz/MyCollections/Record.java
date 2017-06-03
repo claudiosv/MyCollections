@@ -2,12 +2,15 @@ package main.it.unibz.MyCollections;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.embed.swing.SwingFXUtils;
-import javafx.scene.image.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.*;
-import java.util.HashMap;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * Created by claudio on 22/03/2017.
@@ -16,15 +19,27 @@ public class Record {
     private int recordId;
     private int ownerUserId;
     //private String firstName;
-    private SimpleStringProperty firstName = new SimpleStringProperty();
-    private SimpleStringProperty lastName = new SimpleStringProperty();
-    private SimpleStringProperty companyName = new SimpleStringProperty();
-    private SimpleStringProperty address = new SimpleStringProperty();
-    private SimpleStringProperty telephoneNumber = new SimpleStringProperty();
-    private SimpleStringProperty emailAddress = new SimpleStringProperty();
+    private SimpleStringProperty firstName = new SimpleStringProperty("");
+    private SimpleStringProperty lastName = new SimpleStringProperty("");
+    private SimpleStringProperty companyName = new SimpleStringProperty("");
+    private SimpleStringProperty address = new SimpleStringProperty("");
+    private SimpleStringProperty telephoneNumber = new SimpleStringProperty("");
+    private SimpleStringProperty emailAddress = new SimpleStringProperty("");
     private BufferedImage bufImage;
     private Image image;
     private ImageView imageView;
+
+    public Record() {
+        try {
+            //InputStream st = this.getClass().getResourceAsStream();
+            this.image = new Image("default_user.png", 48, 48, true, true);
+            this.setBufImage(SwingFXUtils.fromFXImage(image, null));//ImageIO.read(st));
+            this.imageView = getImageView();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
     public SimpleStringProperty firstNameProperty() {
         return firstName;
     }
@@ -49,17 +64,15 @@ public class Record {
         return emailAddress;
     }
 
-    public Record() {
-        try {
-            //InputStream st = this.getClass().getResourceAsStream();
-            this.image = new Image("default_user.png", 48, 48, true, true);
-            this.setBufImage(SwingFXUtils.fromFXImage(image, null));//ImageIO.read(st));
-            this.imageView = getImageView();
-        }catch (Exception ex){ex.printStackTrace();}
+    public void save() {
     }
 
-    public void save(){};
-    public void delete(){};
+    ;
+
+    public void delete() {
+    }
+
+    ;
 
     public int getRecordId() {
         return recordId;
@@ -138,43 +151,41 @@ public class Record {
         return bufImage;
     }
 
-    public byte[] getRecordImageArray() throws IOException {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        if(bufImage==null) return null;
-        ImageIO.write(bufImage, "png", baos);
-        byte[] bytes = baos.toByteArray();
-        return bytes;
-    }
-
     public void setBufImage(BufferedImage bufImage) throws IOException {
         this.bufImage = bufImage;
         //SwingFXUtils.fromFXImage
         ByteArrayOutputStream os = new ByteArrayOutputStream();
-        if(bufImage==null) return;
+        if (bufImage == null) return;
         ImageIO.write(bufImage, "jpg", os);
         InputStream is = new ByteArrayInputStream(os.toByteArray());
         this.image = new Image(is, 48, 48, true, true);
         this.imageView = getImageView();
     }
 
-    public ImageView getImageView() throws IOException {
-            return new ImageView(image);
+    public byte[] getRecordImageArray() throws IOException {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        if (bufImage == null) return null;
+        ImageIO.write(bufImage, "png", baos);
+        byte[] bytes = baos.toByteArray();
+        return bytes;
     }
 
-    public boolean isEmpty()
-    {
-        if(firstName != null && !firstName.getValue().trim().equals("")) return false;
-        if(lastName != null && !lastName.getValue().trim().equals("")) return false;
-        if(companyName != null && !companyName.getValue().trim().equals("")) return false;
-        if(address != null && !address.getValue().trim().equals("")) return false;
-        if(telephoneNumber != null && !telephoneNumber.getValue().trim().equals("")) return false;
-        if(emailAddress != null && !emailAddress.getValue().trim().equals("")) return false;
+    public ImageView getImageView() throws IOException {
+        return new ImageView(image);
+    }
+
+    public boolean isEmpty() {
+        if (firstName != null && !firstName.getValue().trim().equals("")) return false;
+        if (lastName != null && !lastName.getValue().trim().equals("")) return false;
+        if (companyName != null && !companyName.getValue().trim().equals("")) return false;
+        if (address != null && !address.getValue().trim().equals("")) return false;
+        if (telephoneNumber != null && !telephoneNumber.getValue().trim().equals("")) return false;
+        if (emailAddress != null && !emailAddress.getValue().trim().equals("")) return false;
         return true;
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return this.getFirstName();
     } //TODO: write more!
 

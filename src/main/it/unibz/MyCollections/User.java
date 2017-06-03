@@ -26,20 +26,6 @@ public class User {
     private SimpleBooleanProperty isAdmin = new SimpleBooleanProperty(false);
 
 
-    public void delete()
-    {
-
-    }
-
-    public SimpleStringProperty usernameProperty() {
-        return username;
-    }
-
-    public SimpleBooleanProperty isAdminProperty()
-    {
-        return isAdmin;
-    }
-
     public User() {
         this.username = new SimpleStringProperty();
         try {
@@ -49,7 +35,21 @@ public class User {
             this.imageView = getImageView();
 
 
-        }catch (Exception ex){ex.printStackTrace();}
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void delete() {
+
+    }
+
+    public SimpleStringProperty usernameProperty() {
+        return username;
+    }
+
+    public SimpleBooleanProperty isAdminProperty() {
+        return isAdmin;
     }
 
     public boolean isAdmin() {
@@ -79,6 +79,11 @@ public class User {
     public BufferedImage getUserImage() {
         return bufImage;
     }
+
+    public void setUserImage(BufferedImage userImage) {
+        this.bufImage = userImage;
+    }
+
     public Image getImage() {
         return image;
     }
@@ -93,16 +98,11 @@ public class User {
     public void setBufImage(BufferedImage bufImage) throws IOException {
         this.bufImage = bufImage;
         ByteArrayOutputStream os = new ByteArrayOutputStream(); //SwingFXUtils.fromFXImage(bufImage)
-        if(bufImage==null) return;
+        if (bufImage == null) return;
         ImageIO.write(bufImage, "png", os);
         InputStream is = new ByteArrayInputStream(os.toByteArray());
         this.image = new Image(is, 48, 48, true, true);
         this.imageView = getImageView();
-    }
-
-
-    public void setUserImage(BufferedImage userImage) {
-        this.bufImage = userImage;
     }
 
     public ImageView getImageView() throws IOException {
@@ -118,15 +118,13 @@ public class User {
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return this.getUsername();
     } //TODO: write more!
 
-    public boolean isEmpty()
-    {
-        if(username != null && !username.getValue().trim().equals("")) return false;
-        if(passwordHash != null && !passwordHash.trim().equals("")) return false;
+    public boolean isEmpty() {
+        if (username != null && !username.getValue().trim().equals("")) return false;
+        if (passwordHash != null && !passwordHash.trim().equals("")) return false;
         return true;
     }
 }

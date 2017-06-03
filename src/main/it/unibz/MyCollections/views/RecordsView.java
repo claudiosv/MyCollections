@@ -17,7 +17,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
 import javafx.util.Callback;
 import main.it.unibz.MyCollections.DatabaseHandler;
 import main.it.unibz.MyCollections.Login;
@@ -29,6 +28,7 @@ import main.it.unibz.MyCollections.RecordSearchQuery;
  */
 public class RecordsView {
     ObservableList<Record> data;
+
     public Pane box(Login parentStage) {
         data =
                 FXCollections.observableArrayList();
@@ -54,7 +54,7 @@ public class RecordsView {
         grid.getColumnConstraints().add(c1);
         //c = new RowConstraints();
         //c.setPercentHeight(90);
-       // grid.getRowConstraints().add(c);
+        // grid.getRowConstraints().add(c);
 
 
         HBox hbox = new HBox(10);
@@ -79,7 +79,9 @@ public class RecordsView {
             RecordSearchQuery query = search.show();
             try {
                 data.setAll(DatabaseHandler.getInstance().searchRecords(query));
-            }catch (Exception ex){ex.printStackTrace();}
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         });
         //grid.add(buttonSearch, 2, 0, 1, 1);
         hbox.getChildren().addAll(label, button, buttonSearch);
@@ -215,17 +217,13 @@ public class RecordsView {
                     }
                 });
 
-        table.setOnKeyPressed( new EventHandler<KeyEvent>()
-        {
+        table.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
-            public void handle( final KeyEvent keyEvent )
-            {
-                final Record selectedItem = (Record)table.getSelectionModel().getSelectedItem();
+            public void handle(final KeyEvent keyEvent) {
+                final Record selectedItem = (Record) table.getSelectionModel().getSelectedItem();
 
-                if ( selectedItem != null )
-                {
-                    if ( keyEvent.getCode().equals( KeyCode.DELETE ) )
-                    {
+                if (selectedItem != null) {
+                    if (keyEvent.getCode().equals(KeyCode.DELETE)) {
                         //Delete or whatever you like:
                         data.removeAll(selectedItem);
                         table.refresh();
@@ -234,7 +232,7 @@ public class RecordsView {
                     //... other keyevents
                 }
             }
-        } );
+        });
         table.setRowFactory(new Callback<TableView<Record>, TableRow<Record>>() {
             @Override
             public TableRow<Record> call(TableView<Record> tableView) {
@@ -296,6 +294,8 @@ public class RecordsView {
             ImportDataView dataView = new ImportDataView(parentStage.primaryStage);
             data.addAll(dataView.show());
         }));
+
+        parentStage.exportData.setOnAction((event -> new ExportDataView(parentStage.primaryStage, data)));
 
         return grid;
     }

@@ -46,9 +46,9 @@ public class RecordSearchQuery {
         schemaMap.put("email", emailAddress);
 
         int counter = 0;
-        for(Map.Entry<String, String> entry : schemaMap.entrySet()) {
+        for (Map.Entry<String, String> entry : schemaMap.entrySet()) {
             if (!emptyString(entry.getValue())) {
-                if(counter != 0) likeQueryBuilder.append(exclusive ? " AND ": " OR ");
+                if (counter != 0) likeQueryBuilder.append(exclusive ? " AND " : " OR ");
                 likeQueryBuilder.append(entry.getKey());
                 likeQueryBuilder.append(" LIKE ?");
                 parametreValueBuilder.add(wildcardToSQL(entry.getValue()));
@@ -62,8 +62,7 @@ public class RecordSearchQuery {
         return searchString == null || searchString.trim().isEmpty();
     }
 
-    public String wildcardToSQL(String searchString)
-    {
+    public String wildcardToSQL(String searchString) {
         return searchString.replace("*", "%");
     }
 

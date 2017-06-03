@@ -12,8 +12,7 @@ import main.it.unibz.MyCollections.Record;
  */
 public class EditRecordView extends RecordView {
 
-    public EditRecordView(Record passRecord, Stage parentStage)
-    {
+    public EditRecordView(Record passRecord, Stage parentStage) {
         super(passRecord, parentStage);
         Button saveButton = new Button("Save");
         saveButton.setGraphic(new ImageView(new Image("disk-black.png")));

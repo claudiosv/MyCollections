@@ -19,26 +19,23 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import main.it.unibz.MyCollections.DatabaseHandler;
-import main.it.unibz.MyCollections.Record;
 import main.it.unibz.MyCollections.User;
-
-import java.io.File;
 
 /**
  * Created by claudio on 31/05/2017.
  */
 public class ManageUsersView {
-    public ManageUsersView(Stage parentStage)
-    {
+    public ManageUsersView(Stage parentStage) {
         try {
-       //     UserView userView = new EditUserView(DatabaseHandler.getInstance().getUser(1), parentStage);
-        //userView.show();
-        }catch (Exception ex){ex.printStackTrace();}
+            //     UserView userView = new EditUserView(DatabaseHandler.getInstance().getUser(1), parentStage);
+            //userView.show();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
         Stage dialog = new Stage();
         dialog.setTitle("Manage Users");
         //all properties of user
@@ -97,65 +94,66 @@ public class ManageUsersView {
                 });
 
         usersTable.setRowFactory(new Callback<TableView<User>, TableRow<User>>() {
-        @Override
-        public TableRow<User> call(TableView<User> tableView) {
-            final TableRow<User> row = new TableRow<>();
-            final ContextMenu contextMenu = new ContextMenu();
-            final MenuItem removeMenuItem = new MenuItem("Remove");
-            removeMenuItem.setGraphic(new ImageView(new Image("minus-button.png")));
-            removeMenuItem.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent event) {
-                    usersTable.getItems().remove(row.getItem());
-                    try {
-                        DatabaseHandler.getInstance().deleteUser(row.getItem().getId());
-                    }catch(Exception ex){}
-                }
-            });
-
-            final MenuItem copyMenuItem = new MenuItem("Copy");
-            copyMenuItem.setGraphic(new ImageView(new Image("clipboard-sign.png")));
-            copyMenuItem.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent event) {
-                    ClipboardContent content = new ClipboardContent();
-                    content.putString(row.getItem().toString());
-                    Clipboard.getSystemClipboard().setContent(content);
-                }
-            });
-
-
-            contextMenu.getItems().addAll(copyMenuItem, removeMenuItem);
-            // Set context menu on row, but use a binding to make it only show for non-empty rows:
-            row.contextMenuProperty().bind(
-                    Bindings.when(row.emptyProperty())
-                            .then((ContextMenu) null)
-                            .otherwise(contextMenu)
-            );
-            row.setOnMouseClicked(event -> {
-                if (event.getClickCount() == 2 && (!row.isEmpty())) {
-                    User userData = row.getItem();
-                    EditUserView view = new EditUserView(userData, parentStage);
-                    User newRec = view.show();
-                    if (!newRec.isEmpty()) {
-                        row.setItem(newRec);
-                        usersTable.refresh();
+            @Override
+            public TableRow<User> call(TableView<User> tableView) {
+                final TableRow<User> row = new TableRow<>();
+                final ContextMenu contextMenu = new ContextMenu();
+                final MenuItem removeMenuItem = new MenuItem("Remove");
+                removeMenuItem.setGraphic(new ImageView(new Image("minus-button.png")));
+                removeMenuItem.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        usersTable.getItems().remove(row.getItem());
                         try {
-                            DatabaseHandler.getInstance().updateUser(row.getItem());
+                            DatabaseHandler.getInstance().deleteUser(row.getItem().getId());
                         } catch (Exception ex) {
-                            ex.printStackTrace();
                         }
                     }
-                }
-            });
+                });
 
-            return row;
-        }
-    });
+                final MenuItem copyMenuItem = new MenuItem("Copy");
+                copyMenuItem.setGraphic(new ImageView(new Image("clipboard-sign.png")));
+                copyMenuItem.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        ClipboardContent content = new ClipboardContent();
+                        content.putString(row.getItem().toString());
+                        Clipboard.getSystemClipboard().setContent(content);
+                    }
+                });
+
+
+                contextMenu.getItems().addAll(copyMenuItem, removeMenuItem);
+                // Set context menu on row, but use a binding to make it only show for non-empty rows:
+                row.contextMenuProperty().bind(
+                        Bindings.when(row.emptyProperty())
+                                .then((ContextMenu) null)
+                                .otherwise(contextMenu)
+                );
+                row.setOnMouseClicked(event -> {
+                    if (event.getClickCount() == 2 && (!row.isEmpty())) {
+                        User userData = row.getItem();
+                        EditUserView view = new EditUserView(userData, parentStage);
+                        User newRec = view.show();
+                        if (!newRec.isEmpty()) {
+                            row.setItem(newRec);
+                            usersTable.refresh();
+                            try {
+                                DatabaseHandler.getInstance().updateUser(row.getItem());
+                            } catch (Exception ex) {
+                                ex.printStackTrace();
+                            }
+                        }
+                    }
+                });
+
+                return row;
+            }
+        });
         ObservableList<User> data = FXCollections.observableArrayList();
 
         try {
-           data =
+            data =
                     FXCollections.observableArrayList(DatabaseHandler.getInstance().getAllUsers());
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -165,7 +163,6 @@ public class ManageUsersView {
         usersTable.setItems(data);
         usersTable.getColumns().addAll(imageCol, userNameCol, isAdminCol);
         grid.add(usersTable, 0, 0);
-
 
 
         Button btn = new Button("Close");

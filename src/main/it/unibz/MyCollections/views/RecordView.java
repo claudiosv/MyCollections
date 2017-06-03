@@ -5,7 +5,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -32,8 +31,8 @@ public class RecordView {
     TextField telephoneNumberTxt;
     TextField emailAddressTxt;
     Record record;
-    public RecordView(Record record, Stage parentStage)
-    {
+
+    public RecordView(Record record, Stage parentStage) {
         this.record = record;
         dialog = new Stage();
         dialog.setTitle("JavaFX Welcome");
@@ -46,16 +45,17 @@ public class RecordView {
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
 
-        try
-        {
+        try {
             ImageView imageView = record.getImageView();
             imageView.setFitHeight(64);
             imageView.setFitWidth(64);
             grid.add(imageView, 0, 0);
             Button openButton = new Button("Open file...");
+
             openButton.setGraphic(new ImageView(new Image("blue-folder-open-image.png")));
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Open Profile Picture");
+            fileChooser.setInitialDirectory(new File("C:\\Users\\claudio\\Downloads\\staff")); //TODO: fix
             fileChooser.getExtensionFilters().addAll(
                     new FileChooser.ExtensionFilter("JPG", "*.jpg"),
                     new FileChooser.ExtensionFilter("PNG", "*.png"),
@@ -68,13 +68,15 @@ public class RecordView {
                     try {
                         record.setBufImage(ImageIO.read(file));
                         imageView.setImage(record.getImage());
-                    }catch (Exception e){}
+                    } catch (Exception e) {
+                    }
                     //openFile(file);
                 }
             });
             grid.add(openButton, 1, 0);
 
-        }catch (Exception ex){}
+        } catch (Exception ex) {
+        }
 
 
         Label firstNameLbl = new Label("First name:");
@@ -114,13 +116,12 @@ public class RecordView {
     }
 
 
-   // public Record getRecord()
-  //  {
- //       return record;
-  //  }
+    // public Record getRecord()
+    //  {
+    //       return record;
+    //  }
 
-    public Record show()
-    {
+    public Record show() {
         dialog.showAndWait();
         return record;
     }

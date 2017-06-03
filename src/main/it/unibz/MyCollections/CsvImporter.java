@@ -24,15 +24,20 @@ public class CsvImporter implements Importer {
 
                 // use comma as separator
                 String[] recordData = line.split(cvsSplitBy);
-                if(recordData[0].equals("firstname")) continue;
+                if (recordData[0].equals("firstname")) continue;
                 //TODO: make sure to ignore first line!
                 Record newRecord = new Record();
-                newRecord.setFirstName(recordData[0]);
-                newRecord.setLastName(recordData[1]);
-                newRecord.setCompanyName(recordData[2]);
-                newRecord.setAddress(recordData[3]);
-                newRecord.setTelephoneNumber(recordData[4]);
-                newRecord.setEmailAddress(recordData[5]);
+                try {
+                    newRecord.setFirstName(recordData[0]);
+                    newRecord.setLastName(recordData[1]);
+                    newRecord.setCompanyName(recordData[2]);
+                    newRecord.setAddress(recordData[3]);
+                    newRecord.setTelephoneNumber(recordData[4]);
+                    newRecord.setEmailAddress(recordData[5]);
+                } catch (ArrayIndexOutOfBoundsException ex) {
+
+                }
+
 //firstname,lastname,companyname,address,telephonenumber,email
                 records.add(newRecord);
                 DatabaseHandler.getInstance().insertRecord(newRecord);
@@ -42,8 +47,7 @@ public class CsvImporter implements Importer {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
             if (br != null) {
@@ -54,6 +58,6 @@ public class CsvImporter implements Importer {
                 }
             }
         }
-return records;
+        return records;
     }
 }

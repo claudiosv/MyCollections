@@ -45,6 +45,9 @@ public class SearchView {
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
 
+        Label info = new Label("Use asterisk (*) as wildcard");
+        grid.add(info, 0, 0, 2, 1);
+
         Label firstNameLbl = new Label("First name:");
         grid.add(firstNameLbl, 0, 1);
         firstNameTxt = new TextField();

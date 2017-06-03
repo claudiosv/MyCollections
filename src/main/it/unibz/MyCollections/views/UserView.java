@@ -11,7 +11,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import main.it.unibz.MyCollections.Record;
 import main.it.unibz.MyCollections.User;
 
 import javax.imageio.ImageIO;
@@ -28,8 +27,8 @@ public class UserView {
     PasswordField passwordFieldConf;
     CheckBox adminCheckbox;
     User user;
-    public UserView(User user, Stage parentStage)
-    {
+
+    public UserView(User user, Stage parentStage) {
         this.user = user;
         dialog = new Stage();
         dialog.initOwner(parentStage);
@@ -41,8 +40,7 @@ public class UserView {
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
 
-        try
-        {
+        try {
             ImageView imageView = user.getImageView();
             imageView.setFitHeight(64);
             imageView.setFitWidth(64);
@@ -63,13 +61,15 @@ public class UserView {
                     try {
                         user.setBufImage(ImageIO.read(file));
                         imageView.setImage(user.getImage());
-                    }catch (Exception e){}
+                    } catch (Exception e) {
+                    }
                     //openFile(file);
                 }
             });
             grid.add(openButton, 1, 0);
 
-        }catch (Exception ex){}
+        } catch (Exception ex) {
+        }
 
 
         Label firstNameLbl = new Label("Username:");
@@ -107,8 +107,7 @@ public class UserView {
     //       return record;
     //  }
 
-    public User show()
-    {
+    public User show() {
         dialog.showAndWait();
         return user;
     }
