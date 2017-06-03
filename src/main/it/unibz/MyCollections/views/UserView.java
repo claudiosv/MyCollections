@@ -62,6 +62,7 @@ public class UserView {
                         user.setBufImage(ImageIO.read(file));
                         imageView.setImage(user.getImage());
                     } catch (Exception e) {
+                        //TODO: logger
                     }
                     //openFile(file);
                 }
@@ -69,6 +70,7 @@ public class UserView {
             grid.add(openButton, 1, 0);
 
         } catch (Exception ex) {
+            //TODO: logger
         }
 
 

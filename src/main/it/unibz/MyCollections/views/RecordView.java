@@ -69,6 +69,7 @@ public class RecordView {
                         record.setBufImage(ImageIO.read(file));
                         imageView.setImage(record.getImage());
                     } catch (Exception e) {
+                        //TODO: logger
                     }
                     //openFile(file);
                 }
@@ -76,6 +77,7 @@ public class RecordView {
             grid.add(openButton, 1, 0);
 
         } catch (Exception ex) {
+            //TODO: logger
         }
 
 

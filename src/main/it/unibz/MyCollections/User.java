@@ -35,8 +35,8 @@ public class User {
             this.imageView = getImageView();
 
 
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace();//TODO: logger
         }
     }
 

@@ -34,7 +34,7 @@ public class DatabaseHandler {
             }
             generatedPassword = sb.toString();
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+            e.printStackTrace();  //TODO: logger
         }
         return generatedPassword;
     }
@@ -73,18 +73,22 @@ public class DatabaseHandler {
                     + ");";
             stmt.execute(sql);
             stmt.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();  //TODO: logger
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+        catch (ClassNotFoundException e) {
+            e.printStackTrace();  //TODO: logger
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
         }
         System.out.println("Opened database successfully");
     }
 
-    public void addUser(User user) throws Exception {
+    public void addUser(User user) throws SQLException {
 
         //TODO: throw exception rather than return
         try {
-            if (userExists(user.getUsername())) return;
+            if (userExists(user.getUsername())) return; //TODO: custom exception user already exists
             String sql = "INSERT INTO users (username,password,admin,deleted) VALUES (?,?,?,0);";
             PreparedStatement stmt = c.prepareStatement(sql);
             stmt.setString(1, user.getUsername());
@@ -94,8 +98,8 @@ public class DatabaseHandler {
             /*first name, last name, company name, address, telephone number, e-mail address,*/
             stmt.execute();
             stmt.close();
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (SQLException ex) {
+            ex.printStackTrace(); //TODO: logger
         }
     }
 
@@ -129,7 +133,7 @@ public class DatabaseHandler {
 
     //TODO: insert record
     public Record insertRecord(Record record) throws Exception {
-        if (recordExists(record.getRecordId())) throw new Exception("record exists");
+        if (recordExists(record.getRecordId())) throw new Exception("record exists"); //TODO: custom exception
         try {
 
             String sql = "INSERT INTO records (userid, firstname, lastname, companyname, address, telephonenumber, email, picture, deleted) VALUES (?,?,?,?,?,?,?,?,0);";
@@ -165,7 +169,7 @@ public class DatabaseHandler {
             return getRecord(record.getOwnerUserId(), recordId);
             //int id = c. select last_insert_rowid();
         } catch (Exception ex) {
-            ex.printStackTrace();
+            ex.printStackTrace(); //TODO: logger
         }
         return null;
     }
@@ -183,8 +187,7 @@ public class DatabaseHandler {
         throw new Exception("user doesn't exist"); //TODO: custom exception
     }
 
-    public void deleteRecord(int recordId) {
-        try {
+    public void deleteRecord(int recordId) throws SQLException {
             if (recordExists(recordId)) {
                 String sql = "UPDATE records SET deleted = 1 WHERE id = ?;";
                 PreparedStatement stmt = c.prepareStatement(sql);
@@ -192,15 +195,14 @@ public class DatabaseHandler {
                 stmt.execute();
                 stmt.close();
                 Session.setRecordsDeleted(Session.getRecordsDeleted() + 1);
-                return;
             }
-        } catch (Exception ex) {
-        }
-        //throw new Exception("record doesn't exist"); //TODO: custom exception
+            else {
+                throw new Exception("record doesn't exist"); //TODO: custom exception
+            }
     }
 
     //TODO: update record
-    public void updateRecord(Record record) throws SQLException, IOException, Exception {
+    public void updateRecord(Record record) throws SQLException, IOException {
         if (recordExists(record.getRecordId())) {
             String sql = "UPDATE records SET " +
                     "userid = ?," +
@@ -233,9 +235,10 @@ public class DatabaseHandler {
 
             stmt.execute();
             stmt.close();
-            return;
         }
-        throw new Exception("record doesn't exist"); //TODO: custom exception
+        else {
+            throw new Exception("record doesn't exist"); //TODO: custom exception
+        }
     }
 
     public boolean recordExists(int id) throws SQLException {
@@ -293,7 +296,7 @@ public class DatabaseHandler {
         }
         set.close();
         stmt.close();
-        if (userId == 0) throw new Exception("User not found");
+        if (userId == 0) throw new Exception("User not found"); //TODO: custom exception user not found
         return getUser(userId); //we could also make a JOIN query instead of a separate one
     }
 
@@ -319,7 +322,7 @@ public class DatabaseHandler {
     }
 
     public User getUser(int id) throws Exception {
-        if (id < 1) throw new Exception("Invalid user: " + Integer.toString(id));
+        if (id < 1) throw new Exception("Invalid user: " + Integer.toString(id));//TODO: custom exception user not found
         String sql = "SELECT username,password,picture,admin FROM users WHERE id = ? AND deleted=0;";
         PreparedStatement stmt = c.prepareStatement(sql);
         stmt.setInt(1, id);
@@ -358,9 +361,9 @@ public class DatabaseHandler {
                 bos.write(buffer, 0, len);
             }
         } catch (FileNotFoundException e) {
-            System.err.println(e.getMessage());
+            System.err.println(e.getMessage()); //TODO: logger
         } catch (IOException e2) {
-            System.err.println(e2.getMessage());
+            System.err.println(e2.getMessage()); //TODO: logger
         }
         return bos != null ? bos.toByteArray() : null;
     }
@@ -450,7 +453,7 @@ public class DatabaseHandler {
 
         result.close();
         s.close();
-        throw new Exception("record not found"); //TODO: record not found
+        throw new Exception("record not found"); //TODO: record not found custom exception
     }
 
     public ArrayList<Record> resultSetConverter(ResultSet result) throws SQLException, IOException {

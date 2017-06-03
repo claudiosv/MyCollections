@@ -35,7 +35,7 @@ public class CsvImporter implements Importer {
                     newRecord.setTelephoneNumber(recordData[4]);
                     newRecord.setEmailAddress(recordData[5]);
                 } catch (ArrayIndexOutOfBoundsException ex) {
-
+                    //TODO: logger
                 }
 
 //firstname,lastname,companyname,address,telephonenumber,email
@@ -44,17 +44,17 @@ public class CsvImporter implements Importer {
             }
 
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            e.printStackTrace(); //TODO: logger
         } catch (IOException e) {
-            e.printStackTrace();
+            e.printStackTrace(); //TODO: logger
         } catch (Exception e) {
-            e.printStackTrace();
+            e.printStackTrace(); //TODO: logger
         } finally {
             if (br != null) {
                 try {
                     br.close();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    e.printStackTrace(); //TODO: logger
                 }
             }
         }

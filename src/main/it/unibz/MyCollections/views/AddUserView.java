@@ -23,7 +23,7 @@ public class AddUserView extends UserView {
             try {
                 DatabaseHandler.getInstance().addUser(user);
             } catch (Exception ex) {
-                ex.printStackTrace();
+                ex.printStackTrace(); //TODO: logger
             }
             dialog.hide();
         });

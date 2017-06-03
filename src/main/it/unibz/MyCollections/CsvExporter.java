@@ -43,7 +43,7 @@ public class CsvExporter implements Exporter {
 
         } catch (IOException e) {
 
-            e.printStackTrace();
+            e.printStackTrace(); //TODO: logger
 
         } finally {
 
@@ -57,7 +57,7 @@ public class CsvExporter implements Exporter {
 
             } catch (IOException ex) {
 
-                ex.printStackTrace();
+                ex.printStackTrace(); //TODO: logger
 
             }
 

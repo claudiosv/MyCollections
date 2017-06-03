@@ -35,8 +35,8 @@ public class Record {
             this.image = new Image("default_user.png", 48, 48, true, true);
             this.setBufImage(SwingFXUtils.fromFXImage(image, null));//ImageIO.read(st));
             this.imageView = getImageView();
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace(); //TODO: logger
         }
     }
 
@@ -67,12 +67,12 @@ public class Record {
     public void save() {
     }
 
-    ;
+
 
     public void delete() {
     }
 
-    ;
+    
 
     public int getRecordId() {
         return recordId;

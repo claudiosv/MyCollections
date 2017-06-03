@@ -30,12 +30,6 @@ import main.it.unibz.MyCollections.User;
  */
 public class ManageUsersView {
     public ManageUsersView(Stage parentStage) {
-        try {
-            //     UserView userView = new EditUserView(DatabaseHandler.getInstance().getUser(1), parentStage);
-            //userView.show();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
         Stage dialog = new Stage();
         dialog.setTitle("Manage Users");
         //all properties of user
@@ -72,7 +66,7 @@ public class ManageUsersView {
                     try {
                         DatabaseHandler.getInstance().updateUser(user);
                     } catch (Exception ex) {
-                        ex.printStackTrace();
+                        ex.printStackTrace(); //TODO: logger
                     }
                 });
 
@@ -89,7 +83,7 @@ public class ManageUsersView {
                     try {
                         DatabaseHandler.getInstance().updateUser(user);
                     } catch (Exception ex) {
-                        ex.printStackTrace();
+                        ex.printStackTrace(); //TODO: logger
                     }
                 });
 
@@ -106,7 +100,7 @@ public class ManageUsersView {
                         usersTable.getItems().remove(row.getItem());
                         try {
                             DatabaseHandler.getInstance().deleteUser(row.getItem().getId());
-                        } catch (Exception ex) {
+                        } catch (Exception ex) { //TODO: logger
                         }
                     }
                 });
@@ -141,7 +135,7 @@ public class ManageUsersView {
                             try {
                                 DatabaseHandler.getInstance().updateUser(row.getItem());
                             } catch (Exception ex) {
-                                ex.printStackTrace();
+                                ex.printStackTrace(); //TODO: logger
                             }
                         }
                     }
@@ -156,7 +150,7 @@ public class ManageUsersView {
             data =
                     FXCollections.observableArrayList(DatabaseHandler.getInstance().getAllUsers());
         } catch (Exception ex) {
-            ex.printStackTrace();
+            ex.printStackTrace(); //TODO: logger
         }
 
         userNameCol.setStyle("-fx-alignment: CENTER-LEFT;");

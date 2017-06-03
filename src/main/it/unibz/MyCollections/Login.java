@@ -34,10 +34,6 @@ public class Login extends Application {
     public MenuItem exportData;
     public Stage primaryStage;
 
-    public static void main(String[] args) {
-        launch(args);
-    }
-
     @Override
     public void start(Stage parentStage) {
         primaryStage = parentStage;
@@ -54,7 +50,7 @@ public class Login extends Application {
             //TODO: save
             try {
                 DatabaseHandler.getInstance().c.commit();
-            } catch (Exception ex) {
+            } catch (Exception ex) { //TODO: logger
             }
 
             Platform.exit();
@@ -153,9 +149,9 @@ public class Login extends Application {
 
             try {
                 user = DatabaseHandler.getInstance().getUser(userTextField.getText(), pwBox.getText());
-            } catch (Exception ex) {
+            } catch (Exception ex) {  //TODO: use custom exception
                 //ex.printStackTrace();
-                actiontarget.setFill(Color.FIREBRICK);
+                actiontarget.setFill(Color.FIREBRICK); //TODO: logger
                 actiontarget.setText("Wrong username or password");
                 return;
             }

@@ -45,7 +45,7 @@ public class DataSummaryView {
         try {
             Label number1 = new Label(Integer.toString(DatabaseHandler.getInstance().getRecordCount())); //TODO: make use actual session
             grid.add(number1, 1, 1);
-        } catch (Exception ex) {
+        } catch (Exception ex) { //TODO: logger
         }
         Label number2 = new Label("Total number of added records:");
         grid.add(number2, 0, 2);
