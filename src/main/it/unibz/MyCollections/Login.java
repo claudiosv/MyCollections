@@ -14,10 +14,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -52,8 +49,10 @@ public class Login extends Application {
     @Override
     public void start(Stage parentStage) {
         logger.entering(getClass().getName(), "start");
+
         primaryStage = parentStage;
         scene = new Scene(new VBox(), 400, 350);
+
         primaryStage.setTitle("MyCollections Login");
 
         MenuBar menuBar = new MenuBar();
@@ -63,13 +62,17 @@ public class Login extends Application {
         MenuItem exit = new MenuItem("Exit");
         exit.setGraphic(new ImageView(new Image("cross-button.png")));
         exit.setOnAction((ActionEvent t) -> {
-            DatabaseHandler.getInstance().save();
+            logger.log(Level.INFO,"Saving & Exiting");
+            DatabaseSession.getInstance().save();
             Platform.exit();
             System.exit(0);
         });
 
         MenuItem about = new MenuItem("About");
-        about.setOnAction((event -> new AboutView(primaryStage)));
+        about.setOnAction(event -> {
+            logger.log(Level.INFO,"Opening about view");
+            new AboutView(primaryStage);
+        });
         about.setGraphic(new ImageView(new Image("information-button.png")));
 
         importData = new MenuItem("Import");
@@ -93,6 +96,7 @@ public class Login extends Application {
         menuBar.getMenus().addAll(menuFile);
 
         ((VBox) scene.getRoot()).getChildren().addAll(menuBar);
+        logger.log(Level.FINEST,"Built menu & added to vbox");
 
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
@@ -125,6 +129,7 @@ public class Login extends Application {
         //TODO: btn.setDisable(true);
         pwBox.setOnKeyPressed((event) -> {
             if (event.getCode() == KeyCode.ENTER) {
+                logger.log(Level.FINE,"Enter key pressed");
                 btn.fire();
             }
         });
@@ -140,10 +145,12 @@ public class Login extends Application {
         ((VBox) scene.getRoot()).getChildren().addAll(grid);
         pwBox.textProperty().addListener((obs, oldText, newText) -> {
             if (Validator.isValidPassword(pwBox.getText())) {
+                logger.log(Level.FINEST,"Password valid");
                 btn.setDisable(false);
                 actiontarget.setFill(Color.FIREBRICK);
                 actiontarget.setText("");
             } else {
+                logger.log(Level.FINEST,"Password invalid");
                 btn.setDisable(true);
                 actiontarget.setFill(Color.FIREBRICK);
                 actiontarget.setText("Password cannot be less than 5 characters");
@@ -152,13 +159,14 @@ public class Login extends Application {
 
 
         btn.setOnAction((event) -> {
+            logger.log(Level.INFO,"Logging in");
             User user = null;
             try {
                 HasherFactory hasherFactory = new HasherFactory();
-                user = DatabaseHandler.getInstance().getUser(userTextField.getText(), hasherFactory.getHasher("sha512").hash(pwBox.getText()));
+                user = DatabaseSession.getInstance().getUser(userTextField.getText(), hasherFactory.getHasher("sha512").hash(pwBox.getText()));
             } catch (UserNotFoundException ex) {
                 logger.log(Level.WARNING, "Login failed", ex);
-                actiontarget.setFill(Color.FIREBRICK); //TODO: logger
+                actiontarget.setFill(Color.FIREBRICK);
                 actiontarget.setText("Wrong username or password");
                 return;
             } catch (SQLException ex) {
@@ -169,17 +177,17 @@ public class Login extends Application {
 
             if (user != null) {
                 Session.setActiveUser(user);
+                logger.log(Level.INFO,"Session created");
                 RecordsView view = new RecordsView();
                 Pane box = view.box(this);
-                ((VBox) scene.getRoot()).getChildren().removeAll(grid);
-                ((VBox) scene.getRoot()).setMinHeight(500);
-                ((VBox) scene.getRoot()).setMinWidth(600);
+                ((VBox) scene.getRoot()).getChildren().remove(grid);
+                primaryStage.setHeight(600);
+                primaryStage.setWidth(800);
+                VBox.setVgrow(box, Priority.ALWAYS);
                 ((VBox) scene.getRoot()).getChildren().add(box);
             }
         });
 
-
-        //Scene scene = new Scene(grid, 300, 275);
         primaryStage.setScene(scene);
         primaryStage.show();
         logger.exiting(getClass().getName(), "start");

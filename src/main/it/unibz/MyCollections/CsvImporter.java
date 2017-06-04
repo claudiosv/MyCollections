@@ -40,7 +40,7 @@ public class CsvImporter implements Importer {
 
 //firstname,lastname,companyname,address,telephonenumber,email
                 records.add(newRecord);
-                DatabaseHandler.getInstance().insertRecord(newRecord);
+                DatabaseSession.getInstance().insertRecord(newRecord);
             }
 
         } catch (FileNotFoundException e) {

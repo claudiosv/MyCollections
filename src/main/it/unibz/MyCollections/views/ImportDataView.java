@@ -21,16 +21,21 @@ import main.it.unibz.MyCollections.Record;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by claudio on 31/05/2017.
  */
 public class ImportDataView {
-    ComboBox fileTypeCombo = new ComboBox();
-    ArrayList<Record> importedRecords = new ArrayList<>();
-    Stage dialog;
+    private ComboBox fileTypeCombo = new ComboBox();
+    private List<Record> importedRecords = new ArrayList<>();
+    private Stage dialog;
+    private static final Logger logger = Logger.getLogger(ImportDataView.class.getName());
 
     public ImportDataView(Stage parentStage) {
+        logger.entering(getClass().getName(), "ImportDataView");
         dialog = new Stage();
         dialog.setTitle("Import Data");
         dialog.initOwner(parentStage);
@@ -50,6 +55,7 @@ public class ImportDataView {
         grid.add(filePath, 0, 1, 1, 1);
         Button browseBtn = new Button("...");
         browseBtn.setOnAction(event -> {
+            logger.log(Level.INFO, "Browse button clicked");
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Open File");
             fileChooser.getExtensionFilters().addAll(
@@ -65,6 +71,8 @@ public class ImportDataView {
                     fileTypeCombo.getSelectionModel().select(1);
                 }
                 filePath.setText(file.getPath());
+            }else {
+                logger.log(Level.INFO, "File null: {0}", file);
             }
         });
         grid.add(browseBtn, 1, 1, 1, 1);
@@ -78,19 +86,22 @@ public class ImportDataView {
 
         Button btn = new Button("Close");
         btn.setGraphic(new ImageView(new Image("cross-button.png")));
-        btn.setOnAction((event) -> {
+        btn.setOnAction(event -> {
+            logger.log(Level.INFO, "Close button clicked");
             dialog.hide();
         });
 
         Button btnExport = new Button("Import");
         btnExport.setGraphic(new ImageView(new Image("card-import.png")));
         btnExport.setOnAction((event) -> {
+            logger.log(Level.INFO, "Import button clicked: {0}", fileTypeCombo.getValue());
             switch (fileTypeCombo.getValue().toString()) {
                 case "Comma-Separated Values":
                     Importer csvImport = new CsvImporter();
                     importedRecords = csvImport.importRecords(new File(filePath.getText()).toPath());
                     //TODO: maybe add a count of how many records added, etc?
                     dialog.hide();
+                    logger.log(Level.INFO, "Records imported");
                 default:
                     break;
             }
@@ -107,9 +118,10 @@ public class ImportDataView {
         ((VBox) scene.getRoot()).getChildren().add(grid);
 
         dialog.setScene(scene);
+        logger.exiting(getClass().getName(), "ImportDataView");
     }
 
-    public ArrayList<Record> show() {
+    public List<Record> show() {
         dialog.showAndWait();
         return importedRecords;
     }

@@ -7,10 +7,8 @@ import javafx.scene.image.ImageView;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 
 /**
  * Created by claudio on 22/03/2017.
@@ -137,12 +135,20 @@ public class Record {
         imageView.setFitWidth(48);
     }
 
-    public byte[] getImageArray() throws IOException {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        BufferedImage bufImage = SwingFXUtils.fromFXImage(image, null);
-        if (bufImage == null) return null;
-        ImageIO.write(bufImage, "jpg", baos);
-        return baos.toByteArray();
+    public byte[] getImageArray() {
+        try {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            BufferedImage bufImage = SwingFXUtils.fromFXImage(image, null);
+            if (bufImage == null) return null;
+            ImageIO.write(bufImage, "jpg", baos);
+            return baos.toByteArray();
+        } catch (IOException ex)
+        {
+
+        }
+        finally {
+            return new byte[0];
+        }
     }
 
     public ImageView getImageView() {
@@ -161,6 +167,6 @@ public class Record {
 
     @Override
     public String toString() {
-        return this.getFirstName();
-    } //TODO: write more!
+        return String.format("%s %s %s %s %s %s", this.getFirstName(), this.getLastName(), this.getCompanyName(), this.getAddress(), this.getTelephoneNumber(), this.getEmailAddress());
+    }
 }

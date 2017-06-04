@@ -21,94 +21,85 @@ import javafx.util.Callback;
 import main.it.unibz.MyCollections.*;
 import main.it.unibz.MyCollections.exceptions.RecordNotFoundException;
 
+import java.io.IOException;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by claudio on 28/05/2017.
  */
 public class RecordsView {
-    ObservableList<Record> data;
+    private static final Logger logger = Logger.getLogger(RecordsView.class.getName());
+    public ObservableList<Record> data;
 
     public Pane box(Login parentStage) {
-        data =
-                FXCollections.observableArrayList();
+        logger.entering(getClass().getName(), "box");
+        data = FXCollections.observableArrayList();
         try {
-            data.addAll(DatabaseHandler.getInstance().getAllRecords());
-        } catch (Exception ex) {
-            ex.printStackTrace();
+            logger.log(Level.INFO, "Loading records into ObservableList");
+            data.addAll(DatabaseSession.getInstance().getRecords(Session.getActiveUser().getId()));
+        } catch (SQLException ex) {
+            logger.log(Level.SEVERE, "SQL error loading records", ex);
+        } catch (IOException ex) {
+            logger.log(Level.SEVERE, "IO error loading records", ex);
         }
 
-        GridPane grid = new GridPane();
-        grid.setHgap(10);
-        grid.setVgap(10);
-        RowConstraints c = new RowConstraints();
-        c.setPercentHeight(10);
-        grid.getRowConstraints().add(c);
-        c = new RowConstraints();
-        c.setPercentHeight(90);
-        grid.getRowConstraints().add(c);
-
-
-        ColumnConstraints c1 = new ColumnConstraints();
-        c1.setPercentWidth(100);
-        grid.getColumnConstraints().add(c1);
-        //c = new RowConstraints();
-        //c.setPercentHeight(90);
-        // grid.getRowConstraints().add(c);
-
-
         HBox hbox = new HBox(10);
-
-        grid.setPadding(new Insets(10, 10, 10, 10));
         final Label label = new Label("Address Book");
         label.setFont(new Font("Arial", 20));
-        //grid.add(label, 0, 0, 1, 1);
 
         final Button button = new Button("Add Record");
         button.setFont(new Font("Arial", 13));
         button.setGraphic(new ImageView(new Image("plus-button.png")));
         button.setPrefSize(110, 25);
-        //grid.add(button, 1, 0, 1, 1);
 
         final Button buttonSearch = new Button("Search");
         buttonSearch.setFont(new Font("Arial", 13));
         buttonSearch.setGraphic(new ImageView(new Image("magnifier.png")));
         buttonSearch.setPrefSize(110, 25);
         buttonSearch.setOnAction(event -> {
+            logger.log(Level.INFO, "Search button clicked");
             SearchView search = new SearchView(parentStage.primaryStage);
             RecordSearchQuery query = search.show();
             try {
-                data.setAll(DatabaseHandler.getInstance().searchRecords(query));
-            } catch (Exception ex) {
-                ex.printStackTrace();
+                data.setAll(DatabaseSession.getInstance().searchRecords(query));
+            } catch (SQLException ex) {
+                //TODO: add dialogs for these errors
+                logger.log(Level.SEVERE, "SQL error loading records", ex);
+            } catch (IOException ex) {
+                logger.log(Level.SEVERE, "IO error loading records", ex);
             }
         });
-        //grid.add(buttonSearch, 2, 0, 1, 1);
         hbox.getChildren().addAll(label, button, buttonSearch);
-        grid.add(hbox, 0, 0);
+
         TableView table = new TableView();
         final VBox vbox = new VBox();
         vbox.setSpacing(5);
-        vbox.setPadding(new Insets(10, 10, 0, 10));
+        vbox.setPadding(new Insets(10, 10, 10, 10));
         VBox.setVgrow(table, Priority.ALWAYS);
-        vbox.getChildren().add(table);
+        vbox.getChildren().addAll(hbox, table);
 
-        grid.add(vbox, 0, 1);
         table.setEditable(true);
-        button.setOnAction((event -> {
+        button.setOnAction(event -> {
+            logger.log(Level.INFO, "Add record button clicked");
             Record rowData = new Record();
             RecordView view = new AddRecordView(rowData, parentStage.primaryStage);
             Record newData = view.show();
             if (newData != null && !newData.isEmpty()) {
-
                 try {
-                    data.add(DatabaseHandler.getInstance().insertRecord(rowData));
+                    data.add(DatabaseSession.getInstance().insertRecord(rowData));
                     table.refresh();
-                } catch (Exception ex) {
-                    ex.printStackTrace();
+                } catch (SQLException ex) {
+                    //TODO: add dialogs for these errors
+                    logger.log(Level.SEVERE, "SQL error loading records", ex);
+                } catch (IOException ex) {
+                    logger.log(Level.SEVERE, "IO error loading records", ex);
+                } catch (RecordNotFoundException ex) {
+                    logger.log(Level.SEVERE, "Inserted record not found", ex);
                 }
             }
-        }));
+        });
         TableColumn<Record, ImageView> imageCol = new TableColumn<Record, ImageView>("Image");
         imageCol.setCellValueFactory(
                 new PropertyValueFactory<Record, ImageView>("imageView"));
@@ -120,14 +111,20 @@ public class RecordsView {
         firstNameCol.setCellFactory(TextFieldTableCell.<Record>forTableColumn());
         firstNameCol.setOnEditCommit(
                 t -> {
+                    logger.log(Level.INFO, "Firstname edited");
                     Record record = ((Record) t.getTableView().getItems().get(
                             t.getTablePosition().getRow())
                     );
                     record.setFirstName(t.getNewValue());
                     try {
-                        DatabaseHandler.getInstance().updateRecord(record);
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
+                        DatabaseSession.getInstance().updateRecord(record);
+                    } catch (SQLException ex) {
+                        //TODO: add dialogs for these errors
+                        logger.log(Level.SEVERE, "SQL error loading records", ex);
+                    } catch (IOException ex) {
+                        logger.log(Level.SEVERE, "IO error loading records", ex);
+                    } catch (RecordNotFoundException ex) {
+                        logger.log(Level.SEVERE, "Inserted record not found", ex);
                     }
                 });
 
@@ -137,14 +134,20 @@ public class RecordsView {
         lastNameCol.setCellFactory(TextFieldTableCell.<Record>forTableColumn());
         lastNameCol.setOnEditCommit(
                 t -> {
+                    logger.log(Level.INFO, "lastName edited");
                     Record record = ((Record) t.getTableView().getItems().get(
                             t.getTablePosition().getRow())
                     );
                     record.setLastName(t.getNewValue());
                     try {
-                        DatabaseHandler.getInstance().updateRecord(record);
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
+                        DatabaseSession.getInstance().updateRecord(record);
+                    } catch (SQLException ex) {
+                        //TODO: add dialogs for these errors
+                        logger.log(Level.SEVERE, "SQL error loading records", ex);
+                    } catch (IOException ex) {
+                        logger.log(Level.SEVERE, "IO error loading records", ex);
+                    } catch (RecordNotFoundException ex) {
+                        logger.log(Level.SEVERE, "Inserted record not found", ex);
                     }
                 });
 
@@ -154,14 +157,19 @@ public class RecordsView {
         companyNameCol.setCellFactory(TextFieldTableCell.<Record>forTableColumn());
         companyNameCol.setOnEditCommit(
                 t -> {
-                    Record record = ((Record) t.getTableView().getItems().get(
-                            t.getTablePosition().getRow())
-                    );
+                    logger.log(Level.INFO, "companyName edited");
+                    Record record = t.getTableView().getItems().get(
+                            t.getTablePosition().getRow());
                     record.setCompanyName(t.getNewValue());
                     try {
-                        DatabaseHandler.getInstance().updateRecord(record);
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
+                        DatabaseSession.getInstance().updateRecord(record);
+                    } catch (SQLException ex) {
+                        //TODO: add dialogs for these errors
+                        logger.log(Level.SEVERE, "SQL error loading records", ex);
+                    } catch (IOException ex) {
+                        logger.log(Level.SEVERE, "IO error loading records", ex);
+                    } catch (RecordNotFoundException ex) {
+                        logger.log(Level.SEVERE, "Inserted record not found", ex);
                     }
                 });
 
@@ -172,14 +180,20 @@ public class RecordsView {
         addressCol.setCellFactory(TextFieldTableCell.<Record>forTableColumn());
         addressCol.setOnEditCommit(
                 t -> {
+                    logger.log(Level.INFO, "address edited");
                     Record record = ((Record) t.getTableView().getItems().get(
                             t.getTablePosition().getRow())
                     );
                     record.setAddress(t.getNewValue());
                     try {
-                        DatabaseHandler.getInstance().updateRecord(record);
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
+                        DatabaseSession.getInstance().updateRecord(record);
+                    } catch (SQLException ex) {
+                        //TODO: add dialogs for these errors
+                        logger.log(Level.SEVERE, "SQL error loading records", ex);
+                    } catch (IOException ex) {
+                        logger.log(Level.SEVERE, "IO error loading records", ex);
+                    } catch (RecordNotFoundException ex) {
+                        logger.log(Level.SEVERE, "Inserted record not found", ex);
                     }
                 });
 
@@ -189,14 +203,20 @@ public class RecordsView {
         telephoneCol.setCellFactory(TextFieldTableCell.<Record>forTableColumn());
         telephoneCol.setOnEditCommit(
                 t -> {
+                    logger.log(Level.INFO, "telephoneNumber edited");
                     Record record = ((Record) t.getTableView().getItems().get(
                             t.getTablePosition().getRow())
                     );
                     record.setTelephoneNumber(t.getNewValue());
                     try {
-                        DatabaseHandler.getInstance().updateRecord(record);
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
+                        DatabaseSession.getInstance().updateRecord(record);
+                    } catch (SQLException ex) {
+                        //TODO: add dialogs for these errors
+                        logger.log(Level.SEVERE, "SQL error loading records", ex);
+                    } catch (IOException ex) {
+                        logger.log(Level.SEVERE, "IO error loading records", ex);
+                    } catch (RecordNotFoundException ex) {
+                        logger.log(Level.SEVERE, "Inserted record not found", ex);
                     }
                 });
 
@@ -206,61 +226,66 @@ public class RecordsView {
         emailCol.setCellFactory(TextFieldTableCell.<Record>forTableColumn());
         emailCol.setOnEditCommit(
                 t -> {
+                    logger.log(Level.INFO, "emailAddress edited");
                     Record record = ((Record) t.getTableView().getItems().get(
                             t.getTablePosition().getRow())
                     );
                     record.setEmailAddress(t.getNewValue());
                     try {
-                        DatabaseHandler.getInstance().updateRecord(record);
-                    } catch (Exception ex) { //TODO: add dialogs
-                        ex.printStackTrace();
+                        DatabaseSession.getInstance().updateRecord(record);
+                    } catch (SQLException ex) {
+                        //TODO: add dialogs for these errors
+                        logger.log(Level.SEVERE, "SQL error loading records", ex);
+                    } catch (IOException ex) {
+                        logger.log(Level.SEVERE, "IO error loading records", ex);
+                    } catch (RecordNotFoundException ex) {
+                        logger.log(Level.SEVERE, "Inserted record not found", ex);
                     }
                 });
 
-        table.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(final KeyEvent keyEvent) {
+        table.setOnKeyPressed(keyEvent -> {
                 final Record selectedItem = (Record) table.getSelectionModel().getSelectedItem();
 
                 if (selectedItem != null) {
                     if (keyEvent.getCode().equals(KeyCode.DELETE)) {
+                        logger.log(Level.INFO, "Delete key pressed");
                         data.removeAll(selectedItem);
                         table.refresh();
                     }
                 }
-            }
         });
-        table.setRowFactory(new Callback<TableView<Record>, TableRow<Record>>() {
-            @Override
-            public TableRow<Record> call(TableView<Record> tableView) {
+
+        table.setRowFactory(tableView -> {
                 final TableRow<Record> row = new TableRow<>();
                 final ContextMenu contextMenu = new ContextMenu();
                 final MenuItem removeMenuItem = new MenuItem("Remove");
                 removeMenuItem.setGraphic(new ImageView(new Image("minus-button.png")));
-                removeMenuItem.setOnAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent event) {
+                removeMenuItem.setOnAction(event -> {
+                        logger.log(Level.INFO, "Removing item (context menu)");
                         table.getItems().remove(row.getItem());
                         try {
-                            DatabaseHandler.getInstance().deleteRecord(row.getItem().getRecordId());
-                        } catch (SQLException ex){}catch (RecordNotFoundException ex){}
-
-                    }
+                            DatabaseSession.getInstance().deleteRecord(row.getItem().getRecordId());
+                        } catch (SQLException ex) {
+                            //TODO: add dialogs for these errors
+                            logger.log(Level.SEVERE, "SQL error loading records", ex);
+                        } catch (RecordNotFoundException ex) {
+                            logger.log(Level.SEVERE, "Inserted record not found", ex);
+                        }
                 });
 
                 final MenuItem copyMenuItem = new MenuItem("Copy");
                 copyMenuItem.setGraphic(new ImageView(new Image("clipboard-sign.png")));
-                copyMenuItem.setOnAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent event) {
-                        ClipboardContent content = new ClipboardContent();
-                        content.putString(row.getItem().toString());
-                        Clipboard.getSystemClipboard().setContent(content);
-                    }
+                copyMenuItem.setOnAction(event ->
+                {
+                    logger.log(Level.INFO, "Copying item (context menu)");
+                    ClipboardContent content = new ClipboardContent();
+                    content.putString(row.getItem().toString());
+                    Clipboard.getSystemClipboard().setContent(content);
                 });
 
 
                 contextMenu.getItems().addAll(copyMenuItem, removeMenuItem);
+
                 // Set context menu on row, but use a binding to make it only show for non-empty rows:
                 row.contextMenuProperty().bind(
                         Bindings.when(row.emptyProperty())
@@ -268,7 +293,9 @@ public class RecordsView {
                                 .otherwise(contextMenu)
                 );
                 row.setOnMouseClicked(event -> {
+
                     if (event.getClickCount() == 2 && (!row.isEmpty())) {
+                        logger.log(Level.INFO, "Editing item (context menu)");
                         Record rowData = row.getItem();
                         RecordView view = new EditRecordView(rowData, parentStage.primaryStage);
                         Record newRec = view.show();
@@ -276,32 +303,40 @@ public class RecordsView {
                             row.setItem(newRec);
                             table.refresh();
                             try {
-                                DatabaseHandler.getInstance().updateRecord(row.getItem());
-                            } catch (Exception ex) {
-                                ex.printStackTrace();
+                                DatabaseSession.getInstance().updateRecord(row.getItem());
+                            } catch (SQLException ex) {
+                                //TODO: add dialogs for these errors
+                                logger.log(Level.SEVERE, "SQL error updating record", ex);
+                            } catch (IOException ex) {
+                                logger.log(Level.SEVERE, "IO error updating record", ex);
+                            } catch (RecordNotFoundException ex) {
+                                logger.log(Level.SEVERE, "Updated record not found", ex);
                             }
                         }
                     }
                 });
-
                 return row;
-            }
         });
 
         table.setItems(data);
         table.getColumns().addAll(imageCol, firstNameCol, lastNameCol, companyNameCol, addressCol, telephoneCol, emailCol);
-        parentStage.importData.setOnAction((event -> {
+        parentStage.importData.setOnAction(event -> {
+            logger.log(Level.INFO, "Opening import data view");
             ImportDataView dataView = new ImportDataView(parentStage.primaryStage);
             data.addAll(dataView.show());
-        }));
+        });
 
-        parentStage.exportData.setOnAction((event -> new ExportDataView(parentStage.primaryStage, data)));
+        parentStage.exportData.setOnAction(event ->
+        {
+            logger.log(Level.INFO, "Opening export data view");
+            new ExportDataView(parentStage.primaryStage, data);
+        });
 
         parentStage.menuFile.getItems().add(1, parentStage.summaryData);
         parentStage.menuFile.getItems().add(2, parentStage.exportData);
         parentStage.menuFile.getItems().add(3, parentStage.importData);
-        if(Session.getActiveUser().isAdmin()) parentStage.menuFile.getItems().add(4, parentStage.manageUsers);
+        if (Session.getActiveUser().isAdmin()) parentStage.menuFile.getItems().add(4, parentStage.manageUsers);
 
-        return grid;
+        return vbox;
     }
 }

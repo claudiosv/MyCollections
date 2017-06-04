@@ -15,12 +15,19 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import main.it.unibz.MyCollections.SQLiteHandler;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by claudio on 30/05/2017.
  */
 public class AboutView {
+    private static final Logger logger = Logger.getLogger(AboutView.class.getName());
+
     public AboutView(Stage parentStage) {
+        logger.entering(getClass().getName(), "AboutView");
         Stage dialog = new Stage();
         dialog.setTitle("About MyCollections");
         dialog.initOwner(parentStage);
@@ -47,6 +54,7 @@ public class AboutView {
         Button btn = new Button("Close");
         btn.setGraphic(new ImageView(new Image("cross-button.png")));
         btn.setOnAction((event) -> {
+            logger.log(Level.INFO, "Closing about view");
             dialog.hide();
         });
         HBox hbBtn = new HBox(10);
@@ -55,11 +63,11 @@ public class AboutView {
 
         grid.add(hbBtn, 1, 2, 1, 1);
 
-
         ((VBox) scene.getRoot()).getChildren().add(grid);
 
         dialog.setScene(scene);
         dialog.showAndWait();
+        logger.exiting(getClass().getName(), "AboutView");
     }
 
 }

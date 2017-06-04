@@ -22,7 +22,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import main.it.unibz.MyCollections.DatabaseHandler;
+import main.it.unibz.MyCollections.DatabaseSession;
 import main.it.unibz.MyCollections.User;
 
 /**
@@ -32,10 +32,6 @@ public class ManageUsersView {
     public ManageUsersView(Stage parentStage) {
         Stage dialog = new Stage();
         dialog.setTitle("Manage Users");
-        //all properties of user
-        //add user button
-        //context menu with add/delete/copy/edit
-        //edit user
         dialog.initOwner(parentStage);
         dialog.initModality(Modality.APPLICATION_MODAL);
         Scene scene = new Scene(new VBox(), 250, 200);
@@ -64,7 +60,7 @@ public class ManageUsersView {
                     );
                     user.setUsername(t.getNewValue());
                     try {
-                        DatabaseHandler.getInstance().updateUser(user);
+                        DatabaseSession.getInstance().updateUser(user);
                     } catch (Exception ex) {
                         ex.printStackTrace(); //TODO: logger
                     }
@@ -81,7 +77,7 @@ public class ManageUsersView {
                     );
                     user.setAdmin(Boolean.valueOf(t.getNewValue()));
                     try {
-                        DatabaseHandler.getInstance().updateUser(user);
+                        DatabaseSession.getInstance().updateUser(user);
                     } catch (Exception ex) {
                         ex.printStackTrace(); //TODO: logger
                     }
@@ -99,7 +95,7 @@ public class ManageUsersView {
                     public void handle(ActionEvent event) {
                         usersTable.getItems().remove(row.getItem());
                         try {
-                            DatabaseHandler.getInstance().deleteUser(row.getItem().getId());
+                            DatabaseSession.getInstance().deleteUser(row.getItem().getId());
                         } catch (Exception ex) { //TODO: logger
                         }
                     }
@@ -133,7 +129,7 @@ public class ManageUsersView {
                             row.setItem(newRec);
                             usersTable.refresh();
                             try {
-                                DatabaseHandler.getInstance().updateUser(row.getItem());
+                                DatabaseSession.getInstance().updateUser(row.getItem());
                             } catch (Exception ex) {
                                 ex.printStackTrace(); //TODO: logger
                             }
@@ -148,7 +144,7 @@ public class ManageUsersView {
 
         try {
             data =
-                    FXCollections.observableArrayList(DatabaseHandler.getInstance().getAllUsers());
+                    FXCollections.observableArrayList(DatabaseSession.getInstance().getAllUsers());
         } catch (Exception ex) {
             ex.printStackTrace(); //TODO: logger
         }

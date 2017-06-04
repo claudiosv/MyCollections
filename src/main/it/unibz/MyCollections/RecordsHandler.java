@@ -1,13 +1,11 @@
 package main.it.unibz.MyCollections;
 
-import main.it.unibz.MyCollections.exceptions.RecordAlreadyExistsException;
 import main.it.unibz.MyCollections.exceptions.RecordNotFoundException;
 import main.it.unibz.MyCollections.exceptions.UserAlreadyExistsException;
 import main.it.unibz.MyCollections.exceptions.UserNotFoundException;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,7 +18,7 @@ public interface RecordsHandler {
 
     public void updateUser(User user)  throws UserNotFoundException, SQLException, IOException;
 
-    public Record insertRecord(Record record) throws RecordAlreadyExistsException, SQLException;
+    public Record insertRecord(Record record) throws SQLException, RecordNotFoundException, IOException ;
 
     public void deleteUser(int userId) throws UserNotFoundException, SQLException;
 
@@ -48,9 +46,9 @@ public interface RecordsHandler {
 
     public List<Record> getRecords(int userId) throws SQLException, IOException;
 
-    public int getRecordCount(int userId) throws SQLException, IOException;
+    public int getRecordCount(int userId) throws SQLException;
 
-    public int getRecordCount() throws SQLException, IOException;
+    public int getRecordCount() throws SQLException;
 
     public Record getRecord(int userId, int recordId) throws SQLException, IOException, RecordNotFoundException;
 

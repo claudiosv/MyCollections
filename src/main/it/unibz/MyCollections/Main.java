@@ -7,8 +7,10 @@ public class Main {
     private static final Logger logger = Logger.getLogger("main.it.unibz.MyCollections");
 
     public static void main(String[] args) {
-        logger.setLevel(Level.FINE);
-        //logger.addHandler(new ConsoleHandler());
+        logger.setLevel(Level.ALL);
+        Handler consoleHandler = new ConsoleHandler();
+        consoleHandler.setLevel(Level.FINER);
+        logger.addHandler(consoleHandler);
 
         try {
             FileHandler handler = new FileHandler("MyCollections-log.%u.%g.txt", 1024 * 1024 * 8, 10, true);
@@ -20,7 +22,7 @@ public class Main {
         }
 
         logger.log(Level.INFO, "Logging started, opening database");
-        DatabaseHandler.getInstance().initialise("test.db");
+        DatabaseSession.getInstance().initialise("test.db");
         Login login = new Login();
         login.main(args);
 
@@ -40,6 +42,5 @@ public class Main {
         //TODO: Check users for permissions when working with stuff
         //TODO: Make sessions have an impact on records, etc. i.e. make sessions work
         //TODO: fix user image too
-
     }
 }

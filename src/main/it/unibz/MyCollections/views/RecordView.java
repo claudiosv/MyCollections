@@ -18,7 +18,6 @@ import main.it.unibz.MyCollections.Record;
 
 import javax.imageio.ImageIO;
 import java.io.File;
-import java.io.FileInputStream;
 
 /**
  * Created by claudio on 29/05/2017.

@@ -8,14 +8,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import main.it.unibz.MyCollections.Record;
 import main.it.unibz.MyCollections.RecordSearchQuery;
-
-import javax.imageio.ImageIO;
-import java.io.File;
 
 /**
  * Created by claudio on 30/05/2017.

@@ -18,16 +18,22 @@ import javafx.stage.Stage;
 import main.it.unibz.MyCollections.CsvExporter;
 import main.it.unibz.MyCollections.Exporter;
 import main.it.unibz.MyCollections.Record;
+import main.it.unibz.MyCollections.SQLiteHandler;
 
 import java.io.File;
+import java.nio.file.Path;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by claudio on 31/05/2017.
  */
 public class ExportDataView {
-    ComboBox fileTypeCombo;
+    private  ComboBox fileTypeCombo;
+    private static final Logger logger = Logger.getLogger(ExportDataView.class.getName());
     public ExportDataView(Stage parentStage, List<Record> records) {
+        logger.entering(getClass().getName(), "ExportDataView");
         Stage dialog = new Stage();
         dialog.setTitle("Export Data");
         dialog.initOwner(parentStage);
@@ -47,6 +53,7 @@ public class ExportDataView {
         grid.add(filePath, 0, 1, 1, 1);
         Button browseBtn = new Button("...");
         browseBtn.setOnAction(event -> {
+            logger.log(Level.INFO, "Browse button clicked");
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Save File");
             fileChooser.getExtensionFilters().addAll(
@@ -56,12 +63,16 @@ public class ExportDataView {
             );
             File file = fileChooser.showSaveDialog(parentStage);
             if (file.getPath() != null) {
+                logger.log(Level.INFO, "File selected: {0}", file.getPath());
                 if (file.getName().endsWith("csv")) {
                     fileTypeCombo.getSelectionModel().select(0);
                 } else if (file.getName().endsWith("xml")) {
                     fileTypeCombo.getSelectionModel().select(1);
                 }
                 filePath.setText(file.getPath());
+            }
+            else {
+                logger.log(Level.INFO, "File null: {0}", file);
             }
         });
         grid.add(browseBtn, 1, 1, 1, 1);
@@ -75,23 +86,26 @@ public class ExportDataView {
 
         Button btn = new Button("Close");
         btn.setGraphic(new ImageView(new Image("cross-button.png")));
-        btn.setOnAction((event) -> {
+        btn.setOnAction(event -> {
+            logger.log(Level.INFO, "Close button clicked");
             dialog.hide();
         });
 
         Button btnExport = new Button("Export");
         btnExport.setGraphic(new ImageView(new Image("card-export.png")));
         btnExport.setOnAction((event) -> {
+            logger.log(Level.INFO, "Export button clicked: {0}", fileTypeCombo.getValue());
             switch (fileTypeCombo.getValue().toString()) {
                 case "Comma-Separated Values":
                     Exporter csvExport = new CsvExporter();
-                    csvExport.exportRecords(records, new File(filePath.getText()).toPath());
+                    Path file = new File(filePath.getText()).toPath();
+                    csvExport.exportRecords(records, file);
                     //TODO: maybe add a count of how many records added, etc?
-                    dialog.hide();
+                    logger.log(Level.INFO, "Records exported: {0}", file);
+                    break;
                 default:
                     break;
             }
-            dialog.hide();
             dialog.hide();
         });
         HBox hbBtn = new HBox(10);
@@ -106,5 +120,6 @@ public class ExportDataView {
 
         dialog.setScene(scene);
         dialog.showAndWait();
+        logger.exiting(getClass().getName(), "ExportDataView");
     }
 }
