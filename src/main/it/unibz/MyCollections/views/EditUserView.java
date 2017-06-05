@@ -12,11 +12,20 @@ import main.it.unibz.MyCollections.Validator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * Created by claudio on 31/05/2017.
+/** View to edit user to userbase.
+ * @author Claudio Spiess
+ * @version 1.0
+ * @since 1.0
+ * @see main.it.unibz.MyCollections.views.UserView
  */
 public class EditUserView extends UserView {
     private static final Logger logger = Logger.getLogger(EditUserView.class.getName());
+    /** Instantiates this edit user view.
+     *
+     * @author Claudio Spiess
+     * @param user Previously instantiated user to be edited.
+     * @param parentStage  Stage from which constructor is called.
+     */
     public EditUserView(User user, Stage parentStage) {
         super(user, parentStage);
         logger.entering(getClass().getName(), "EditUserView");

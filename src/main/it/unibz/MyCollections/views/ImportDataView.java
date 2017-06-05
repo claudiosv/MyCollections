@@ -25,15 +25,21 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * Created by claudio on 31/05/2017.
+/** View to import data.
+ * @author Claudio Spiess
+ * @version 1.0
+ * @since 1.0
  */
 public class ImportDataView {
     private ComboBox fileTypeCombo = new ComboBox();
     private List<Record> importedRecords = new ArrayList<>();
     private Stage dialog;
     private static final Logger logger = Logger.getLogger(ImportDataView.class.getName());
-
+    /** Instantiates this import data view.
+     *
+     * @author Claudio Spiess
+     * @param parentStage  Stage from which constructor is called.
+     */
     public ImportDataView(Stage parentStage) {
         logger.entering(getClass().getName(), "ImportDataView");
         dialog = new Stage();

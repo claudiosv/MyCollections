@@ -20,10 +20,12 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * Created by Claudio on 02/06/2017.
+/** Abstract view to manage a user.
+ * @author Claudio Spiess
+ * @version 1.0
+ * @since 1.0
  */
-public class UserView {
+public abstract class UserView {
     protected GridPane grid;
     protected Stage dialog;
     protected TextField usernameTxt;
@@ -33,7 +35,12 @@ public class UserView {
     protected User user;
 
     private static final Logger logger = Logger.getLogger(UserView.class.getName());
-
+    /** Instantiates view to manage user.
+     *
+     * @author Claudio Spiess
+     * @param user previously instantiated record to be added.
+     * @param parentStage  Stage from which constructor is called.
+     */
     public UserView(User user, Stage parentStage) {
         logger.entering(getClass().getName(), "UserView");
         this.user = user;
@@ -105,11 +112,11 @@ public class UserView {
         logger.exiting(getClass().getName(), "UserView");
     }
 
-
-    // public Record getRecord()
-    //  {
-    //       return record;
-    //  }
+    /** Shows dialog to manage user.
+     *
+     * @author Claudio Spiess
+     * @returns User that was created or edited.
+     */
 
     public User show() {
         logger.entering(getClass().getName(), "show");

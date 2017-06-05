@@ -12,8 +12,10 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * Created by claudio on 22/03/2017.
+/** Represents a record.
+ * @author Claudio Spiess
+ * @version 1.0
+ * @since 1.0
  */
 public class Record {
     private int recordId;

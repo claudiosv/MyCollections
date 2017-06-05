@@ -3,8 +3,10 @@ package main.it.unibz.MyCollections;
 import java.nio.file.Path;
 import java.util.List;
 
-/**
- * Created by claudio on 30/03/2017.
+/** Interface to export records.
+ * @author Claudio Spiess
+ * @version 1.0
+ * @since 1.0
  */
 public interface Exporter {
     //create interface, create implementations for format, create factories

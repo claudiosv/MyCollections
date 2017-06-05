@@ -6,8 +6,10 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * Created by claudio on 17/05/2017.
+/** Record search query builder.
+ * @author Claudio Spiess
+ * @version 1.0
+ * @since 1.0
  */
 public class RecordSearchQuery {
     private String firstName;

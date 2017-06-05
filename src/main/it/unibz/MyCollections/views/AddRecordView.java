@@ -10,12 +10,20 @@ import main.it.unibz.MyCollections.SQLiteHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * Created by claudio on 29/05/2017.
+/** View to add records to collection.
+ * @author Claudio Spiess
+ * @version 1.0
+ * @since 1.0
+ * @see main.it.unibz.MyCollections.views.RecordView
  */
 public class AddRecordView extends RecordView {
     private static final Logger logger = Logger.getLogger(AddRecordView.class.getName());
-
+    /** Instantiates the add record view.
+     *
+     * @author Claudio Spiess
+     * @param passRecord previously instantiated record to be added.
+     * @param parentStage  Stage from which constructor is called.
+     */
     public AddRecordView(Record passRecord, Stage parentStage) {
         super(passRecord, parentStage);
         logger.entering(getClass().getName(), "AddRecordView");

@@ -15,8 +15,10 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * Created by claudio on 03/06/2017.
+/** RecordsHandler implementation for SQLite JDBC.
+ * @author Claudio Spiess
+ * @version 1.0
+ * @since 1.0
  */
 public class SQLiteHandler implements RecordsHandler {
     private static final Logger logger = Logger.getLogger(SQLiteHandler.class.getName());

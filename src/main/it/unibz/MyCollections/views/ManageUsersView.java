@@ -32,12 +32,18 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * Created by claudio on 31/05/2017.
+/** View to manage users view.
+ * @author Claudio Spiess
+ * @version 1.0
+ * @since 1.0
  */
 public class ManageUsersView {
     private static final Logger logger = Logger.getLogger(ManageUsersView.class.getName());
-
+    /** Instantiates this manage users view.
+     *
+     * @author Claudio Spiess
+     * @param parentStage  Stage from which constructor is called.
+     */
     public ManageUsersView(Stage parentStage) {
         logger.entering(getClass().getName(), "ManageUsersView");
         Stage dialog = new Stage();

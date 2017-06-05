@@ -1,8 +1,6 @@
 package main.it.unibz.MyCollections;
 
-/**
- * Created by claudio on 11/05/2017.
- */
+
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -31,6 +29,11 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/** Main application class/login view.
+ * @author Claudio Spiess
+ * @version 1.0
+ * @since 1.0
+ */
 public class Login extends Application {
     private static final Logger logger = Logger.getLogger(Login.class.getName());
     public Scene scene;

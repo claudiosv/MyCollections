@@ -13,12 +13,20 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * Created by Claudio on 02/06/2017.
+/** View to add users to userbase.
+ * @author Claudio Spiess
+ * @version 1.0
+ * @since 1.0
+ * @see main.it.unibz.MyCollections.views.UserView
  */
 public class AddUserView extends UserView {
     private static final Logger logger = Logger.getLogger(AddUserView.class.getName());
-
+    /** Instantiates the add user view.
+     *
+     * @author Claudio Spiess
+     * @param user1 Previously instantiated user to be added.
+     * @param parentStage  Stage from which constructor is called.
+     */
     public AddUserView(User user1, Stage parentStage) {
         super(user1, parentStage);
         logger.entering(getClass().getName(), "AddUserView");

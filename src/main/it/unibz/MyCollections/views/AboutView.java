@@ -20,12 +20,18 @@ import main.it.unibz.MyCollections.SQLiteHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * Created by claudio on 30/05/2017.
+/** View to show About information.
+ * @author Claudio Spiess
+ * @version 1.0
+ * @since 1.0
  */
 public class AboutView {
     private static final Logger logger = Logger.getLogger(AboutView.class.getName());
 
+    /** Instantiates AboutView which shows About information of project & author.
+     * @author Claudio Spiess
+     * @param parentStage Stage from which constructor is called.
+     */
     public AboutView(Stage parentStage) {
         logger.entering(getClass().getName(), "AboutView");
         Stage dialog = new Stage();

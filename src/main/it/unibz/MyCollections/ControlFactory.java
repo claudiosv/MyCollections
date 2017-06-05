@@ -1,7 +1,9 @@
 package main.it.unibz.MyCollections;
 
-/**
- * Created by claudio on 04/06/2017.
+/** Factory to create controls.
+ * @author Claudio Spiess
+ * @version 1.0
+ * @since 1.0
  */
 public class ControlFactory {
 }

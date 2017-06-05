@@ -15,8 +15,10 @@ import main.it.unibz.MyCollections.RecordSearchQuery;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * Created by claudio on 30/05/2017.
+/** View to create record search query.
+ * @author Claudio Spiess
+ * @version 1.0
+ * @since 1.0
  */
 public class SearchView {
     protected GridPane grid;
@@ -30,7 +32,11 @@ public class SearchView {
     protected RadioButton rb2;
     protected RadioButton rb1;
     private static final Logger logger = Logger.getLogger(SearchView.class.getName());
-
+    /** Instantiates the search record view.
+     *
+     * @author Claudio Spiess
+     * @param parentStage  Stage from which constructor is called.
+     */
     public SearchView(Stage parentStage)
     {
         logger.entering(getClass().getName(), "SearchView");
@@ -105,7 +111,11 @@ public class SearchView {
         dialog.setScene(scene);
         logger.exiting(getClass().getName(), "SearchView");
     }
-
+    /** Instantiates the search record view.
+     *
+     * @author Claudio Spiess
+     * @returns object to query record handler.
+     */
     public RecordSearchQuery show()
     {
         logger.entering(getClass().getName(), "show");

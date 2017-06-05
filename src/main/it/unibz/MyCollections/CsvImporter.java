@@ -13,8 +13,10 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * Created by Claudio on 03/06/2017.
+/** Importer to import records to comma separated values file.
+ * @author Claudio Spiess
+ * @version 1.0
+ * @since 1.0
  */
 public class CsvImporter implements Importer {
     private static final Logger logger = Logger.getLogger(CsvImporter.class.getName());

@@ -1,7 +1,9 @@
 package main.it.unibz.MyCollections;
 
-/**
- * Created by Claudio on 01/06/2017.
+/** Singleton to hold active logged in user session.
+ * @author Claudio Spiess
+ * @version 1.0
+ * @since 1.0
  */
 public class Session {
     private static User activeUser;

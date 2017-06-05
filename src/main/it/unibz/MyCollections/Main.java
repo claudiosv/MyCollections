@@ -2,7 +2,11 @@ package main.it.unibz.MyCollections;
 
 import java.io.IOException;
 import java.util.logging.*;
-
+/** Main class to implement the task.
+ * @author Claudio Spiess
+ * @version 1.0
+ * @since 1.0
+ */
 public class Main {
     private static final Logger logger = Logger.getLogger("main.it.unibz.MyCollections");
 

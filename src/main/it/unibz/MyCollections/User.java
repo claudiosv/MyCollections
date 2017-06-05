@@ -15,8 +15,10 @@ import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * Created by claudio on 30/03/2017.
+/** Represents a user.
+ * @author Claudio Spiess
+ * @version 1.0
+ * @since 1.0
  */
 public class User {
     private SimpleStringProperty username;

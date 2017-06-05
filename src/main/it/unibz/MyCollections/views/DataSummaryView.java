@@ -23,12 +23,18 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * Created by claudio on 30/05/2017.
+/** View to to show data summary.
+ * @author Claudio Spiess
+ * @version 1.0
+ * @since 1.0
  */
 public class DataSummaryView {
     private static final Logger logger = Logger.getLogger(DataSummaryView.class.getName());
-
+    /** Instantiates this data summary view.
+     *
+     * @author Claudio Spiess
+     * @param parentStage  Stage from which constructor is called.
+     */
     public DataSummaryView(Stage parentStage) {
         logger.entering(getClass().getName(), "DataSummaryView");
         Stage dialog = new Stage();

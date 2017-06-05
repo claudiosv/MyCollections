@@ -3,8 +3,10 @@ package main.it.unibz.MyCollections;
 import java.nio.file.Path;
 import java.util.List;
 
-/**
- * Created by claudio on 04/06/2017.
+/** Exporter to export records to extensible markup language file.
+ * @author Claudio Spiess
+ * @version 1.0
+ * @since 1.0
  */
 public class XmlExporter implements Exporter {
     @Override

@@ -5,8 +5,10 @@ import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * Created by claudio on 03/06/2017.
+/** Hasher to implement secure hash algorithm 512.
+ * @author Claudio Spiess
+ * @version 1.0
+ * @since 1.0
  */
 public class SHA512Hasher implements Hasher {
     private static final Logger logger = Logger.getLogger(SHA512Hasher.class.getName());

@@ -3,8 +3,10 @@ package main.it.unibz.MyCollections;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Created by claudio on 03/06/2017.
+/** Validates user inputs.
+ * @author Claudio Spiess
+ * @version 1.0
+ * @since 1.0
  */
 public class Validator {
     public static boolean isValidUsername(String username) {

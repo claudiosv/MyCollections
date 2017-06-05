@@ -22,8 +22,10 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * Created by claudio on 29/05/2017.
+/** Abstract view to manage a record.
+ * @author Claudio Spiess
+ * @version 1.0
+ * @since 1.0
  */
 public abstract class RecordView {
     protected GridPane grid;
@@ -36,7 +38,12 @@ public abstract class RecordView {
     protected TextField emailAddressTxt;
     protected Record record;
     private static final Logger logger = Logger.getLogger(RecordView.class.getName());
-
+    /** Instantiates this record view.
+     *
+     * @author Claudio Spiess
+     * @param record previously instantiated record to be added.
+     * @param parentStage  Stage from which constructor is called.
+     */
     public RecordView(Record record, Stage parentStage) {
         logger.entering(getClass().getName(), "RecordView");
         this.record = record;
