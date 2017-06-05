@@ -1,6 +1,9 @@
 package tests.it.unibz.MyCollections;
 
-import org.junit.jupiter.api.Test;
+
+import main.it.unibz.MyCollections.RecordSearchQuery;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 import java.sql.SQLException;
 
@@ -9,9 +12,11 @@ import java.sql.SQLException;
  */
 public class RecordSearchQueryTest {
     @Test
-    void toLikeQuery() throws SQLException {
-
-
+    public void exclusiveAddressToLikeQueryTest() {
+        RecordSearchQuery query = new RecordSearchQuery();
+        query.setAddress("test");
+        assertEquals("address LIKE ?", query.toLikeQuery(true));
+        assertEquals("test", query.getParametreValueBuilder().get(0));
     }
 
 }

@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class Validator {
     public static boolean isValidUsername(String username) {
-        return username.matches("^[a-zA-Z0-9._-]{5,}$") && stringMatchesChars(username, Arrays.asList('-', '_', '.'));
+        return username.length() >= 5 && username.matches("^[a-zA-Z0-9._-]{5,}$") && stringMatchesChars(username, Arrays.asList('-', '_', '.'));
     }
 
     private static boolean stringMatchesChars(final String str, final List<Character> characters) { //TODO: this is stolen!
