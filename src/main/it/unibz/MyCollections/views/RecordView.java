@@ -18,25 +18,29 @@ import main.it.unibz.MyCollections.Record;
 
 import javax.imageio.ImageIO;
 import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by claudio on 29/05/2017.
  */
-public class RecordView {
-    GridPane grid;
-    Stage dialog;
-    TextField firstNameTxt;
-    TextField lastNameTxt;
-    TextField companyNameTxt;
-    TextField addressTxt;
-    TextField telephoneNumberTxt;
-    TextField emailAddressTxt;
-    Record record;
+public abstract class RecordView {
+    protected GridPane grid;
+    protected Stage dialog;
+    protected TextField firstNameTxt;
+    protected TextField lastNameTxt;
+    protected TextField companyNameTxt;
+    protected TextField addressTxt;
+    protected TextField telephoneNumberTxt;
+    protected TextField emailAddressTxt;
+    protected Record record;
+    private static final Logger logger = Logger.getLogger(RecordView.class.getName());
 
     public RecordView(Record record, Stage parentStage) {
+        logger.entering(getClass().getName(), "RecordView");
         this.record = record;
         dialog = new Stage();
-        dialog.setTitle("JavaFX Welcome");
         dialog.initOwner(parentStage);
         dialog.initModality(Modality.APPLICATION_MODAL);
         Scene scene = new Scene(new VBox(), 300, 420);
@@ -46,7 +50,7 @@ public class RecordView {
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
 
-        try {
+
             ImageView imageView = new ImageView();
             imageView.setFitHeight(128);
             imageView.setFitWidth(128);
@@ -64,23 +68,21 @@ public class RecordView {
                     new FileChooser.ExtensionFilter("All Images", "*.*")
             );
 
-            openButton.setOnAction((event) -> {
+            openButton.setOnAction(event -> {
+                logger.log(Level.INFO, "Browsing for file");
                 File file = fileChooser.showOpenDialog(dialog);
                 if (file != null) {
                     try {
                         record.setImage(SwingFXUtils.toFXImage(ImageIO.read(file), null));
                         imageView.setImage(record.getImage());
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        //TODO: logger
+                    }  catch (IOException ex) {
+                        logger.log(Level.SEVERE, "IO error loading image", ex); //TODO: add dialog
                     }
                 }
             });
             grid.add(openButton, 1, 0);
 
-        } catch (Exception ex) {
-            //TODO: logger
-        }
+
 
 
         Label firstNameLbl = new Label("First name:");
@@ -116,10 +118,11 @@ public class RecordView {
         ((VBox) scene.getRoot()).getChildren().add(grid);
 
         dialog.setScene(scene);
-
+        logger.exiting(getClass().getName(), "RecordView");
     }
 
     public Record show() {
+        logger.entering(getClass().getName(), "show");
         dialog.showAndWait();
         return record;
     }

@@ -24,12 +24,22 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import main.it.unibz.MyCollections.DatabaseSession;
 import main.it.unibz.MyCollections.User;
+import main.it.unibz.MyCollections.exceptions.RecordNotFoundException;
+import main.it.unibz.MyCollections.exceptions.UserNotFoundException;
+
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by claudio on 31/05/2017.
  */
 public class ManageUsersView {
+    private static final Logger logger = Logger.getLogger(ManageUsersView.class.getName());
+
     public ManageUsersView(Stage parentStage) {
+        logger.entering(getClass().getName(), "ManageUsersView");
         Stage dialog = new Stage();
         dialog.setTitle("Manage Users");
         dialog.initOwner(parentStage);
@@ -61,8 +71,13 @@ public class ManageUsersView {
                     user.setUsername(t.getNewValue());
                     try {
                         DatabaseSession.getInstance().updateUser(user);
-                    } catch (Exception ex) {
-                        ex.printStackTrace(); //TODO: logger
+                    }  catch (SQLException ex) {
+                        //TODO: add dialogs for these errors
+                        logger.log(Level.SEVERE, "SQL error loading records", ex);
+                    } catch (IOException ex) {
+                        logger.log(Level.SEVERE, "IO error loading records", ex);
+                    } catch (UserNotFoundException ex) {
+                        logger.log(Level.SEVERE, "User not found", ex);
                     }
                 });
 
@@ -75,41 +90,40 @@ public class ManageUsersView {
                     User user = ((User) t.getTableView().getItems().get(
                             t.getTablePosition().getRow())
                     );
-                    user.setAdmin(Boolean.valueOf(t.getNewValue()));
+                    user.setAdmin(t.getNewValue());
                     try {
                         DatabaseSession.getInstance().updateUser(user);
-                    } catch (Exception ex) {
-                        ex.printStackTrace(); //TODO: logger
+                    }  catch (SQLException ex) {
+                        //TODO: add dialogs for these errors
+                        logger.log(Level.SEVERE, "SQL error loading records", ex);
+                    } catch (IOException ex) {
+                        logger.log(Level.SEVERE, "IO error loading records", ex);
+                    } catch (UserNotFoundException ex) {
+                        logger.log(Level.SEVERE, "User not found", ex);
                     }
                 });
 
-        usersTable.setRowFactory(new Callback<TableView<User>, TableRow<User>>() {
-            @Override
-            public TableRow<User> call(TableView<User> tableView) {
+        usersTable.setRowFactory(tableView -> {
                 final TableRow<User> row = new TableRow<>();
                 final ContextMenu contextMenu = new ContextMenu();
                 final MenuItem removeMenuItem = new MenuItem("Remove");
                 removeMenuItem.setGraphic(new ImageView(new Image("minus-button.png")));
-                removeMenuItem.setOnAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent event) {
+                removeMenuItem.setOnAction(event-> {
+                    logger.log(Level.INFO, "Removing item (context menu)");
                         usersTable.getItems().remove(row.getItem());
                         try {
                             DatabaseSession.getInstance().deleteUser(row.getItem().getId());
                         } catch (Exception ex) { //TODO: logger
                         }
-                    }
                 });
 
                 final MenuItem copyMenuItem = new MenuItem("Copy");
                 copyMenuItem.setGraphic(new ImageView(new Image("clipboard-sign.png")));
-                copyMenuItem.setOnAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent event) {
+                copyMenuItem.setOnAction(event -> {
+                    logger.log(Level.INFO, "Copying user (context menu)");
                         ClipboardContent content = new ClipboardContent();
                         content.putString(row.getItem().toString());
                         Clipboard.getSystemClipboard().setContent(content);
-                    }
                 });
 
 
@@ -130,23 +144,29 @@ public class ManageUsersView {
                             usersTable.refresh();
                             try {
                                 DatabaseSession.getInstance().updateUser(row.getItem());
-                            } catch (Exception ex) {
-                                ex.printStackTrace(); //TODO: logger
+                            }  catch (SQLException ex) {
+                                //TODO: add dialogs for these errors
+                                logger.log(Level.SEVERE, "SQL error updating record", ex);
+                            } catch (IOException ex) {
+                                logger.log(Level.SEVERE, "IO error updating record", ex);
+                            } catch (UserNotFoundException ex) {
+                                logger.log(Level.SEVERE, "Updated user not found", ex);
                             }
                         }
                     }
                 });
 
                 return row;
-            }
         });
         ObservableList<User> data = FXCollections.observableArrayList();
 
         try {
             data =
                     FXCollections.observableArrayList(DatabaseSession.getInstance().getAllUsers());
-        } catch (Exception ex) {
-            ex.printStackTrace(); //TODO: logger
+        } catch (SQLException ex) {
+            logger.log(Level.SEVERE, "SQL error loading records", ex);}
+            catch (IOException ex) {
+            logger.log(Level.SEVERE, "IO error loading records", ex);
         }
 
         userNameCol.setStyle("-fx-alignment: CENTER-LEFT;");
@@ -157,13 +177,16 @@ public class ManageUsersView {
 
         Button btn = new Button("Close");
         btn.setGraphic(new ImageView(new Image("cross-button.png")));
-        btn.setOnAction((event) -> {
-            dialog.hide();
-        });
+        btn.setOnAction(event -> {
+            logger.log(Level.INFO, "Close button clicked");
+                    dialog.hide();
+                }
+        );
 
         Button btnAddUser = new Button("Add User");
         btnAddUser.setGraphic(new ImageView(new Image("user-plus.png")));
-        btnAddUser.setOnAction((event) -> {
+        btnAddUser.setOnAction(event -> {
+            logger.log(Level.INFO, "Add user button clicked");
             User user = new User();
             AddUserView addUser = new AddUserView(user, parentStage);
             usersTable.getItems().add(addUser.show());
@@ -182,6 +205,7 @@ public class ManageUsersView {
 
         dialog.setScene(scene);
         dialog.showAndWait();
+        logger.exiting(getClass().getName(), "ManageUsersView");
     }
 
 }

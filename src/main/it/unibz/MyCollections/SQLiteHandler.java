@@ -97,7 +97,7 @@ public class SQLiteHandler implements RecordsHandler {
 
             stmt.setString(2, user.getPasswordHash());
 
-            stmt.setBytes(3, user.getUserImageArray());
+            stmt.setBytes(3, user.getImageArray());
 
             stmt.setInt(4, user.isAdmin() ? 1 : 0);
 
@@ -294,9 +294,12 @@ public class SQLiteHandler implements RecordsHandler {
             user.setUsername(result.getString("username"));
             user.setPassword(result.getString("password"));
             user.setAdmin(result.getBoolean("admin"));
-            byte[] imageBytes = result.getBytes("picture");
-            if (imageBytes != null)
-                user.setUserImage(ImageIO.read(new ByteArrayInputStream(imageBytes)));
+            byte[] pictureBytes = result.getBytes("picture");
+            if(pictureBytes != null && pictureBytes.length > 1)
+            {
+                InputStream pictureStream = result.getBinaryStream("picture");
+                user.setImage(SwingFXUtils.toFXImage(ImageIO.read(pictureStream), null));
+            }
             users.add(user);
         }
 
@@ -321,8 +324,12 @@ public class SQLiteHandler implements RecordsHandler {
             user.setId(id);
             user.setUsername(set.getString("username"));
             user.setPassword(set.getString("password"));
-            InputStream stream = set.getBinaryStream("picture");
-            if (stream != null) user.setUserImage(ImageIO.read(stream));
+            byte[] pictureBytes = set.getBytes("picture");
+            if(pictureBytes != null && pictureBytes.length > 1)
+            {
+                InputStream pictureStream = set.getBinaryStream("picture");
+                user.setImage(SwingFXUtils.toFXImage(ImageIO.read(pictureStream), null));
+            }
             user.setAdmin(set.getInt("admin") == 1 ? true : false);
         }
         set.close();

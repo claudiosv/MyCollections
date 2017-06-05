@@ -1,5 +1,6 @@
 package main.it.unibz.MyCollections.views;
 
+import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -15,20 +16,26 @@ import main.it.unibz.MyCollections.User;
 
 import javax.imageio.ImageIO;
 import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by Claudio on 02/06/2017.
  */
 public class UserView {
-    GridPane grid;
-    Stage dialog;
-    TextField usernameTxt;
-    PasswordField passwordField;
-    PasswordField passwordFieldConf;
-    CheckBox adminCheckbox;
-    User user;
+    protected GridPane grid;
+    protected Stage dialog;
+    protected TextField usernameTxt;
+    protected PasswordField passwordField;
+    protected PasswordField passwordFieldConf;
+    protected CheckBox adminCheckbox;
+    protected User user;
+
+    private static final Logger logger = Logger.getLogger(UserView.class.getName());
 
     public UserView(User user, Stage parentStage) {
+        logger.entering(getClass().getName(), "UserView");
         this.user = user;
         dialog = new Stage();
         dialog.initOwner(parentStage);
@@ -40,8 +47,7 @@ public class UserView {
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
 
-        try {
-            ImageView imageView = user.getImageView();
+            ImageView imageView = new ImageView(user.getImage());
             imageView.minHeight(128);
             imageView.minWidth(128);
             grid.add(imageView, 0, 0);
@@ -56,22 +62,18 @@ public class UserView {
             );
 
             openButton.setOnAction((event) -> {
+                logger.log(Level.INFO, "Browsing for file");
                 File file = fileChooser.showOpenDialog(dialog);
                 if (file != null) {
                     try {
-                        user.setBufImage(ImageIO.read(file));
+                        user.setImage(SwingFXUtils.toFXImage(ImageIO.read(file), null));
                         imageView.setImage(user.getImage());
-                    } catch (Exception e) {
-                        //TODO: logger
+                    }  catch (IOException ex) {
+                        logger.log(Level.SEVERE, "IO error loading image", ex); //TODO: add dialog
                     }
-                    //openFile(file);
                 }
             });
             grid.add(openButton, 1, 0);
-
-        } catch (Exception ex) {
-            //TODO: logger
-        }
 
 
         Label firstNameLbl = new Label("Username:");
@@ -100,7 +102,7 @@ public class UserView {
         ((VBox) scene.getRoot()).getChildren().add(grid);
 
         dialog.setScene(scene);
-
+        logger.exiting(getClass().getName(), "UserView");
     }
 
 
@@ -110,7 +112,9 @@ public class UserView {
     //  }
 
     public User show() {
+        logger.entering(getClass().getName(), "show");
         dialog.showAndWait();
+        logger.exiting(getClass().getName(), "show");
         return user;
     }
 }

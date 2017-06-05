@@ -18,6 +18,7 @@ public class EditRecordView extends RecordView {
     private static final Logger logger = Logger.getLogger(EditRecordView.class.getName());
     public EditRecordView(Record passRecord, Stage parentStage) {
         super(passRecord, parentStage);
+        dialog.setTitle("Edit Record");
         logger.entering(getClass().getName(), "EditRecordView");
         Button saveButton = new Button("Save");
         saveButton.setGraphic(new ImageView(new Image("disk-black.png")));

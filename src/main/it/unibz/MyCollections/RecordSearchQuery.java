@@ -3,6 +3,8 @@ package main.it.unibz.MyCollections;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by claudio on 17/05/2017.
@@ -16,6 +18,7 @@ public class RecordSearchQuery {
     private String emailAddress;
     private ArrayList<String> parametreValueBuilder = new ArrayList<>();
     private boolean exclusive;
+    private static final Logger logger = Logger.getLogger(Record.class.getName());
 
     public boolean isExclusive() {
         return exclusive;
@@ -34,8 +37,8 @@ public class RecordSearchQuery {
     }
 
     public String toLikeQuery(boolean exclusive) {
+        logger.entering(getClass().getName(), "toLikeQuery");
         StringBuilder likeQueryBuilder = new StringBuilder();
-        //ArrayList<String> queryParts = new ArrayList<>();
 
         HashMap<String, String> schemaMap = new HashMap<>();
         schemaMap.put("firstname", firstName);
@@ -48,13 +51,14 @@ public class RecordSearchQuery {
         int counter = 0;
         for (Map.Entry<String, String> entry : schemaMap.entrySet()) {
             if (!emptyString(entry.getValue())) {
-                if (counter != 0) likeQueryBuilder.append(exclusive ? " AND " : " OR ");
+                if (counter > 0) likeQueryBuilder.append(exclusive ? " AND " : " OR ");
                 likeQueryBuilder.append(entry.getKey());
                 likeQueryBuilder.append(" LIKE ?");
                 parametreValueBuilder.add(wildcardToSQL(entry.getValue()));
                 counter++;
             }
         }
+        logger.log(Level.INFO, "Query: ", likeQueryBuilder.toString());
         return likeQueryBuilder.toString();
     }
 

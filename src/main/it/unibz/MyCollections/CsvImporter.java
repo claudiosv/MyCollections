@@ -1,22 +1,31 @@
 package main.it.unibz.MyCollections;
 
+import main.it.unibz.MyCollections.exceptions.RecordNotFoundException;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by Claudio on 03/06/2017.
  */
 public class CsvImporter implements Importer {
+    private static final Logger logger = Logger.getLogger(CsvImporter.class.getName());
+
     @Override
-    public ArrayList<Record> importRecords(Path csvFile) {
+    public List<Record> importRecords(Path csvFile) {
+        logger.entering(getClass().getName(), "importRecords");
         BufferedReader br = null;
         String line = "";
         String cvsSplitBy = ",";
-        ArrayList<Record> records = new ArrayList<>();
+        List<Record> records = new ArrayList<>();
         try {
 
             br = new BufferedReader(new FileReader(csvFile.toFile()));
@@ -44,20 +53,23 @@ public class CsvImporter implements Importer {
             }
 
         } catch (FileNotFoundException e) {
-            e.printStackTrace(); //TODO: logger
+           logger.log(Level.SEVERE, "File not found", e);
         } catch (IOException e) {
-            e.printStackTrace(); //TODO: logger
-        } catch (Exception e) {
-            e.printStackTrace(); //TODO: logger
+            logger.log(Level.SEVERE, "File error", e);
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "Error inserting into database", e);
+        } catch (RecordNotFoundException e) {
+            logger.log(Level.SEVERE, "Record not found", e);
         } finally {
             if (br != null) {
                 try {
                     br.close();
                 } catch (IOException e) {
-                    e.printStackTrace(); //TODO: logger
+                    logger.log(Level.SEVERE, "File error", e);
                 }
             }
         }
+        logger.exiting(getClass().getName(), "importRecords");
         return records;
     }
 }

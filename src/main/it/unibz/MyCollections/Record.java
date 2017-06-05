@@ -9,6 +9,8 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by claudio on 22/03/2017.
@@ -24,16 +26,13 @@ public class Record {
     private SimpleStringProperty emailAddress = new SimpleStringProperty("");
     private Image image;
     private ImageView imageView;
+    private static final Logger logger = Logger.getLogger(Record.class.getName());
 
     public Record() {
-        try {
             this.image = new Image("default_user.png", 48, 48, true, true);
             imageView = new ImageView(image);
             imageView.setFitHeight(48);
             imageView.setFitWidth(48);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
     }
 
     public SimpleStringProperty firstNameProperty() {
@@ -136,6 +135,7 @@ public class Record {
     }
 
     public byte[] getImageArray() {
+        logger.entering(getClass().getName(), "getImageArray");
         try {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             BufferedImage bufImage = SwingFXUtils.fromFXImage(image, null);
@@ -144,7 +144,7 @@ public class Record {
             return baos.toByteArray();
         } catch (IOException ex)
         {
-
+            logger.log(Level.SEVERE, "Error writing image array", ex);
         }
         finally {
             return new byte[0];

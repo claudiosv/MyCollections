@@ -32,7 +32,6 @@ public class Main {
         //TODO: Split into MVC
         //TODO: Refactor things to work with inheritance e.g. SQLiteHandler
         //TODO: Write tests, aim for maximum coverage
-        //TODO: Make main menu context aware
         //TODO: Add more options to context menus
         //TODO: Correct titles, add icons
         //TODO: Refactor password checking

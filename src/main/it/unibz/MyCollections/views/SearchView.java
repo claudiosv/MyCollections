@@ -12,23 +12,28 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import main.it.unibz.MyCollections.RecordSearchQuery;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * Created by claudio on 30/05/2017.
  */
 public class SearchView {
-    GridPane grid;
-    Stage dialog;
-    TextField firstNameTxt;
-    TextField lastNameTxt;
-    TextField companyNameTxt;
-    TextField addressTxt;
-    TextField telephoneNumberTxt;
-    TextField emailAddressTxt;
-    RadioButton rb2;
-    RadioButton rb1;
+    protected GridPane grid;
+    protected Stage dialog;
+    protected TextField firstNameTxt;
+    protected TextField lastNameTxt;
+    protected TextField companyNameTxt;
+    protected TextField addressTxt;
+    protected TextField telephoneNumberTxt;
+    protected TextField emailAddressTxt;
+    protected RadioButton rb2;
+    protected RadioButton rb1;
+    private static final Logger logger = Logger.getLogger(SearchView.class.getName());
 
     public SearchView(Stage parentStage)
     {
+        logger.entering(getClass().getName(), "SearchView");
         dialog = new Stage();
         dialog.setTitle("Search Records");
         dialog.initOwner(parentStage);
@@ -89,6 +94,7 @@ public class SearchView {
         Button saveButton = new Button("Search");
         saveButton.setGraphic(new ImageView(new Image("magnifier.png")));
         saveButton.setOnAction((event) -> {
+            logger.log(Level.INFO, "Search button clicked");
             dialog.hide();
         });
         saveButton.setPrefWidth(150);
@@ -97,11 +103,12 @@ public class SearchView {
         ((VBox) scene.getRoot()).getChildren().add(grid);
 
         dialog.setScene(scene);
-
+        logger.exiting(getClass().getName(), "SearchView");
     }
 
     public RecordSearchQuery show()
     {
+        logger.entering(getClass().getName(), "show");
         dialog.showAndWait();
         RecordSearchQuery query = new RecordSearchQuery();
         query.setAddress(addressTxt.getText());
@@ -111,6 +118,7 @@ public class SearchView {
         query.setLastName(lastNameTxt.getText());
         query.setTelephoneNumber(telephoneNumberTxt.getText());
         query.setExclusive(rb1.isSelected());
+        logger.exiting(getClass().getName(), "show");
         return query;
     }
 }

@@ -12,6 +12,8 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by claudio on 30/03/2017.
@@ -19,29 +21,18 @@ import java.io.InputStream;
 public class User {
     private SimpleStringProperty username;
     private String passwordHash;
-    private BufferedImage bufImage;
     private Image image;
     private ImageView imageView;
     private int id;
     private SimpleBooleanProperty isAdmin = new SimpleBooleanProperty(false);
-
+    private static final Logger logger = Logger.getLogger(User.class.getName());
 
     public User() {
         this.username = new SimpleStringProperty();
-        try {
-            //InputStream st = this.getClass().getResourceAsStream("default_user.png");
             this.image = new Image("default_user.png", 48, 48, true, true);
-            this.setBufImage(SwingFXUtils.fromFXImage(image, null));
-            this.imageView = getImageView();
-
-
-        } catch (IOException ex) {
-            ex.printStackTrace();//TODO: logger
-        }
-    }
-
-    public void delete() {
-
+            imageView = new ImageView(image);
+            imageView.setFitHeight(48);
+            imageView.setFitWidth(48);
     }
 
     public SimpleStringProperty usernameProperty() {
@@ -76,39 +67,32 @@ public class User {
         this.passwordHash = passwordHash;
     }
 
-    public BufferedImage getUserImage() {
-        return bufImage;
-    }
-
-    public void setUserImage(BufferedImage userImage) {
-        this.bufImage = userImage;
-    }
-
     public Image getImage() {
         return image;
     }
 
-    public byte[] getUserImageArray() throws IOException {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ImageIO.write(bufImage, "jpg", baos);
-        byte[] bytes = baos.toByteArray();
-        return bytes;
+    public void setImage(Image image) {
+        this.image = image;
+        imageView = new ImageView(image);
+        imageView.setFitHeight(48);
+        imageView.setFitWidth(48);
     }
 
-    public void setBufImage(BufferedImage bufImage) throws IOException {
-        this.bufImage = bufImage;
-        ByteArrayOutputStream os = new ByteArrayOutputStream();
-        if (bufImage == null) return;
-        ImageIO.write(bufImage, "jpg", os);
-
-        InputStream is = new ByteArrayInputStream(os.toByteArray());
-        this.image = new Image(is, 128, 128, true, true);//SwingFXUtils.toFXImage(bufImage, null);
-        //new Image(is, 128, 128, true, true);
-        this.imageView = getImageView();
-    }
-
-    public ImageView getImageView() throws IOException {
-        return new ImageView(image);
+    public byte[] getImageArray() {
+        logger.entering(getClass().getName(), "getImageArray");
+        try {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            BufferedImage bufImage = SwingFXUtils.fromFXImage(image, null);
+            if (bufImage == null) return null;
+            ImageIO.write(bufImage, "jpg", baos);
+            return baos.toByteArray();
+        } catch (IOException ex)
+        {
+            logger.log(Level.SEVERE, "Error writing image array", ex);
+        }
+        finally {
+            return new byte[0];
+        }
     }
 
     public int getId() {
