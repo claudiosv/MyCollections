@@ -21,6 +21,12 @@ import java.util.logging.Logger;
 public class CsvImporter implements Importer {
     private static final Logger logger = Logger.getLogger(CsvImporter.class.getName());
 
+    /**
+     * Imports comma separated values file into records database.
+     *
+     * @author Claudio Spiess
+     * @param csvFile Path to CSV file to import from.
+     */
     @Override
     public List<Record> importRecords(Path csvFile) {
         logger.entering(getClass().getName(), "importRecords");

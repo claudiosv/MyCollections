@@ -38,6 +38,13 @@ public class RecordSearchQuery {
         this.parametreValueBuilder = parametreValueBuilder;
     }
 
+    /**
+     * Builds query to search SQLite database for records with matching parametres
+     *
+     * @author Claudio Spiess
+     * @param exclusive To search exclusively or inclusively, i.e. AND vs OR, respectively
+     * @return String of SQL to search database.
+     */
     public String toLikeQuery(boolean exclusive) {
         logger.entering(getClass().getName(), "toLikeQuery");
         StringBuilder likeQueryBuilder = new StringBuilder();

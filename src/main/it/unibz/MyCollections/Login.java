@@ -44,19 +44,30 @@ public class Login extends Application {
     public MenuItem manageUsers;
     public Menu menuFile;
 
-
+    /**
+     * Imports comma separated values file into records database.
+     *
+     * @author Claudio Spiess
+     * @param args Arguments to pass to Application launch
+     */
     public void main(String[] args) {
         launch(args);
     }
 
+    /**
+     * Starts main stage and displays login form.
+     *
+     * @author Claudio Spiess
+     * @param parentStage Parent stage from JavaFX
+     */
     @Override
     public void start(Stage parentStage) {
         logger.entering(getClass().getName(), "start");
 
-        primaryStage = parentStage;
+        this.primaryStage = parentStage;
         scene = new Scene(new VBox(), 400, 350);
 
-        primaryStage.setTitle("MyCollections Login");
+        this.primaryStage.setTitle("MyCollections Login");
 
         MenuBar menuBar = new MenuBar();
 

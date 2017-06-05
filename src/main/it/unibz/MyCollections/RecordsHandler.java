@@ -14,8 +14,24 @@ import java.util.List;
  * @since 1.0
  */
 public interface RecordsHandler {
+
+    /**
+     * Initialises database connection, connects to database (if implementation does so).
+     *
+     * @author Claudio Spiess
+     * @param fileName Path to file that stores the records.
+     */
     public void initialise(String fileName);
 
+    /**
+     * Adds a new user to the database.
+     *
+     * @author Claudio Spiess
+     * @param user object to add to database.
+     * @see User
+     * @throws SQLException If there is an exception in JDBC.
+     * @throws UserAlreadyExistsException If a user with the same username or id already exists.
+     */
     public void addUser(User user) throws SQLException, UserAlreadyExistsException;
 
     public void updateUser(User user)  throws UserNotFoundException, SQLException, IOException;

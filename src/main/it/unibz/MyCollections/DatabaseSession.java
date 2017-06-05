@@ -11,6 +11,10 @@ public class DatabaseSession {
     private DatabaseSession() {
     }
 
+    /** Returns single instance of RecordsHandler
+     * @author Claudio Spiess
+     * @return Instance of RecordHandler
+     */
     public static RecordsHandler getInstance() {
         return instance;
     }

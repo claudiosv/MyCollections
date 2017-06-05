@@ -9,7 +9,13 @@ import java.util.List;
  * @since 1.0
  */
 public interface Exporter {
-    //create interface, create implementations for format, create factories
-    //export to vcard, export to csv, export to xml
+
+    /**
+     * Exports list of records to a file.
+     *
+     * @param records  List of records to export.
+     * @param filePath Path where file will be saved.
+     * @author Claudio Spiess
+     */
     public void exportRecords(List<Record> records, Path filePath);
 }

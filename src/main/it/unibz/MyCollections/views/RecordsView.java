@@ -69,7 +69,7 @@ public class RecordsView {
             SearchView search = new SearchView(parentStage.primaryStage);
             RecordSearchQuery query = search.show();
             try {
-                data.setAll(DatabaseSession.getInstance().searchRecords(query));
+                data.setAll(DatabaseSession.getInstance().searchRecords(query, Session.getActiveUser().getId()));
             } catch (SQLException ex) {
                 //TODO: add dialogs for these errors
                 logger.log(Level.SEVERE, "SQL error loading records", ex);

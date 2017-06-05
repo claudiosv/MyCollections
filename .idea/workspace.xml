@@ -3,39 +3,17 @@
   <component name="ChangeListManager">
     <list default="true" id="bc6ff637-b3f1-4138-b6e1-e691ed394531" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/ControlFactory.java" afterPath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/ControlFactory.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/CsvExporter.java" afterPath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/CsvExporter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/CsvImporter.java" afterPath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/CsvImporter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/DatabaseSession.java" afterPath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/DatabaseSession.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/Exporter.java" afterPath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/Exporter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/Hasher.java" afterPath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/Hasher.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/HasherFactory.java" afterPath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/HasherFactory.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/Importer.java" afterPath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/Importer.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/Login.java" afterPath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/Login.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/Main.java" afterPath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/Main.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/Record.java" afterPath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/Record.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/RecordSearchQuery.java" afterPath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/RecordSearchQuery.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/RecordsHandler.java" afterPath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/RecordsHandler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/SHA512Hasher.java" afterPath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/SHA512Hasher.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/SQLiteHandler.java" afterPath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/SQLiteHandler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/Session.java" afterPath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/Session.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/User.java" afterPath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/User.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/Validator.java" afterPath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/Validator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/XmlExporter.java" afterPath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/XmlExporter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/XmlImporter.java" afterPath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/XmlImporter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/views/AboutView.java" afterPath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/views/AboutView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/views/AddRecordView.java" afterPath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/views/AddRecordView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/views/AddUserView.java" afterPath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/views/AddUserView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/views/DataSummaryView.java" afterPath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/views/DataSummaryView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/views/EditRecordView.java" afterPath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/views/EditRecordView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/views/EditUserView.java" afterPath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/views/EditUserView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/views/ExportDataView.java" afterPath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/views/ExportDataView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/views/ImportDataView.java" afterPath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/views/ImportDataView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/views/ManageUsersView.java" afterPath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/views/ManageUsersView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/views/RecordView.java" afterPath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/views/RecordView.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/views/RecordsView.java" afterPath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/views/RecordsView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/views/SearchView.java" afterPath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/views/SearchView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/views/UserView.java" afterPath="$PROJECT_DIR$/src/main/it/unibz/MyCollections/views/UserView.java" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -47,11 +25,71 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf>
+      <file leaf-file-name="CsvImporter.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/it/unibz/MyCollections/CsvImporter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="480">
+              <caret line="23" column="4" lean-forward="true" selection-start-line="23" selection-start-column="4" selection-end-line="28" selection-end-column="7" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Exporter.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/it/unibz/MyCollections/Exporter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="480">
+              <caret line="13" column="41" lean-forward="false" selection-start-line="13" selection-start-column="41" selection-end-line="13" selection-end-column="41" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HasherFactory.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/it/unibz/MyCollections/HasherFactory.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="400">
+              <caret line="10" column="28" lean-forward="false" selection-start-line="10" selection-start-column="28" selection-end-line="10" selection-end-column="28" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Importer.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/it/unibz/MyCollections/Importer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="520">
+              <caret line="14" column="14" lean-forward="false" selection-start-line="14" selection-start-column="14" selection-end-line="14" selection-end-column="14" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Login.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/it/unibz/MyCollections/Login.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-4770">
+              <caret line="62" column="13" lean-forward="true" selection-start-line="62" selection-start-column="13" selection-end-line="62" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Record.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/it/unibz/MyCollections/Record.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="950">
+              <caret line="181" column="51" lean-forward="false" selection-start-line="181" selection-start-column="51" selection-end-line="181" selection-end-column="51" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="RecordSearchQuery.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/it/unibz/MyCollections/RecordSearchQuery.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="8" column="31" lean-forward="false" selection-start-line="8" selection-start-column="31" selection-end-line="8" selection-end-column="31" />
+            <state relative-caret-position="98">
+              <caret line="42" column="6" lean-forward="true" selection-start-line="42" selection-start-column="6" selection-end-line="42" selection-end-column="6" />
               <folding />
             </state>
           </provider>
@@ -60,111 +98,28 @@
       <file leaf-file-name="RecordsHandler.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/it/unibz/MyCollections/RecordsHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="10" column="53" lean-forward="false" selection-start-line="10" selection-start-column="53" selection-end-line="10" selection-end-column="53" />
+            <state relative-caret-position="-262">
+              <caret line="40" column="18" lean-forward="false" selection-start-line="40" selection-start-column="18" selection-end-line="40" selection-end-column="18" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Session.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/it/unibz/MyCollections/Session.java">
+      <file leaf-file-name="RecordsView.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/it/unibz/MyCollections/views/RecordsView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="80">
-              <caret line="2" column="36" lean-forward="false" selection-start-line="2" selection-start-column="36" selection-end-line="2" selection-end-column="36" />
+            <state relative-caret-position="600">
+              <caret line="61" column="0" lean-forward="true" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SHA512Hasher.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/it/unibz/MyCollections/SHA512Hasher.java">
+      <file leaf-file-name="SearchView.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/it/unibz/MyCollections/views/SearchView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="7" column="46" lean-forward="true" selection-start-line="7" selection-start-column="46" selection-end-line="7" selection-end-column="46" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SQLiteHandler.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/it/unibz/MyCollections/SQLiteHandler.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
-              <caret line="452" column="16" lean-forward="false" selection-start-line="452" selection-start-column="16" selection-end-line="452" selection-end-column="16" />
-              <folding>
-                <marker date="1496680928960" expanded="true" signature="1311:1666" ph="CREATE TABLE... users" />
-                <marker date="1496680928960" expanded="true" signature="1872:2472" ph="CREATE TABLE... records" />
-                <marker date="1496680928960" expanded="true" signature="3196:3264" ph="INSERT INTO users... " />
-                <marker date="1496680928960" expanded="true" signature="3830:4032" ph="UPDATE users... " />
-                <marker date="1496680928960" expanded="true" signature="4803:4943" ph="INSERT INTO records... " />
-                <marker date="1496680928960" expanded="true" signature="5646:5685" ph="SELECT last_... records" />
-                <marker date="1496680928960" expanded="true" signature="6180:6221" ph="UPDATE users... " />
-                <marker date="1496680928960" expanded="true" signature="6724:6767" ph="UPDATE recor... " />
-                <marker date="1496680928960" expanded="true" signature="7352:7716" ph="UPDATE recor... " />
-                <marker date="1496680928960" expanded="true" signature="8593:8650" ph="SELECT COUNT... records" />
-                <marker date="1496680928960" expanded="true" signature="9128:9183" ph="SELECT COUNT... users" />
-                <marker date="1496680928960" expanded="true" signature="9670:9715" ph="SELECT COUNT... users" />
-                <marker date="1496680928960" expanded="true" signature="10259:10355" ph="SELECT id,us... users" />
-                <marker date="1496680928960" expanded="true" signature="11098:11135" ph="SELECT * FRO... users" />
-                <marker date="1496680928960" expanded="true" signature="12101:12177" ph="SELECT usern... users" />
-                <marker date="1496680928960" expanded="true" signature="13401:13460" ph="SELECT * FRO... records" />
-                <marker date="1496680928960" expanded="true" signature="14024:14068" ph="SELECT * FRO... records" />
-                <marker date="1496680928960" expanded="true" signature="14561:14600" ph="SELECT * FRO... records" />
-                <marker date="1496680928960" expanded="true" signature="14834:14888" ph="SELECT * FRO... records" />
-                <marker date="1496680928960" expanded="true" signature="15193:15254" ph="SELECT COUNT... records" />
-                <marker date="1496680928960" expanded="true" signature="15768:15814" ph="SELECT COUNT... records" />
-                <marker date="1496680928960" expanded="true" signature="16273:16338" ph="SELECT * FRO... records" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="User.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/it/unibz/MyCollections/User.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="17" column="14" lean-forward="false" selection-start-line="17" selection-start-column="14" selection-end-line="17" selection-end-column="14" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Validator.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/it/unibz/MyCollections/Validator.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="5" column="21" lean-forward="false" selection-start-line="5" selection-start-column="21" selection-end-line="5" selection-end-column="21" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="XmlExporter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/it/unibz/MyCollections/XmlExporter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="5" column="65" lean-forward="true" selection-start-line="5" selection-start-column="34" selection-end-line="5" selection-end-column="65" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="XmlImporter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/it/unibz/MyCollections/XmlImporter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="5" column="67" lean-forward="false" selection-start-line="5" selection-start-column="67" selection-end-line="5" selection-end-column="67" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CsvExporter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/it/unibz/MyCollections/CsvExporter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="13" column="61" lean-forward="false" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="61" />
+            <state relative-caret-position="578">
+              <caret line="116" column="47" lean-forward="false" selection-start-line="116" selection-start-column="47" selection-end-line="116" selection-end-column="47" />
               <folding />
             </state>
           </provider>
@@ -187,23 +142,12 @@
         <option value="$PROJECT_DIR$/src/main/it/unibz/MyCollections/views/ExportDataView.java" />
         <option value="$PROJECT_DIR$/src/main/it/unibz/MyCollections/views/ImportDataView.java" />
         <option value="$PROJECT_DIR$/src/main/it/unibz/MyCollections/views/ManageUsersView.java" />
-        <option value="$PROJECT_DIR$/src/main/it/unibz/MyCollections/views/RecordsView.java" />
         <option value="$PROJECT_DIR$/src/main/it/unibz/MyCollections/views/RecordView.java" />
         <option value="$PROJECT_DIR$/src/main/it/unibz/MyCollections/views/SearchView.java" />
         <option value="$PROJECT_DIR$/src/main/it/unibz/MyCollections/views/UserView.java" />
         <option value="$PROJECT_DIR$/src/main/it/unibz/MyCollections/ControlFactory.java" />
-        <option value="$PROJECT_DIR$/src/main/it/unibz/MyCollections/CsvExporter.java" />
-        <option value="$PROJECT_DIR$/src/main/it/unibz/MyCollections/CsvImporter.java" />
-        <option value="$PROJECT_DIR$/src/main/it/unibz/MyCollections/DatabaseSession.java" />
-        <option value="$PROJECT_DIR$/src/main/it/unibz/MyCollections/Exporter.java" />
         <option value="$PROJECT_DIR$/src/main/it/unibz/MyCollections/Hasher.java" />
-        <option value="$PROJECT_DIR$/src/main/it/unibz/MyCollections/HasherFactory.java" />
-        <option value="$PROJECT_DIR$/src/main/it/unibz/MyCollections/Importer.java" />
-        <option value="$PROJECT_DIR$/src/main/it/unibz/MyCollections/Login.java" />
         <option value="$PROJECT_DIR$/src/main/it/unibz/MyCollections/Main.java" />
-        <option value="$PROJECT_DIR$/src/main/it/unibz/MyCollections/Record.java" />
-        <option value="$PROJECT_DIR$/src/main/it/unibz/MyCollections/RecordSearchQuery.java" />
-        <option value="$PROJECT_DIR$/src/main/it/unibz/MyCollections/RecordsHandler.java" />
         <option value="$PROJECT_DIR$/src/main/it/unibz/MyCollections/Session.java" />
         <option value="$PROJECT_DIR$/src/main/it/unibz/MyCollections/SHA512Hasher.java" />
         <option value="$PROJECT_DIR$/src/main/it/unibz/MyCollections/SQLiteHandler.java" />
@@ -211,6 +155,17 @@
         <option value="$PROJECT_DIR$/src/main/it/unibz/MyCollections/Validator.java" />
         <option value="$PROJECT_DIR$/src/main/it/unibz/MyCollections/XmlExporter.java" />
         <option value="$PROJECT_DIR$/src/main/it/unibz/MyCollections/XmlImporter.java" />
+        <option value="$PROJECT_DIR$/src/main/it/unibz/MyCollections/CsvExporter.java" />
+        <option value="$PROJECT_DIR$/src/main/it/unibz/MyCollections/CsvImporter.java" />
+        <option value="$PROJECT_DIR$/src/main/it/unibz/MyCollections/DatabaseSession.java" />
+        <option value="$PROJECT_DIR$/src/main/it/unibz/MyCollections/Exporter.java" />
+        <option value="$PROJECT_DIR$/src/main/it/unibz/MyCollections/HasherFactory.java" />
+        <option value="$PROJECT_DIR$/src/main/it/unibz/MyCollections/Importer.java" />
+        <option value="$PROJECT_DIR$/src/main/it/unibz/MyCollections/Login.java" />
+        <option value="$PROJECT_DIR$/src/main/it/unibz/MyCollections/Record.java" />
+        <option value="$PROJECT_DIR$/src/main/it/unibz/MyCollections/RecordSearchQuery.java" />
+        <option value="$PROJECT_DIR$/src/main/it/unibz/MyCollections/RecordsHandler.java" />
+        <option value="$PROJECT_DIR$/src/main/it/unibz/MyCollections/views/RecordsView.java" />
       </list>
     </option>
   </component>
@@ -469,9 +424,10 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-16" y="-16" width="3232" height="1732" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -495,6 +451,10 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Documentation" />
+    <option name="LAST_COMMIT_MESSAGE" value="Documentation" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
     <watches-manager />
@@ -512,14 +472,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="480">
           <caret line="23" column="2" lean-forward="true" selection-start-line="23" selection-start-column="2" selection-end-line="28" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/it/unibz/MyCollections/views/AboutView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="26" selection-end-column="3" />
           <folding />
         </state>
       </provider>
@@ -572,26 +524,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/it/unibz/MyCollections/views/RecordsView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-11290">
-          <caret line="38" column="29" lean-forward="false" selection-start-line="38" selection-start-column="29" selection-end-line="38" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/it/unibz/MyCollections/views/RecordView.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="880">
           <caret line="42" column="29" lean-forward="true" selection-start-line="42" selection-start-column="29" selection-end-line="42" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/it/unibz/MyCollections/views/SearchView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
-          <caret line="116" column="47" lean-forward="false" selection-start-line="116" selection-start-column="47" selection-end-line="116" selection-end-column="47" />
           <folding />
         </state>
       </provider>
@@ -604,38 +540,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/it/unibz/MyCollections/ControlFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="2" column="9" lean-forward="false" selection-start-line="2" selection-start-column="9" selection-end-line="2" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/it/unibz/MyCollections/CsvImporter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="15" column="18" lean-forward="false" selection-start-line="15" selection-start-column="18" selection-end-line="15" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/it/unibz/MyCollections/DatabaseSession.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="6" column="3" lean-forward="true" selection-start-line="6" selection-start-column="3" selection-end-line="6" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/it/unibz/MyCollections/Exporter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="5" column="31" lean-forward="false" selection-start-line="5" selection-start-column="31" selection-end-line="5" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/it/unibz/MyCollections/Hasher.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="80">
@@ -644,58 +548,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/it/unibz/MyCollections/HasherFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="2" column="29" lean-forward="false" selection-start-line="2" selection-start-column="29" selection-end-line="2" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/it/unibz/MyCollections/Importer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="6" column="31" lean-forward="false" selection-start-line="6" selection-start-column="31" selection-end-line="6" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/it/unibz/MyCollections/Login.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="31" column="37" lean-forward="false" selection-start-line="31" selection-start-column="37" selection-end-line="31" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/it/unibz/MyCollections/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="4" column="36" lean-forward="false" selection-start-line="4" selection-start-column="36" selection-end-line="4" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/it/unibz/MyCollections/Record.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="14" column="23" lean-forward="false" selection-start-line="14" selection-start-column="23" selection-end-line="14" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/it/unibz/MyCollections/RecordSearchQuery.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="8" column="31" lean-forward="false" selection-start-line="8" selection-start-column="31" selection-end-line="8" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/it/unibz/MyCollections/RecordsHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="10" column="53" lean-forward="false" selection-start-line="10" selection-start-column="53" selection-end-line="10" selection-end-column="53" />
           <folding />
         </state>
       </provider>
@@ -720,14 +576,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="160">
           <caret line="17" column="14" lean-forward="false" selection-start-line="17" selection-start-column="14" selection-end-line="17" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/it/unibz/MyCollections/CsvExporter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="13" column="61" lean-forward="false" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="61" />
           <folding />
         </state>
       </provider>
@@ -758,8 +606,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/it/unibz/MyCollections/SQLiteHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="452" column="16" lean-forward="false" selection-start-line="452" selection-start-column="16" selection-end-line="452" selection-end-column="16" />
+        <state relative-caret-position="539">
+          <caret line="454" column="13" lean-forward="true" selection-start-line="454" selection-start-column="13" selection-end-line="454" selection-end-column="13" />
           <folding>
             <marker date="1496680928960" expanded="true" signature="1311:1666" ph="CREATE TABLE... users" />
             <marker date="1496680928960" expanded="true" signature="1872:2472" ph="CREATE TABLE... records" />
@@ -784,6 +632,118 @@
             <marker date="1496680928960" expanded="true" signature="15768:15814" ph="SELECT COUNT... records" />
             <marker date="1496680928960" expanded="true" signature="16273:16338" ph="SELECT * FRO... records" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/it/unibz/MyCollections/views/AboutView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="470">
+          <caret line="30" column="4" lean-forward="true" selection-start-line="30" selection-start-column="4" selection-end-line="33" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/it/unibz/MyCollections/ControlFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="2" column="9" lean-forward="false" selection-start-line="2" selection-start-column="9" selection-end-line="2" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/it/unibz/MyCollections/DatabaseSession.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="520">
+          <caret line="13" column="49" lean-forward="false" selection-start-line="13" selection-start-column="49" selection-end-line="13" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/it/unibz/MyCollections/CsvExporter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="560">
+          <caret line="23" column="4" lean-forward="true" selection-start-line="23" selection-start-column="4" selection-end-line="30" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/it/unibz/MyCollections/Exporter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="13" column="41" lean-forward="false" selection-start-line="13" selection-start-column="41" selection-end-line="13" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/it/unibz/MyCollections/HasherFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="10" column="28" lean-forward="false" selection-start-line="10" selection-start-column="28" selection-end-line="10" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/it/unibz/MyCollections/CsvImporter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="23" column="4" lean-forward="true" selection-start-line="23" selection-start-column="4" selection-end-line="28" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/it/unibz/MyCollections/Importer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="520">
+          <caret line="14" column="14" lean-forward="false" selection-start-line="14" selection-start-column="14" selection-end-line="14" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/it/unibz/MyCollections/Login.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4770">
+          <caret line="62" column="13" lean-forward="true" selection-start-line="62" selection-start-column="13" selection-end-line="62" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/it/unibz/MyCollections/Record.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="950">
+          <caret line="181" column="51" lean-forward="false" selection-start-line="181" selection-start-column="51" selection-end-line="181" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/it/unibz/MyCollections/RecordSearchQuery.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="98">
+          <caret line="42" column="6" lean-forward="true" selection-start-line="42" selection-start-column="6" selection-end-line="42" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/it/unibz/MyCollections/RecordsHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-262">
+          <caret line="40" column="18" lean-forward="false" selection-start-line="40" selection-start-column="18" selection-end-line="40" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/it/unibz/MyCollections/views/SearchView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="116" column="47" lean-forward="false" selection-start-line="116" selection-start-column="47" selection-end-line="116" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/it/unibz/MyCollections/views/RecordsView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="600">
+          <caret line="61" column="0" lean-forward="true" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

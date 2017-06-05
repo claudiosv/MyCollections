@@ -30,6 +30,11 @@ public class Record {
     private ImageView imageView;
     private static final Logger logger = Logger.getLogger(Record.class.getName());
 
+    /**
+     * Instantiates Record object.
+     *
+     * @author Claudio Spiess
+     */
     public Record() {
             this.image = new Image("default_user.png", 48, 48, true, true);
             imageView = new ImageView(image);
@@ -136,6 +141,12 @@ public class Record {
         imageView.setFitWidth(48);
     }
 
+    /**
+     * Writes Record's image into a byte array for IO operations.
+     *
+     * @author Claudio Spiess
+     * @return Bytes of the Record's image.
+     */
     public byte[] getImageArray() {
         logger.entering(getClass().getName(), "getImageArray");
         try {
@@ -167,6 +178,12 @@ public class Record {
         return true;
     }
 
+    /**
+     * Converts parametres of Record into a string.
+     *
+     * @author Claudio Spiess
+     * @return Bytes of the Record's image.
+     */
     @Override
     public String toString() {
         return String.format("%s %s %s %s %s %s", this.getFirstName(), this.getLastName(), this.getCompanyName(), this.getAddress(), this.getTelephoneNumber(), this.getEmailAddress());

@@ -11,7 +11,9 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/** Exporter to export records to comma separated values file.
+/**
+ * Exporter to export records to comma separated values file.
+ *
  * @author Claudio Spiess
  * @version 1.0
  * @since 1.0
@@ -19,6 +21,14 @@ import java.util.logging.Logger;
 public class CsvExporter implements Exporter {
     private static final Logger logger = Logger.getLogger(CsvExporter.class.getName());
 
+    /**
+     * Exports list of records to a file in comma separated values format.
+     * Does not include photo.
+     *
+     * @param records  List of records to export.
+     * @param filePath Path where file will be saved.
+     * @author Claudio Spiess
+     */
     @Override
     public void exportRecords(List<Record> records, Path filePath) {
         logger.entering(getClass().getName(), "exportRecords");
@@ -53,7 +63,7 @@ public class CsvExporter implements Exporter {
 
         } catch (IOException e) {
 
-           logger.log(Level.SEVERE, "Error saving file", e);
+            logger.log(Level.SEVERE, "Error saving file", e);
 
         } finally {
 
