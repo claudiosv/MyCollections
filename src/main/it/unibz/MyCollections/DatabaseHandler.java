@@ -20,257 +20,257 @@ public interface DatabaseHandler {
     /**
      * Initialises database connection, connects to database (if implementation does so).
      *
-     * @author Claudio Spiess
      * @param fileName Path to file that stores the records.
+     * @author Claudio Spiess
      */
-    public void initialise(String fileName);
+    void initialise(String fileName);
 
     /**
-     * Factory to create controls.
+     * Gets the file name of the database.
      *
+     * @return String containing file name of database
      * @author Claudio Spiess
      * @version 1.0
      * @since 1.0
      */
-    public String getFileName();
+    String getFileName();
 
     /**
      * Adds a new user to the database.
      *
-     * @author Claudio Spiess
      * @param user object to add to database.
-     * @see User
-     * @throws SQLException If there is an exception in JDBC.
+     * @throws SQLException               If there is an exception in JDBC.
      * @throws UserAlreadyExistsException If a user with the same username or id already exists.
+     * @author Claudio Spiess
+     * @see User
      */
-    public void addUser(User user) throws SQLException, UserAlreadyExistsException;
+    void addUser(User user) throws SQLException, UserAlreadyExistsException;
 
     /**
      * Updates an existing user with new properties. Requires
      * that the passed User argument already has a valid user id.
      * If the user cannot be found, a UserNotFound exception is thrown.
      *
-     * @author Claudio Spiess
      * @param user object to edit in the database.
-     * @see User
-     * @throws SQLException If there is an exception in JDBC.
+     * @throws SQLException          If there is an exception in JDBC.
      * @throws UserNotFoundException If a user with that id doesn't already exist.
-     * @throws IOException If there is an error writing the user's image to a buffer.
+     * @author Claudio Spiess
+     * @see User
      */
-    public void updateUser(User user)  throws UserNotFoundException, SQLException, IOException;
+    void updateUser(User user) throws UserNotFoundException, SQLException;
 
     /**
      * Inserts a new record into the database and returns the new
      * object with the correct record id.
      *
-     * @author Claudio Spiess
      * @param record object to add to database.
-     * @see Record
-     * @throws SQLException If there is an exception in JDBC.
+     * @throws SQLException            If there is an exception in JDBC.
      * @throws RecordNotFoundException If the inserted record couldn't be found in the database (DB error).
-     * @throws IOException If the record's image couldn't be written to a buffer.
+     * @throws IOException             If the record's image couldn't be written to a buffer.
+     * @throws UserNotFoundException   If the record's owner id doesn't exist
+     * @author Claudio Spiess
+     * @see Record
      */
-    public Record insertRecord(Record record) throws SQLException, RecordNotFoundException, IOException ;
+    Record insertRecord(Record record) throws SQLException, RecordNotFoundException, IOException, UserNotFoundException;
 
     /**
      * Deletes an existing user from the database
      * based on the user's id.
      *
-     * @author Claudio Spiess
      * @param userId user id to delete from database.
-     * @see User
-     * @throws SQLException If there is an exception in JDBC.
+     * @throws SQLException          If there is an exception in JDBC.
      * @throws UserNotFoundException If the user with the userId couldn't be found.
+     * @author Claudio Spiess
+     * @see User
      */
-    public void deleteUser(int userId) throws UserNotFoundException, SQLException;
+    void deleteUser(int userId) throws UserNotFoundException, SQLException;
 
     /**
      * Deletes an existing record from the database
      * based on the record's ID
      *
-     * @author Claudio Spiess
      * @param recordId record id to delete from database.
-     * @see Record
-     * @throws SQLException If there is an exception in JDBC.
+     * @throws SQLException            If there is an exception in JDBC.
      * @throws RecordNotFoundException If the record couldn't be found in the database.
+     * @author Claudio Spiess
+     * @see Record
      */
-    public void deleteRecord(int recordId) throws SQLException, RecordNotFoundException;
+    void deleteRecord(int recordId) throws SQLException, RecordNotFoundException;
 
     /**
      * Updates an existing record in the database
      * based on the record's ID
      *
-     * @author Claudio Spiess
      * @param record record update in database.
-     * @see Record
-     * @throws SQLException If there is an exception in JDBC.
+     * @throws SQLException            If there is an exception in JDBC.
      * @throws RecordNotFoundException If the record couldn't be found in the database.
-     * @throws IOException If the record's image couldn't be written to a buffer.
+     * @author Claudio Spiess
+     * @see Record
      */
-    public void updateRecord(Record record) throws SQLException, IOException, RecordNotFoundException;
+    void updateRecord(Record record) throws SQLException, RecordNotFoundException;
 
     /**
      * Checks whether a record with specified
      * id exists in the database or not.
      *
-     * @author Claudio Spiess
      * @param id record to check for existence.
-     * @see Record
-     * @throws SQLException If there is an exception in JDBC.
      * @return boolean true if the record exists, false if it doesn't.
+     * @throws SQLException If there is an exception in JDBC.
+     * @author Claudio Spiess
+     * @see Record
      */
-    public boolean recordExists(int id) throws SQLException;
+    boolean recordExists(int id) throws SQLException;
 
     /**
      * Checks whether a user with specified
      * id exists in the database or not.
      *
-     * @author Claudio Spiess
      * @param id user to check for existence.
-     * @see User
-     * @throws SQLException If there is an exception in JDBC.
      * @return boolean true if the user exists, false if it doesn't.
+     * @throws SQLException If there is an exception in JDBC.
+     * @author Claudio Spiess
+     * @see User
      */
-    public boolean userExists(int id) throws SQLException;
+    boolean userExists(int id) throws SQLException;
 
     /**
      * Checks whether a user with specified
      * username exists in the database or not.
      *
-     * @author Claudio Spiess
      * @param username username to check for existence.
-     * @see User
-     * @throws SQLException If there is an exception in JDBC.
      * @return boolean true if the user exists, false if it doesn't.
+     * @throws SQLException If there is an exception in JDBC.
+     * @author Claudio Spiess
+     * @see User
      */
-    public boolean userExists(String username) throws SQLException;
+    boolean userExists(String username) throws SQLException;
 
     /**
      * Gets user with specified username and password.
      * If a user with specific parametres cannot be found,
      * an exception is thrown.
      *
-     * @author Claudio Spiess
      * @param username of user to get.
      * @param password of user to get.
-     * @see User
-     * @throws SQLException If there is an exception in JDBC.
-     * @throws UserNotFoundException If the user couldn't be found in the database.
-     * @throws IOException If the user's image couldn't be written to a buffer.
      * @return User instance if a user is found.
+     * @throws SQLException          If there is an exception in JDBC.
+     * @throws UserNotFoundException If the user couldn't be found in the database.
+     * @throws IOException           If the user's image couldn't be written to a buffer.
+     * @author Claudio Spiess
+     * @see User
      */
-    public User getUser(String username, String password) throws UserNotFoundException, SQLException, IOException;
+    User getUser(String username, String password) throws UserNotFoundException, SQLException, IOException;
 
     /**
      * Gets all users in the database for administrative
      * purposes.
      *
+     * @return List of all users.
+     * @throws SQLException If there is an exception in JDBC.
+     * @throws IOException  If the user's image couldn't be written to a buffer.
      * @author Claudio Spiess
      * @see User
-     * @throws SQLException If there is an exception in JDBC.
-     * @throws IOException If the user's image couldn't be written to a buffer.
-     * @return List of all users.
      */
-    public List<User> getAllUsers() throws SQLException, IOException;
+    List<User> getAllUsers() throws SQLException, IOException;
 
     /**
      * Gets a user based on a specified id.
      *
+     * @param id User id of user to get.
+     * @return User instance of specified id.
+     * @throws SQLException          If there is an exception in JDBC.
+     * @throws IOException           If the user's image couldn't be written to a buffer.
+     * @throws UserNotFoundException If a user with specified id cannot be found.
      * @author Claudio Spiess
      * @see User
-     * @param id User id of user to get.
-     * @throws SQLException If there is an exception in JDBC.
-     * @throws IOException If the user's image couldn't be written to a buffer.
-     * @throws UserNotFoundException If a user with specified id cannot be found.
-     * @return User instance of specified id.
      */
-    public User getUser(int id) throws UserNotFoundException, SQLException, IOException;
+    User getUser(int id) throws UserNotFoundException, SQLException, IOException;
 
     /**
      * Searches a specific user id's records based on a
      * RecordSearchQuery, which builds the correct SQL string to
      * search.
      *
+     * @param query  RecordSearchQuery instance that has parametres set.
+     * @param userId Id of user who's records are to be searched.
+     * @return List of found records (can be empty).
+     * @throws SQLException If there is an exception in JDBC.
+     * @throws IOException  If the record's image couldn't be written to a buffer.
      * @author Claudio Spiess
      * @see Record
-     * @param query RecordSearchQuery instance that has parametres set.
-     * @param userId Id of user who's records are to be searched.
-     * @throws SQLException If there is an exception in JDBC.
-     * @throws IOException If the record's image couldn't be written to a buffer.
-     * @return List of found records (can be empty).
      */
-    public List<Record> searchRecords(RecordSearchQuery query, int userId) throws SQLException, IOException;
+    List<Record> searchRecords(RecordSearchQuery query, int userId) throws SQLException, IOException;
 
     /**
      * Searches a all records based on a
      * RecordSearchQuery, which builds the correct SQL string to
      * search.
      *
+     * @param query RecordSearchQuery instance that has parametres set.
+     * @return List of found records (can be empty).
+     * @throws SQLException If there is an exception in JDBC.
+     * @throws IOException  If the record's image couldn't be written to a buffer.
      * @author Claudio Spiess
      * @see Record
-     * @param query RecordSearchQuery instance that has parametres set.
-     * @throws SQLException If there is an exception in JDBC.
-     * @throws IOException If the record's image couldn't be written to a buffer.
-     * @return List of found records (can be empty).
      */
-    public List<Record> searchRecords(RecordSearchQuery query) throws SQLException, IOException;
+    List<Record> searchRecords(RecordSearchQuery query) throws SQLException, IOException;
 
     /**
      * Gets all records stored in database regardless of ownership.
      *
+     * @return List of all records (can be empty).
+     * @throws SQLException If there is an exception in JDBC.
+     * @throws IOException  If the record's image couldn't be written to a buffer.
      * @author Claudio Spiess
      * @see Record
-     * @throws SQLException If there is an exception in JDBC.
-     * @throws IOException If the record's image couldn't be written to a buffer.
-     * @return List of all records (can be empty).
      */
-    public List<Record> getAllRecords() throws SQLException, IOException;
+    List<Record> getAllRecords() throws SQLException, IOException;
 
     /**
      * Gets records stored in database based on the id of the
      * owner's id.
      *
+     * @param userId User id to get record records for.
+     * @return List of all records (can be empty).
+     * @throws SQLException If there is an exception in JDBC.
+     * @throws IOException  If the record's image couldn't be written to a buffer.
      * @author Claudio Spiess
      * @see Record
-     * @param userId User id to get record records for.
-     * @throws SQLException If there is an exception in JDBC.
-     * @throws IOException If the record's image couldn't be written to a buffer.
-     * @return List of all records (can be empty).
      */
-    public List<Record> getRecords(int userId) throws SQLException, IOException;
+    List<Record> getRecords(int userId) throws SQLException, IOException;
 
     /**
      * Gets count of records owned by a specific user's id.
      *
-     * @author Claudio Spiess
      * @param userId User id to get record's count for.
-     * @throws SQLException If there is an exception in JDBC.
      * @return int Count of records owned by a specific user ID.
+     * @throws SQLException If there is an exception in JDBC.
+     * @author Claudio Spiess
      */
-    public int getRecordCount(int userId) throws SQLException;
+    int getRecordCount(int userId) throws SQLException;
 
     /**
      * Gets count of records all records in the database.
      *
-     * @author Claudio Spiess
-     * @throws SQLException If there is an exception in JDBC.
      * @return int Count of records owned by a specific user ID.
+     * @throws SQLException If there is an exception in JDBC.
+     * @author Claudio Spiess
      */
-    public int getRecordCount() throws SQLException;
+    int getRecordCount() throws SQLException;
 
     /**
      * Gets a specific record based on the record id
      * and the id of the record's owner.
      *
-     * @author Claudio Spiess
-     * @param userId User id to get record for.
+     * @param userId   User id to get record for.
      * @param recordId Record id to find.
-     * @throws SQLException If there is an exception in JDBC.
-     * @throws IOException If the record's image couldn't be written to a buffer.
-     * @throws RecordNotFoundException If a record with specified parametres couldn't be found.
      * @return Record found with matching record id and owner user id.
+     * @throws SQLException            If there is an exception in JDBC.
+     * @throws IOException             If the record's image couldn't be written to a buffer.
+     * @throws RecordNotFoundException If a record with specified parametres couldn't be found.
+     * @author Claudio Spiess
      */
-    public Record getRecord(int userId, int recordId) throws SQLException, IOException, RecordNotFoundException;
+    Record getRecord(int userId, int recordId) throws SQLException, IOException, RecordNotFoundException;
 
     /**
      * Commits database instance to file.
@@ -280,6 +280,6 @@ public interface DatabaseHandler {
      *
      * @author Claudio Spiess
      */
-    public void save();
+    void save();
 
 }

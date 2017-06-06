@@ -10,9 +10,9 @@ import java.util.List;
  *
  * @author Claudio Spiess
  * @version 1.0
- * @since 1.0
  * @see XmlExporter
  * @see CsvExporter
+ * @since 1.0
  */
 public interface Exporter {
 
@@ -23,5 +23,5 @@ public interface Exporter {
      * @param filePath Path where file will be saved.
      * @author Claudio Spiess
      */
-    public void exportRecords(List<Record> records, Path filePath);
+    void exportRecords(List<Record> records, Path filePath);
 }

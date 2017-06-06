@@ -1,14 +1,10 @@
 package main.it.unibz.MyCollections.controls;
 
-import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import main.it.unibz.MyCollections.views.AboutView;
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Factory to create controls.
@@ -29,7 +25,7 @@ public class AboutMenuItem extends MenuItem implements AdvancedCustomMenuItem {
     public AboutMenuItem(Stage primaryStage) {
         super("About");
         this.setOnAction(event ->
-            new AboutView(primaryStage)
+                new AboutView(primaryStage)
         );
         this.setGraphic(new ImageView(new Image("information-button.png")));
     }
@@ -66,7 +62,7 @@ public class AboutMenuItem extends MenuItem implements AdvancedCustomMenuItem {
      * @since 1.0
      */
     @Override
-    public void setVisibility(boolean visible) {
-        this.setVisible(visible);
+    public void setVisible() {
+        this.setVisible(true);
     }
 }

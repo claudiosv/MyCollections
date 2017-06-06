@@ -3,21 +3,47 @@ package main.it.unibz.MyCollections.controls;
 import javafx.scene.control.SeparatorMenuItem;
 
 /**
- * Created by Claudio on 06/06/2017.
+ * Factory to create controls.
+ *
+ * @author Claudio Spiess
+ * @version 1.0
+ * @since 1.0
  */
 public class AdvancedSeparatorMenuItem extends SeparatorMenuItem implements AdvancedCustomMenuItem {
+
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     @Override
     public boolean isAdminOnly() {
         return false;
     }
 
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     @Override
     public boolean isDataOnly() {
         return false;
     }
 
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     @Override
-    public void setVisibility(boolean visible) {
-        this.setVisible(visible);
+    public void setVisible() {
+        this.setVisible(true);
     }
 }

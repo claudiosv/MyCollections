@@ -27,12 +27,8 @@ public class CustomMenuBar extends MenuBar {
      * @version 1.0
      * @since 1.0
      */
-    public void setFileMenu(FileMenu menu)
-    {
-        if(!this.getMenus().contains(menu)) {
-            this.fileMenu = menu;
-            this.getMenus().add(menu);
-        }
+    public FileMenu getFileMenu() {
+        return fileMenu;
     }
 
     /**
@@ -42,7 +38,10 @@ public class CustomMenuBar extends MenuBar {
      * @version 1.0
      * @since 1.0
      */
-    public FileMenu getFileMenu() {
-        return fileMenu;
+    public void setFileMenu(FileMenu menu) {
+        if (!this.getMenus().contains(menu)) {
+            this.fileMenu = menu;
+            this.getMenus().add(menu);
+        }
     }
 }

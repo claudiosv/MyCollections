@@ -4,11 +4,12 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-import main.it.unibz.MyCollections.*;
-import main.it.unibz.MyCollections.exceptions.RecordNotFoundException;
+import main.it.unibz.MyCollections.DatabaseSession;
+import main.it.unibz.MyCollections.HasherFactory;
+import main.it.unibz.MyCollections.User;
+import main.it.unibz.MyCollections.Validator;
 import main.it.unibz.MyCollections.exceptions.UserAlreadyExistsException;
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,19 +22,19 @@ import java.util.logging.Logger;
  *
  * @author Claudio Spiess
  * @version 1.0
- * @since 1.0
  * @see main.it.unibz.MyCollections.views.UserView
+ * @since 1.0
  */
-public class AddUserView extends UserView {
+class AddUserView extends UserView {
     private static final Logger logger = Logger.getLogger(AddUserView.class.getName());
 
     /**
      * Instantiates the add user view by creating the necessary controls
      * and adding them to the parent stage.
      *
+     * @param user1       Previously instantiated user to be added.
+     * @param parentStage Stage from which constructor is called.
      * @author Claudio Spiess
-     * @param user1 Previously instantiated user to be added.
-     * @param parentStage  Stage from which constructor is called.
      */
     public AddUserView(User user1, Stage parentStage) {
         super(user1, parentStage);

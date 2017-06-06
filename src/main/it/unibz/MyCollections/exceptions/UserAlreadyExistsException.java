@@ -7,20 +7,20 @@ package main.it.unibz.MyCollections.exceptions;
  *
  * @author Claudio Spiess
  * @version 1.0
- * @since 1.0
  * @see main.it.unibz.MyCollections.User
  * @see Exception
+ * @since 1.0
  */
 public class UserAlreadyExistsException extends Exception {
 
     /**
      * Instantiates the exception for a User that already exist
      * by calling the super constructor in the Exception class
+     *
      * @author Claudio Spiess
      * @see main.it.unibz.MyCollections.User
      */
-    public UserAlreadyExistsException()
-    {
+    public UserAlreadyExistsException() {
         super("User already exists");
     }
 }

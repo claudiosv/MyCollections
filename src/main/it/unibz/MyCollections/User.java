@@ -8,14 +8,14 @@ import javafx.scene.image.ImageView;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/** Represents a user.
+/**
+ * Represents a user.
+ *
  * @author Claudio Spiess
  * @version 1.0
  * @since 1.0
@@ -28,8 +28,15 @@ public class User {
      * @version 1.0
      * @since 1.0
      */
-    private SimpleStringProperty username = new SimpleStringProperty();
-
+    private static final Logger logger = Logger.getLogger(User.class.getName());
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
+    private final SimpleStringProperty username = new SimpleStringProperty();
     /**
      * Factory to create controls.
      *
@@ -38,7 +45,6 @@ public class User {
      * @since 1.0
      */
     private String passwordHash;
-
     /**
      * Factory to create controls.
      *
@@ -47,7 +53,6 @@ public class User {
      * @since 1.0
      */
     private Image image;
-
     /**
      * Factory to create controls.
      *
@@ -56,7 +61,6 @@ public class User {
      * @since 1.0
      */
     private ImageView imageView;
-
     /**
      * Factory to create controls.
      *
@@ -65,7 +69,6 @@ public class User {
      * @since 1.0
      */
     private int id;
-
     /**
      * Factory to create controls.
      *
@@ -73,16 +76,7 @@ public class User {
      * @version 1.0
      * @since 1.0
      */
-    private SimpleBooleanProperty isAdmin = new SimpleBooleanProperty(false);
-
-    /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
-     */
-    private static final Logger logger = Logger.getLogger(User.class.getName());
+    private final SimpleBooleanProperty isAdmin = new SimpleBooleanProperty(false);
 
     /**
      * Instantiates User object. Sets the default image of the user
@@ -91,10 +85,15 @@ public class User {
      * @author Claudio Spiess
      */
     public User() {
-            this.image = new Image("default_user.png", 48, 48, true, true);
-            imageView = new ImageView(image);
-            imageView.setFitHeight(48);
-            imageView.setFitWidth(48);
+
+    }
+
+    @SuppressWarnings("unused")
+    public void setDefaultImage() {
+        this.image = new Image("default_user.png", 48, 48, true, true);
+        imageView = new ImageView(image);
+        imageView.setFitHeight(48);
+        imageView.setFitWidth(48);
     }
 
     /**
@@ -104,6 +103,7 @@ public class User {
      * @version 1.0
      * @since 1.0
      */
+    @SuppressWarnings("unused")
     public SimpleStringProperty usernameProperty() {
         return username;
     }
@@ -115,6 +115,7 @@ public class User {
      * @version 1.0
      * @since 1.0
      */
+    @SuppressWarnings("unused")
     public SimpleBooleanProperty isAdminProperty() {
         return isAdmin;
     }
@@ -213,24 +214,23 @@ public class User {
     /**
      * Writes User's image into a byte array for IO operations.
      *
-     * @author Claudio Spiess
      * @return Bytes of the Record's image.
+     * @author Claudio Spiess
      */
     public byte[] getImageArray() {
         logger.entering(getClass().getName(), "getImageArray");
         try {
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            BufferedImage bufImage = SwingFXUtils.fromFXImage(image, null);
-            if (bufImage == null) return null;
-            ImageIO.write(bufImage, "jpg", baos);
-            return baos.toByteArray();
-        } catch (IOException ex)
-        {
+            if(image != null) {
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                BufferedImage bufImage = SwingFXUtils.fromFXImage(image, null);
+                if (bufImage == null) return null;
+                ImageIO.write(bufImage, "jpg", baos);
+                return baos.toByteArray();
+            }
+        } catch (IOException ex) {
             logger.log(Level.SEVERE, "Error writing image array", ex);
         }
-        finally {
-            return new byte[0];
-        }
+        return new byte[0];
     }
 
     /**
@@ -258,8 +258,8 @@ public class User {
     /**
      * Converts username of User into a string.
      *
-     * @author Claudio Spiess
      * @return String of the User's username.
+     * @author Claudio Spiess
      */
     @Override
     public String toString() {
@@ -275,7 +275,6 @@ public class User {
      */
     public boolean isEmpty() {
         if (username != null && !username.getValue().trim().equals("")) return false;
-        if (passwordHash != null && !passwordHash.trim().equals("")) return false;
-        return true;
+        return !(passwordHash != null && !passwordHash.trim().equals(""));
     }
 }

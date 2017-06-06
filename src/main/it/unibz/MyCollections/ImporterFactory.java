@@ -14,8 +14,8 @@ public class ImporterFactory {
      * specified by the caller.
      *
      * @param importerType Which type of handler e.g. csv
-     * @author Claudio Spiess
      * @return Importer instance of the specified importerType
+     * @author Claudio Spiess
      * @see Importer
      * @see CsvImporter
      */

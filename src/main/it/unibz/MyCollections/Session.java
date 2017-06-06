@@ -17,27 +17,6 @@ public class Session {
      * @since 1.0
      */
     private static Session instance = new Session();
-
-    /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
-     */
-    private Session(){}
-
-    /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
-     */
-    public static Session getInstance(){
-        return instance;
-    }
-
     /**
      * Factory to create controls.
      *
@@ -46,7 +25,6 @@ public class Session {
      * @since 1.0
      */
     private User activeUser;
-
     /**
      * Factory to create controls.
      *
@@ -55,7 +33,6 @@ public class Session {
      * @since 1.0
      */
     private boolean loggedIn;
-
     /**
      * Factory to create controls.
      *
@@ -64,7 +41,6 @@ public class Session {
      * @since 1.0
      */
     private int recordsAdded;
-
     /**
      * Factory to create controls.
      *
@@ -81,7 +57,8 @@ public class Session {
      * @version 1.0
      * @since 1.0
      */
-    private DatabaseHandler databaseHandler;
+    private Session() {
+    }
 
     /**
      * Factory to create controls.
@@ -90,6 +67,18 @@ public class Session {
      * @version 1.0
      * @since 1.0
      */
+    public static Session getInstance() {
+        return instance;
+    }
+
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
+    @SuppressWarnings("unused")
     public static void setInstance(Session instance) {
         Session.instance = instance;
     }
@@ -123,6 +112,7 @@ public class Session {
      * @version 1.0
      * @since 1.0
      */
+    @SuppressWarnings("unused")
     public boolean isLoggedIn() {
         return loggedIn;
     }
@@ -134,6 +124,7 @@ public class Session {
      * @version 1.0
      * @since 1.0
      */
+    @SuppressWarnings("unused")
     public void setLoggedIn(boolean loggedIn) {
         this.loggedIn = loggedIn;
     }
@@ -147,17 +138,6 @@ public class Session {
      */
     public int getRecordsAdded() {
         return recordsAdded;
-    }
-
-    /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
-     */
-    public void setRecordsAdded(int recordsAdded) {
-        this.recordsAdded = recordsAdded;
     }
 
     /**
@@ -189,30 +169,7 @@ public class Session {
      * @version 1.0
      * @since 1.0
      */
-    public DatabaseHandler getDatabaseHandler() {
-        return databaseHandler;
-    }
-
-    /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
-     */
-    public void setDatabaseHandler(DatabaseHandler databaseHandler) {
-        this.databaseHandler = databaseHandler;
-    }
-
-    /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
-     */
-    public void incrementRecordsAdded()
-    {
+    public void incrementRecordsAdded() {
         this.recordsAdded++;
     }
 
@@ -223,8 +180,7 @@ public class Session {
      * @version 1.0
      * @since 1.0
      */
-    public void incrementRecordsDeleted()
-    {
+    public void incrementRecordsDeleted() {
         this.recordsDeleted++;
     }
 }

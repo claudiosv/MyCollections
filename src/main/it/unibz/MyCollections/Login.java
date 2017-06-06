@@ -1,16 +1,14 @@
 package main.it.unibz.MyCollections;
 
 
-
 import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -20,9 +18,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import main.it.unibz.MyCollections.controls.CustomMenuBar;
 import main.it.unibz.MyCollections.exceptions.UserNotFoundException;
-import main.it.unibz.MyCollections.views.AboutView;
-import main.it.unibz.MyCollections.views.DataSummaryView;
-import main.it.unibz.MyCollections.views.ManageUsersView;
 import main.it.unibz.MyCollections.views.RecordsView;
 
 import java.io.IOException;
@@ -30,7 +25,7 @@ import java.sql.SQLException;
 import java.util.logging.*;
 
 /**
- *  Main class to implement the task.
+ * Main class to implement the task.
  * This is the ultimate entry point of the application.
  * Initialises database and starts JavaFX application.
  * This is the core class of the application. It contains
@@ -42,6 +37,7 @@ import java.util.logging.*;
  * @since 1.0
  */
 public class Login extends Application {
+    private static final Logger logger = Logger.getLogger("main.it.unibz.MyCollections");
     /**
      * Factory to create controls.
      *
@@ -49,8 +45,7 @@ public class Login extends Application {
      * @version 1.0
      * @since 1.0
      */
-    public Scene scene;
-
+    private Scene scene;
     /**
      * Factory to create controls.
      *
@@ -59,7 +54,6 @@ public class Login extends Application {
      * @since 1.0
      */
     public Stage primaryStage;
-
     /**
      * Factory to create controls.
      *
@@ -68,8 +62,6 @@ public class Login extends Application {
      * @since 1.0
      */
     private CustomMenuBar menuBar;
-
-    private static final Logger logger = Logger.getLogger("main.it.unibz.MyCollections");
 
     /**
      * Main method. Entry point of application.
@@ -87,8 +79,8 @@ public class Login extends Application {
      * Populates main stage with controls and displays login form.
      * This method creates menus, and the view/controls to login.
      *
-     * @author Claudio Spiess
      * @param parentStage Parent stage from JavaFX
+     * @author Claudio Spiess
      */
     @Override
     public void start(Stage parentStage) {
@@ -101,8 +93,7 @@ public class Login extends Application {
             FileHandler handler = new FileHandler("MyCollections-log.%u.%g.txt", 1024 * 1024 * 8, 10, true);
             handler.setFormatter(new SimpleFormatter());
             logger.addHandler(handler);
-        } catch (IOException ex)
-        {
+        } catch (IOException ex) {
             logger.log(Level.SEVERE, "Log file failed to open", ex);
         }
 
@@ -125,50 +116,10 @@ public class Login extends Application {
 
         this.primaryStage.setTitle("MyCollections Login");
 
-        /*MenuBar menuBar = new MenuBar();
-
-        menuFile = new Menu("File");
-
-        MenuItem exit = new MenuItem("Exit");
-        exit.setGraphic(new ImageView(new Image("cross-button.png")));
-        exit.setOnAction((ActionEvent t) -> {
-            logger.log(Level.INFO,"Saving & Exiting");
-            DatabaseSession.getInstance().save();
-            Platform.exit();
-            System.exit(0);
-        });
-
-        MenuItem about = new MenuItem("About");
-        about.setOnAction(event -> {
-            logger.log(Level.INFO,"Opening about view");
-            new AboutView(primaryStage);
-        });
-        about.setGraphic(new ImageView(new Image("information-button.png")));
-
-        importData = new MenuItem("Import");
-        importData.setGraphic(new ImageView(new Image("card-import.png")));
-
-        exportData = new MenuItem("Export");
-        exportData.setGraphic(new ImageView(new Image("card-export.png")));
-
-        summaryData = new MenuItem("Summary of data");
-        summaryData.setOnAction((event -> new DataSummaryView(primaryStage)));
-        summaryData.setGraphic(new ImageView(new Image("dashboard.png")));
-
-        manageUsers = new MenuItem("Manage Users");
-        manageUsers.setOnAction((event -> new ManageUsersView(primaryStage)));
-        manageUsers.setGraphic(new ImageView(new Image("user.png")));
-
-        SeparatorMenuItem separatorMenuItem = new SeparatorMenuItem();
-
-        menuFile.getItems().addAll(about, separatorMenuItem, exit);
-
-        menuBar.getMenus().addAll(menuFile);*/
-
         MenuBarBuilder builder = new MenuBarBuilder();
         menuBar = builder.prepareMainMenu(primaryStage);
         ((VBox) scene.getRoot()).getChildren().addAll(menuBar);
-        logger.log(Level.FINEST,"Built menu & added to vbox");
+        logger.log(Level.FINEST, "Built menu & added to vbox");
 
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
@@ -201,7 +152,7 @@ public class Login extends Application {
         //TODO: btn.setDisable(true);
         pwBox.setOnKeyPressed((event) -> {
             if (event.getCode() == KeyCode.ENTER) {
-                logger.log(Level.FINE,"Enter key pressed");
+                logger.log(Level.FINE, "Enter key pressed");
                 btn.fire();
             }
         });
@@ -217,12 +168,12 @@ public class Login extends Application {
         ((VBox) scene.getRoot()).getChildren().addAll(grid);
         pwBox.textProperty().addListener((obs, oldText, newText) -> {
             if (Validator.isValidPassword(pwBox.getText())) {
-                logger.log(Level.FINEST,"Password valid");
+                logger.log(Level.FINEST, "Password valid");
                 btn.setDisable(false);
                 actiontarget.setFill(Color.FIREBRICK);
                 actiontarget.setText("");
             } else {
-                logger.log(Level.FINEST,"Password invalid");
+                logger.log(Level.FINEST, "Password invalid");
                 btn.setDisable(true);
                 actiontarget.setFill(Color.FIREBRICK);
                 actiontarget.setText("Password cannot be less than 5 characters");
@@ -231,7 +182,7 @@ public class Login extends Application {
 
 
         btn.setOnAction((event) -> {
-            logger.log(Level.INFO,"Logging in");
+            logger.log(Level.INFO, "Logging in");
             User user = null;
             try {
                 HasherFactory hasherFactory = new HasherFactory();
@@ -249,9 +200,9 @@ public class Login extends Application {
 
             if (user != null) {
                 Session.getInstance().setActiveUser(user);
-                logger.log(Level.INFO,"Session created");
-                menuBar.getFileMenu().setAdminVisibility(user.isAdmin());
-                menuBar.getFileMenu().setDataVisibility(true);
+                logger.log(Level.INFO, "Session created");
+                menuBar.getFileMenu().setAdminVisible();
+                menuBar.getFileMenu().setDataVisible();
                 RecordsView view = new RecordsView();
                 Pane box = view.box(this);
                 ((VBox) scene.getRoot()).getChildren().remove(grid);

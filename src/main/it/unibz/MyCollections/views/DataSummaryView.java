@@ -12,13 +12,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import main.it.unibz.MyCollections.DatabaseHandler;
 import main.it.unibz.MyCollections.DatabaseSession;
-import main.it.unibz.MyCollections.SQLiteHandler;
 import main.it.unibz.MyCollections.Session;
-import main.it.unibz.MyCollections.exceptions.UserAlreadyExistsException;
 
-import java.io.IOException;
 import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -46,8 +42,8 @@ public class DataSummaryView {
      * controls and loads the data from appropriate classes
      * to present the information to the user.
      *
+     * @param parentStage Stage from which constructor is called.
      * @author Claudio Spiess
-     * @param parentStage  Stage from which constructor is called.
      */
     public DataSummaryView(Stage parentStage) {
         logger.entering(getClass().getName(), "DataSummaryView");
@@ -73,7 +69,7 @@ public class DataSummaryView {
         try {
             Label number1 = new Label(Integer.toString(DatabaseSession.getInstance().getRecordCount()));
             grid.add(number1, 1, 1);
-        }  catch (SQLException ex) {
+        } catch (SQLException ex) {
             //TODO: add dialogs for these errors
             logger.log(Level.SEVERE, "SQL error loading record count", ex);
         }

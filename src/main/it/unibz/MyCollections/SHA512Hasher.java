@@ -41,7 +41,7 @@ public class SHA512Hasher implements Hasher {
             for (int i = 0; i < bytes.length; i++) {
                 sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
             }
-            hashedValue = sb.toString();
+            hashedValue = sb.toString().toUpperCase();
         } catch (NoSuchAlgorithmException e) {
             logger.log(Level.SEVERE, "Hashing error, algorithm not supported", e);
         }

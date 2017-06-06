@@ -34,18 +34,18 @@ import java.util.logging.Logger;
  * @version 1.0
  * @since 1.0
  */
-public class ImportDataView {
-    private List<Record> importedRecords = new ArrayList<>();
-    private Stage dialog;
+class ImportDataView {
     private static final Logger logger = Logger.getLogger(ImportDataView.class.getName());
+    private List<Record> importedRecords = new ArrayList<>();
+    private final Stage dialog;
 
     /**
      * Instantiates this import data view. Creates the necessary controls
      * and provides the logic to load the file and pass it to the right
      * parser.
      *
+     * @param parentStage Stage from which constructor is called.
      * @author Claudio Spiess
-     * @param parentStage  Stage from which constructor is called.
      */
     public ImportDataView(Stage parentStage) {
         logger.entering(getClass().getName(), "ImportDataView");
@@ -61,6 +61,7 @@ public class ImportDataView {
         grid.setPadding(new Insets(25, 25, 25, 25));
 
         ComboBox fileTypeCombo = new ComboBox();
+        //noinspection unchecked
         fileTypeCombo.getItems().addAll("Comma-Separated Values", "Extensible Markup Language");
 
         Label filePathLabel = new Label("Path to file:");
@@ -86,7 +87,7 @@ public class ImportDataView {
                     fileTypeCombo.getSelectionModel().select(1);
                 }
                 filePath.setText(file.getPath());
-            }else {
+            } else {
                 logger.log(Level.INFO, "File null: {0}", file);
             }
         });
@@ -139,8 +140,8 @@ public class ImportDataView {
      * imported something, the method returns the list of
      * imported records to the caller.
      *
-     * @author Claudio Spiess
      * @return Returns list of imported records.
+     * @author Claudio Spiess
      */
     public List<Record> show() {
         dialog.showAndWait();

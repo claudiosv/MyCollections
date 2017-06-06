@@ -15,7 +15,6 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import main.it.unibz.MyCollections.SQLiteHandler;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,7 +23,7 @@ import java.util.logging.Logger;
  * View that creates a dialog which shows information about project &amp; author.
  * This fulfills the requirement
  * "About: pops up a dialogue that tells something about the developer of the application
- (you)."
+ * (you)."
  * The purpose of this class is to create the necessary controls and display the dialog.
  *
  * @author Claudio Spiess
@@ -38,10 +37,10 @@ public class AboutView {
      * Instantiates an AboutView which shows information about project &amp; author.
      * This fulfills the requirement
      * "About: pops up a dialogue that tells something about the developer of the application
-     (you)."
+     * (you)."
      *
-     * @author Claudio Spiess
      * @param parentStage Stage from which constructor is called.
+     * @author Claudio Spiess
      */
     public AboutView(Stage parentStage) {
         logger.entering(getClass().getName(), "AboutView");

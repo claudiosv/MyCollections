@@ -1,6 +1,7 @@
 package main.it.unibz.MyCollections;
 
 import main.it.unibz.MyCollections.exceptions.RecordNotFoundException;
+import main.it.unibz.MyCollections.exceptions.UserNotFoundException;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -33,8 +34,8 @@ public class CsvImporter implements Importer {
     /**
      * Imports comma separated values file into records database.
      *
-     * @author Claudio Spiess
      * @param csvFile Path to CSV file to import from.
+     * @author Claudio Spiess
      */
     @Override
     public List<Record> importRecords(Path csvFile) {
@@ -64,19 +65,13 @@ public class CsvImporter implements Importer {
                     //TODO: logger
                 }
 
-//firstname,lastname,companyname,address,telephonenumber,email
                 records.add(newRecord);
-                DatabaseSession.getInstance().insertRecord(newRecord);
             }
 
         } catch (FileNotFoundException e) {
-           logger.log(Level.SEVERE, "File not found", e);
+            logger.log(Level.SEVERE, "File not found", e);
         } catch (IOException e) {
             logger.log(Level.SEVERE, "File error", e);
-        } catch (SQLException e) {
-            logger.log(Level.SEVERE, "Error inserting into database", e);
-        } catch (RecordNotFoundException e) {
-            logger.log(Level.SEVERE, "Record not found", e);
         } finally {
             if (br != null) {
                 try {

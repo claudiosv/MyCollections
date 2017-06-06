@@ -7,8 +7,5 @@ package main.it.unibz.MyCollections;
  * @version 1.0
  * @since 1.0
  */
-public class ControlFactory {
-
-    //build buttons!
-    //make necessary classes! TODO:
+class EditButtonDecorator {
 }

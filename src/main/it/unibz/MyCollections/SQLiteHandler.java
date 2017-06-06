@@ -14,7 +14,9 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/** DatabaseHandler implementation for SQLite JDBC.
+/**
+ * DatabaseHandler implementation for SQLite JDBC.
+ *
  * @author Claudio Spiess
  * @version 1.0
  * @since 1.0
@@ -47,6 +49,12 @@ public class SQLiteHandler implements DatabaseHandler {
      */
     private String fileName;
 
+    /**
+     * Initialises database connection, connects to database (if implementation does so).
+     *
+     * @param fileName Path to file that stores the records.
+     * @author Claudio Spiess
+     */
     @Override
     public void initialise(String fileName) {
         logger.entering(getClass().getName(), "initialise");
@@ -94,10 +102,28 @@ public class SQLiteHandler implements DatabaseHandler {
         logger.exiting(getClass().getName(), "initialise");
     }
 
+    /**
+     * Gets the file name of the database.
+     *
+     * @return String containing file name of database
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
+    @Override
     public String getFileName() {
         return fileName;
     }
 
+    /**
+     * Adds a new user to the database.
+     *
+     * @param user object to add to database.
+     * @throws SQLException               If there is an exception in JDBC.
+     * @throws UserAlreadyExistsException If a user with the same username or id already exists.
+     * @author Claudio Spiess
+     * @see User
+     */
     @Override
     public void addUser(User user) throws SQLException, UserAlreadyExistsException {
         logger.entering(getClass().getName(), "addUser");
@@ -112,8 +138,20 @@ public class SQLiteHandler implements DatabaseHandler {
         logger.exiting(getClass().getName(), "addUser");
     }
 
+    /**
+     * Updates an existing user with new properties. Requires
+     * that the passed User argument already has a valid user id.
+     * If the user cannot be found, a UserNotFound exception is thrown.
+     *
+     * @param user object to edit in the database.
+     * @throws SQLException          If there is an exception in JDBC.
+     * @throws UserNotFoundException If a user with that id doesn't already exist.
+     * @throws IOException           If there is an error writing the user's image to a buffer.
+     * @author Claudio Spiess
+     * @see User
+     */
     @Override
-    public void updateUser(User user) throws UserNotFoundException, SQLException, IOException {
+    public void updateUser(User user) throws UserNotFoundException, SQLException {
         logger.entering(getClass().getName(), "updateUser");
         if (userExists(user.getId())) {
             String sql = "UPDATE users SET " +
@@ -141,10 +179,23 @@ public class SQLiteHandler implements DatabaseHandler {
         }
     }
 
+    /**
+     * Inserts a new record into the database and returns the new
+     * object with the correct record id.
+     *
+     * @param record object to add to database.
+     * @throws SQLException            If there is an exception in JDBC.
+     * @throws RecordNotFoundException If the inserted record couldn't be found in the database (DB error).
+     * @throws IOException             If the record's image couldn't be written to a buffer.
+     * @throws UserNotFoundException   If the record's owner id doesn't exist
+     * @author Claudio Spiess
+     * @see Record
+     */
     @Override
-    public Record insertRecord(Record record) throws SQLException, RecordNotFoundException, IOException {
+    public Record insertRecord(Record record) throws SQLException, RecordNotFoundException, IOException, UserNotFoundException {
         logger.entering(getClass().getName(), "insertRecord");
         logger.log(Level.FINE, "Debug record id insertion: {0}", record.getRecordId());
+        if (userExists(record.getOwnerUserId())) {
             String sql = "INSERT INTO records (userid, firstname, lastname, companyname, address, telephonenumber, email, picture, deleted) VALUES (?,?,?,?,?,?,?,?,0);";
             PreparedStatement stmt = sqliteConnection.prepareStatement(sql);
 
@@ -176,9 +227,21 @@ public class SQLiteHandler implements DatabaseHandler {
             lastId.close();
             Session.getInstance().incrementRecordsAdded();
             return getRecord(record.getOwnerUserId(), recordId);
-
+        } else {
+            throw new UserNotFoundException();
+        }
     }
 
+    /**
+     * Deletes an existing user from the database
+     * based on the user's id.
+     *
+     * @param userId user id to delete from database.
+     * @throws SQLException          If there is an exception in JDBC.
+     * @throws UserNotFoundException If the user with the userId couldn't be found.
+     * @author Claudio Spiess
+     * @see User
+     */
     @Override
     public void deleteUser(int userId) throws UserNotFoundException, SQLException {
         logger.entering(getClass().getName(), "deleteUser");
@@ -188,12 +251,21 @@ public class SQLiteHandler implements DatabaseHandler {
             stmt.setInt(1, userId);
             stmt.execute();
             stmt.close();
-            return;
         } else {
             throw new UserNotFoundException();
         }
     }
 
+    /**
+     * Deletes an existing record from the database
+     * based on the record's ID
+     *
+     * @param recordId record id to delete from database.
+     * @throws SQLException            If there is an exception in JDBC.
+     * @throws RecordNotFoundException If the record couldn't be found in the database.
+     * @author Claudio Spiess
+     * @see Record
+     */
     @Override
     public void deleteRecord(int recordId) throws SQLException, RecordNotFoundException {
         logger.entering(getClass().getName(), "deleteRecord");
@@ -209,8 +281,19 @@ public class SQLiteHandler implements DatabaseHandler {
         }
     }
 
+    /**
+     * Updates an existing record in the database
+     * based on the record's ID
+     *
+     * @param record record update in database.
+     * @throws SQLException            If there is an exception in JDBC.
+     * @throws RecordNotFoundException If the record couldn't be found in the database.
+     * @throws IOException             If the record's image couldn't be written to a buffer.
+     * @author Claudio Spiess
+     * @see Record
+     */
     @Override
-    public void updateRecord(Record record) throws SQLException, IOException, RecordNotFoundException {
+    public void updateRecord(Record record) throws SQLException, RecordNotFoundException {
         logger.entering(getClass().getName(), "updateRecord");
         if (recordExists(record.getRecordId())) {
             String sql = "UPDATE records SET " +
@@ -249,6 +332,16 @@ public class SQLiteHandler implements DatabaseHandler {
         }
     }
 
+    /**
+     * Checks whether a record with specified
+     * id exists in the database or not.
+     *
+     * @param id record to check for existence.
+     * @return boolean true if the record exists, false if it doesn't.
+     * @throws SQLException If there is an exception in JDBC.
+     * @author Claudio Spiess
+     * @see Record
+     */
     @Override
     public boolean recordExists(int id) throws SQLException {
         logger.entering(getClass().getName(), "recordExists");
@@ -264,6 +357,16 @@ public class SQLiteHandler implements DatabaseHandler {
         return false;
     }
 
+    /**
+     * Checks whether a user with specified
+     * id exists in the database or not.
+     *
+     * @param id user to check for existence.
+     * @return boolean true if the user exists, false if it doesn't.
+     * @throws SQLException If there is an exception in JDBC.
+     * @author Claudio Spiess
+     * @see User
+     */
     @Override
     public boolean userExists(int id) throws SQLException {
         logger.entering(getClass().getName(), "userExists");
@@ -279,10 +382,20 @@ public class SQLiteHandler implements DatabaseHandler {
         return false;
     }
 
+    /**
+     * Checks whether a user with specified
+     * username exists in the database or not.
+     *
+     * @param username username to check for existence.
+     * @return boolean true if the user exists, false if it doesn't.
+     * @throws SQLException If there is an exception in JDBC.
+     * @author Claudio Spiess
+     * @see User
+     */
     @Override
     public boolean userExists(String username) throws SQLException {
         logger.entering(getClass().getName(), "userExists");
-        String sql = "SELECT COUNT(*) FROM users WHERE username = ?;";
+        String sql = "SELECT COUNT(*) FROM users WHERE deleted = 0 AND username = ?;";
         PreparedStatement stmt = sqliteConnection.prepareStatement(sql);
         stmt.setString(1, username);
         ResultSet result = stmt.executeQuery();
@@ -294,6 +407,20 @@ public class SQLiteHandler implements DatabaseHandler {
         return false;
     }
 
+    /**
+     * Gets user with specified username and password.
+     * If a user with specific parametres cannot be found,
+     * an exception is thrown.
+     *
+     * @param username     of user to get.
+     * @param passwordHash of user to get.
+     * @return User instance if a user is found.
+     * @throws SQLException          If there is an exception in JDBC.
+     * @throws UserNotFoundException If the user couldn't be found in the database.
+     * @throws IOException           If the user's image couldn't be written to a buffer.
+     * @author Claudio Spiess
+     * @see User
+     */
     @Override
     public User getUser(String username, String passwordHash) throws UserNotFoundException, SQLException, IOException {
         logger.entering(getClass().getName(), "getUser");
@@ -312,6 +439,16 @@ public class SQLiteHandler implements DatabaseHandler {
         return getUser(userId);
     }
 
+    /**
+     * Gets all users in the database for administrative
+     * purposes.
+     *
+     * @return List of all users.
+     * @throws SQLException If there is an exception in JDBC.
+     * @throws IOException  If the user's image couldn't be written to a buffer.
+     * @author Claudio Spiess
+     * @see User
+     */
     @Override
     public List<User> getAllUsers() throws SQLException, IOException {
         logger.entering(getClass().getName(), "getAllUsers");
@@ -325,8 +462,7 @@ public class SQLiteHandler implements DatabaseHandler {
             user.setPassword(result.getString("password"));
             user.setAdmin(result.getBoolean("admin"));
             byte[] pictureBytes = result.getBytes("picture");
-            if(pictureBytes != null && pictureBytes.length > 1)
-            {
+            if (pictureBytes != null && pictureBytes.length > 1) {
                 InputStream pictureStream = result.getBinaryStream("picture");
                 user.setImage(SwingFXUtils.toFXImage(ImageIO.read(pictureStream), null));
             }
@@ -338,6 +474,17 @@ public class SQLiteHandler implements DatabaseHandler {
         return users;
     }
 
+    /**
+     * Gets a user based on a specified id.
+     *
+     * @param id User id of user to get.
+     * @return User instance of specified id.
+     * @throws SQLException          If there is an exception in JDBC.
+     * @throws IOException           If the user's image couldn't be written to a buffer.
+     * @throws UserNotFoundException If a user with specified id cannot be found.
+     * @author Claudio Spiess
+     * @see User
+     */
     @Override
     public User getUser(int id) throws UserNotFoundException, SQLException, IOException {
         logger.entering(getClass().getName(), "getUser");
@@ -355,12 +502,11 @@ public class SQLiteHandler implements DatabaseHandler {
             user.setUsername(set.getString("username"));
             user.setPassword(set.getString("password"));
             byte[] pictureBytes = set.getBytes("picture");
-            if(pictureBytes != null && pictureBytes.length > 1)
-            {
+            if (pictureBytes != null && pictureBytes.length > 1) {
                 InputStream pictureStream = set.getBinaryStream("picture");
                 user.setImage(SwingFXUtils.toFXImage(ImageIO.read(pictureStream), null));
             }
-            user.setAdmin(set.getInt("admin") == 1 ? true : false);
+            user.setAdmin(set.getInt("admin") == 1);
         }
         set.close();
         stmt.close();
@@ -369,6 +515,19 @@ public class SQLiteHandler implements DatabaseHandler {
             return user;
     }
 
+    /**
+     * Searches a specific user id's records based on a
+     * RecordSearchQuery, which builds the correct SQL string to
+     * search.
+     *
+     * @param query  RecordSearchQuery instance that has parametres set.
+     * @param userId Id of user who's records are to be searched.
+     * @return List of found records (can be empty).
+     * @throws SQLException If there is an exception in JDBC.
+     * @throws IOException  If the record's image couldn't be written to a buffer.
+     * @author Claudio Spiess
+     * @see Record
+     */
     @Override
     public List<Record> searchRecords(RecordSearchQuery query, int userId) throws SQLException, IOException {
         logger.entering(getClass().getName(), "searchRecords");
@@ -385,6 +544,18 @@ public class SQLiteHandler implements DatabaseHandler {
         return resultSetConverter(s.executeQuery());
     }
 
+    /**
+     * Searches a all records based on a
+     * RecordSearchQuery, which builds the correct SQL string to
+     * search.
+     *
+     * @param query RecordSearchQuery instance that has parametres set.
+     * @return List of found records (can be empty).
+     * @throws SQLException If there is an exception in JDBC.
+     * @throws IOException  If the record's image couldn't be written to a buffer.
+     * @author Claudio Spiess
+     * @see Record
+     */
     @Override
     public List<Record> searchRecords(RecordSearchQuery query) throws SQLException, IOException {
         logger.entering(getClass().getName(), "searchRecords");
@@ -400,6 +571,15 @@ public class SQLiteHandler implements DatabaseHandler {
         return resultSetConverter(s.executeQuery());
     }
 
+    /**
+     * Gets all records stored in database regardless of ownership.
+     *
+     * @return List of all records (can be empty).
+     * @throws SQLException If there is an exception in JDBC.
+     * @throws IOException  If the record's image couldn't be written to a buffer.
+     * @author Claudio Spiess
+     * @see Record
+     */
     @Override
     public List<Record> getAllRecords() throws SQLException, IOException {
         logger.entering(getClass().getName(), "getAllRecords");
@@ -407,6 +587,17 @@ public class SQLiteHandler implements DatabaseHandler {
         return resultSetConverter(s.executeQuery("SELECT * FROM records WHERE deleted = 0"));
     }
 
+    /**
+     * Gets records stored in database based on the id of the
+     * owner's id.
+     *
+     * @param userId User id to get record records for.
+     * @return List of all records (can be empty).
+     * @throws SQLException If there is an exception in JDBC.
+     * @throws IOException  If the record's image couldn't be written to a buffer.
+     * @author Claudio Spiess
+     * @see Record
+     */
     @Override
     public List<Record> getRecords(int userId) throws SQLException, IOException {
         logger.entering(getClass().getName(), "getRecords");
@@ -415,8 +606,16 @@ public class SQLiteHandler implements DatabaseHandler {
         return resultSetConverter(s.executeQuery());
     }
 
+    /**
+     * Gets count of records owned by a specific user's id.
+     *
+     * @param userId User id to get record's count for.
+     * @return int Count of records owned by a specific user ID.
+     * @throws SQLException If there is an exception in JDBC.
+     * @author Claudio Spiess
+     */
     @Override
-        public int getRecordCount(int userId) throws SQLException {
+    public int getRecordCount(int userId) throws SQLException {
         logger.entering(getClass().getName(), "getRecordCount");
         PreparedStatement s = sqliteConnection.prepareStatement("SELECT COUNT(*) FROM records WHERE userid = ? AND deleted = 0");
         s.setInt(1, userId);
@@ -430,6 +629,13 @@ public class SQLiteHandler implements DatabaseHandler {
         return count;
     }
 
+    /**
+     * Gets count of records all records in the database.
+     *
+     * @return int Count of records owned by a specific user ID.
+     * @throws SQLException If there is an exception in JDBC.
+     * @author Claudio Spiess
+     */
     @Override
     public int getRecordCount() throws SQLException {
         logger.entering(getClass().getName(), "getRecordCount");
@@ -444,6 +650,18 @@ public class SQLiteHandler implements DatabaseHandler {
         return count;
     }
 
+    /**
+     * Gets a specific record based on the record id
+     * and the id of the record's owner.
+     *
+     * @param userId   User id to get record for.
+     * @param recordId Record id to find.
+     * @return Record found with matching record id and owner user id.
+     * @throws SQLException            If there is an exception in JDBC.
+     * @throws IOException             If the record's image couldn't be written to a buffer.
+     * @throws RecordNotFoundException If a record with specified parametres couldn't be found.
+     * @author Claudio Spiess
+     */
     @Override
     public Record getRecord(int userId, int recordId) throws SQLException, IOException, RecordNotFoundException {
         logger.entering(getClass().getName(), "getRecord");
@@ -452,7 +670,7 @@ public class SQLiteHandler implements DatabaseHandler {
         s.setInt(2, recordId);
         ResultSet result = s.executeQuery();
 
-        while (result.next()) {
+        if (result.next()) {
             Record databaseRecord = new Record();
             databaseRecord.setRecordId(result.getInt("id"));
             databaseRecord.setOwnerUserId(result.getInt("userid"));
@@ -463,8 +681,7 @@ public class SQLiteHandler implements DatabaseHandler {
             databaseRecord.setTelephoneNumber(result.getString("telephonenumber"));
             databaseRecord.setEmailAddress(result.getString("email"));
             byte[] pictureBytes = result.getBytes("picture");
-            if(pictureBytes != null && pictureBytes.length > 1)
-            {
+            if (pictureBytes != null && pictureBytes.length > 1) {
                 InputStream pictureStream = result.getBinaryStream("picture");
                 databaseRecord.setImage(SwingFXUtils.toFXImage(ImageIO.read(pictureStream), null));
             }
@@ -477,17 +694,35 @@ public class SQLiteHandler implements DatabaseHandler {
         throw new RecordNotFoundException();
     }
 
+    /**
+     * Commits database instance to file.
+     * Useless because by default JDBC Sqlite
+     * is set to autocommit any changes,
+     * but it's worth being safe than sorry.
+     *
+     * @author Claudio Spiess
+     */
     @Override
     public void save() {
         logger.entering(getClass().getName(), "save");
         try {
-            sqliteConnection.commit();
+            if (!sqliteConnection.getAutoCommit()) sqliteConnection.commit();
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "Save failed", e);
         }
 
     }
 
+    /**
+     * Converts a JDBC ResultSet into a list
+     * of Record with the correct properties set.
+     *
+     * @param result A ResultSet from a JDBC SQL query
+     * @return List of Records from the ResultSet
+     * @throws SQLException If there is an exception loading values from the ResultSet
+     * @throws IOException  If there is an exception writing to the image buffer.
+     * @author Claudio Spiess
+     */
     private List<Record> resultSetConverter(ResultSet result) throws SQLException, IOException {
         logger.entering(getClass().getName(), "resultSetConverter");
         List<Record> records = new ArrayList<>();
@@ -502,8 +737,7 @@ public class SQLiteHandler implements DatabaseHandler {
             databaseRecord.setTelephoneNumber(result.getString("telephonenumber"));
             databaseRecord.setEmailAddress(result.getString("email"));
             byte[] pictureBytes = result.getBytes("picture");
-            if(pictureBytes != null && pictureBytes.length > 1)
-            {
+            if (pictureBytes != null && pictureBytes.length > 1) {
                 InputStream pictureStream = result.getBinaryStream("picture");
                 databaseRecord.setImage(SwingFXUtils.toFXImage(ImageIO.read(pictureStream), null));
             }

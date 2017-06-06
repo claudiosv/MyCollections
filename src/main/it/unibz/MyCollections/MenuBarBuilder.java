@@ -1,21 +1,7 @@
 package main.it.unibz.MyCollections;
 
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.SeparatorMenuItem;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import main.it.unibz.MyCollections.controls.*;
-import main.it.unibz.MyCollections.views.AboutView;
-import main.it.unibz.MyCollections.views.DataSummaryView;
-import main.it.unibz.MyCollections.views.ManageUsersView;
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Factory to create controls.
@@ -24,7 +10,7 @@ import java.util.logging.Logger;
  * @version 1.0
  * @since 1.0
  */
-public class MenuBarBuilder {
+class MenuBarBuilder {
     /**
      * Factory to create controls.
      *
@@ -32,8 +18,7 @@ public class MenuBarBuilder {
      * @version 1.0
      * @since 1.0
      */
-    public CustomMenuBar prepareMainMenu(Stage primaryStage)
-    {
+    public CustomMenuBar prepareMainMenu(Stage primaryStage) {
         CustomMenuBar mainMenuBar = new CustomMenuBar();
         FileMenu fileMenu = new FileMenu();
         fileMenu.addItem(new AboutMenuItem(primaryStage));

@@ -29,32 +29,32 @@ import java.util.logging.Logger;
  *
  * @author Claudio Spiess
  * @version 1.0
- * @since 1.0
  * @see Record
  * @see AddRecordView
  * @see EditRecordView
+ * @since 1.0
  */
-public abstract class RecordView {
-    protected GridPane grid;
-    protected Stage dialog;
-    protected TextField firstNameTxt;
-    protected TextField lastNameTxt;
-    protected TextField companyNameTxt;
-    protected TextField addressTxt;
-    protected TextField telephoneNumberTxt;
-    protected TextField emailAddressTxt;
-    protected Record record;
+abstract class RecordView {
     private static final Logger logger = Logger.getLogger(RecordView.class.getName());
+    final GridPane grid;
+    final Stage dialog;
+    final TextField firstNameTxt;
+    final TextField lastNameTxt;
+    final TextField companyNameTxt;
+    final TextField addressTxt;
+    final TextField telephoneNumberTxt;
+    final TextField emailAddressTxt;
+    final Record record;
 
     /**
      * Instantiates this record view. Adds the controls
      * needed for to display the image, labels, and fields.
      *
+     * @param record      previously instantiated record to be added.
+     * @param parentStage Stage from which constructor is called.
      * @author Claudio Spiess
-     * @param record previously instantiated record to be added.
-     * @param parentStage  Stage from which constructor is called.
      */
-    public RecordView(Record record, Stage parentStage) {
+    RecordView(Record record, Stage parentStage) {
         logger.entering(getClass().getName(), "RecordView");
         this.record = record;
         dialog = new Stage();
@@ -68,38 +68,36 @@ public abstract class RecordView {
         grid.setPadding(new Insets(25, 25, 25, 25));
 
 
-            ImageView imageView = new ImageView();
-            imageView.setFitHeight(128);
-            imageView.setFitWidth(128);
-            imageView.setImage(record.getImage());
-            grid.add(imageView, 0, 0);
-            Button openButton = new Button("Open file...");
+        ImageView imageView = new ImageView();
+        imageView.setFitHeight(128);
+        imageView.setFitWidth(128);
+        imageView.setImage(record.getImage());
+        grid.add(imageView, 0, 0);
+        Button openButton = new Button("Open file...");
 
-            openButton.setGraphic(new ImageView(new Image("blue-folder-open-image.png")));
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Open Profile Picture");
-            fileChooser.setInitialDirectory(new File("C:\\Users\\claudio\\Downloads\\staff")); //TODO: fix
-            fileChooser.getExtensionFilters().addAll(
-                    new FileChooser.ExtensionFilter("JPG", "*.jpg"),
-                    new FileChooser.ExtensionFilter("PNG", "*.png"),
-                    new FileChooser.ExtensionFilter("All Images", "*.*")
-            );
+        openButton.setGraphic(new ImageView(new Image("blue-folder-open-image.png")));
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Profile Picture");
+        fileChooser.setInitialDirectory(new File("C:\\Users\\claudio\\Downloads\\staff")); //TODO: fix
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("JPG", "*.jpg"),
+                new FileChooser.ExtensionFilter("PNG", "*.png"),
+                new FileChooser.ExtensionFilter("All Images", "*.*")
+        );
 
-            openButton.setOnAction(event -> {
-                logger.log(Level.INFO, "Browsing for file");
-                File file = fileChooser.showOpenDialog(dialog);
-                if (file != null) {
-                    try {
-                        record.setImage(SwingFXUtils.toFXImage(ImageIO.read(file), null));
-                        imageView.setImage(record.getImage());
-                    }  catch (IOException ex) {
-                        logger.log(Level.SEVERE, "IO error loading image", ex); //TODO: add dialog
-                    }
+        openButton.setOnAction(event -> {
+            logger.log(Level.INFO, "Browsing for file");
+            File file = fileChooser.showOpenDialog(dialog);
+            if (file != null) {
+                try {
+                    record.setImage(SwingFXUtils.toFXImage(ImageIO.read(file), null));
+                    imageView.setImage(record.getImage());
+                } catch (IOException ex) {
+                    logger.log(Level.SEVERE, "IO error loading image", ex); //TODO: add dialog
                 }
-            });
-            grid.add(openButton, 1, 0);
-
-
+            }
+        });
+        grid.add(openButton, 1, 0);
 
 
         Label firstNameLbl = new Label("First name:");
@@ -142,8 +140,8 @@ public abstract class RecordView {
     /**
      * Shows the record view and returns the edited or added record.
      *
-     * @author Claudio Spiess
      * @return Record that has been edited or added
+     * @author Claudio Spiess
      */
     public Record show() {
         logger.entering(getClass().getName(), "show");

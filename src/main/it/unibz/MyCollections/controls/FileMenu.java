@@ -1,14 +1,8 @@
 package main.it.unibz.MyCollections.controls;
 
-import javafx.beans.Observable;
 import javafx.collections.ObservableList;
-import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
-import main.it.unibz.MyCollections.Exporter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Factory to create controls.
@@ -25,16 +19,6 @@ public class FileMenu extends Menu {
      * @version 1.0
      * @since 1.0
      */
-    public FileMenu() {
-        super("File");
-    }
-    /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
-     */
     private ImportDataMenuItem importDataMenuItem;
     /**
      * Factory to create controls.
@@ -44,7 +28,6 @@ public class FileMenu extends Menu {
      * @since 1.0
      */
     private ExportDataMenuItem exportDataMenuItem;
-
     /**
      * Factory to create controls.
      *
@@ -52,10 +35,8 @@ public class FileMenu extends Menu {
      * @version 1.0
      * @since 1.0
      */
-    public void addItem(AdvancedCustomMenuItem item){
-        if(item instanceof ImportDataMenuItem) this.importDataMenuItem = (ImportDataMenuItem)item;
-        if(item instanceof ExportDataMenuItem) this.exportDataMenuItem = (ExportDataMenuItem)item;
-        this.getItems().add((MenuItem)item);
+    public FileMenu() {
+        super("File");
     }
 
     /**
@@ -65,14 +46,25 @@ public class FileMenu extends Menu {
      * @version 1.0
      * @since 1.0
      */
-    public void setAdminVisibility(boolean visible)
-    {
+    public void addItem(AdvancedCustomMenuItem item) {
+        if (item instanceof ImportDataMenuItem) this.importDataMenuItem = (ImportDataMenuItem) item;
+        if (item instanceof ExportDataMenuItem) this.exportDataMenuItem = (ExportDataMenuItem) item;
+        this.getItems().add((MenuItem) item);
+    }
+
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
+    public void setAdminVisible() {
         ObservableList<MenuItem> items = this.getItems();
-        for(MenuItem item : items)
-        {
+        for (MenuItem item : items) {
             AdvancedCustomMenuItem customMenuItem = (AdvancedCustomMenuItem) item;
-            if(customMenuItem.isAdminOnly())
-                customMenuItem.setVisibility(visible);
+            if (customMenuItem.isAdminOnly())
+                customMenuItem.setVisible();
         }
     }
 
@@ -83,14 +75,12 @@ public class FileMenu extends Menu {
      * @version 1.0
      * @since 1.0
      */
-    public void setDataVisibility(boolean visible)
-    {
+    public void setDataVisible() {
         ObservableList<MenuItem> items = this.getItems();
-        for(MenuItem item : items)
-        {
+        for (MenuItem item : items) {
             AdvancedCustomMenuItem customMenuItem = (AdvancedCustomMenuItem) item;
-            if(customMenuItem.isDataOnly())
-                customMenuItem.setVisibility(visible);
+            if (customMenuItem.isDataOnly())
+                customMenuItem.setVisible();
         }
     }
 
@@ -101,8 +91,7 @@ public class FileMenu extends Menu {
      * @version 1.0
      * @since 1.0
      */
-    public ImportDataMenuItem getImportDataMenuItem()
-    {
+    public ImportDataMenuItem getImportDataMenuItem() {
         return this.importDataMenuItem;
     }
 
@@ -113,8 +102,7 @@ public class FileMenu extends Menu {
      * @version 1.0
      * @since 1.0
      */
-    public ExportDataMenuItem getExportDataMenuItem()
-    {
+    public ExportDataMenuItem getExportDataMenuItem() {
         return this.exportDataMenuItem;
     }
 

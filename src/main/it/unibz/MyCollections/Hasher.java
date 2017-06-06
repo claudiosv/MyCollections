@@ -15,10 +15,10 @@ public interface Hasher {
     /**
      * Hashes input string, for use in password storage.
      *
+     * @return String that has been hashed
      * @author Claudio Spiess
      * @version 1.0
      * @since 1.0
-     * @return String that has been hashed
      */
-    public String hash(String input);
+    String hash(String input);
 }

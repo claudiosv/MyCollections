@@ -15,7 +15,7 @@ public class DatabaseSession {
      * @version 1.0
      * @since 1.0
      */
-    private static DatabaseHandler instance = new SQLiteHandler();
+    private static final DatabaseHandler instance = new SQLiteHandler();
 
     /**
      * Factory to create controls.
@@ -30,8 +30,8 @@ public class DatabaseSession {
     /**
      * Returns single instance of the DatabaseHandler
      *
-     * @author Claudio Spiess
      * @return Instance of RecordHandler
+     * @author Claudio Spiess
      */
     public static DatabaseHandler getInstance() {
         return instance;

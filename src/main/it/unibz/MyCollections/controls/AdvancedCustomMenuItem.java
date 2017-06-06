@@ -7,7 +7,7 @@ package main.it.unibz.MyCollections.controls;
  * @version 1.0
  * @since 1.0
  */
-public interface AdvancedCustomMenuItem  {
+interface AdvancedCustomMenuItem {
     /**
      * Factory to create controls.
      *
@@ -15,7 +15,7 @@ public interface AdvancedCustomMenuItem  {
      * @version 1.0
      * @since 1.0
      */
-    public boolean isAdminOnly();
+    boolean isAdminOnly();
 
     /**
      * Factory to create controls.
@@ -24,7 +24,7 @@ public interface AdvancedCustomMenuItem  {
      * @version 1.0
      * @since 1.0
      */
-    public boolean isDataOnly();
+    boolean isDataOnly();
 
     /**
      * Factory to create controls.
@@ -33,5 +33,5 @@ public interface AdvancedCustomMenuItem  {
      * @version 1.0
      * @since 1.0
      */
-    public void setVisibility(boolean visible);
+    void setVisible();
 }

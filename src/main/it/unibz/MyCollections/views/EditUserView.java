@@ -5,7 +5,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import main.it.unibz.MyCollections.HasherFactory;
-import main.it.unibz.MyCollections.SQLiteHandler;
 import main.it.unibz.MyCollections.User;
 import main.it.unibz.MyCollections.Validator;
 
@@ -20,11 +19,11 @@ import java.util.logging.Logger;
  *
  * @author Claudio Spiess
  * @version 1.0
- * @since 1.0
  * @see main.it.unibz.MyCollections.views.UserView
  * @see User
+ * @since 1.0
  */
-public class EditUserView extends UserView {
+class EditUserView extends UserView {
     private static final Logger logger = Logger.getLogger(EditUserView.class.getName());
 
     /**
@@ -32,9 +31,9 @@ public class EditUserView extends UserView {
      * and contains the calls the check if the user has entered
      * valid details for a user.
      *
+     * @param user        Previously instantiated user to be edited.
+     * @param parentStage Stage from which constructor is called.
      * @author Claudio Spiess
-     * @param user Previously instantiated user to be edited.
-     * @param parentStage  Stage from which constructor is called.
      */
     public EditUserView(User user, Stage parentStage) {
         super(user, parentStage);

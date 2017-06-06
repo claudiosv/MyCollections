@@ -12,18 +12,18 @@ import java.util.List;
  *
  * @author Claudio Spiess
  * @version 1.0
- * @since 1.0
  * @see XmlImporter
  * @see CsvImporter
+ * @since 1.0
  */
 public interface Importer {
 
     /**
      * Imports file into records database.
      *
-     * @author Claudio Spiess
      * @param file Path to file to import from.
      * @return List of records imported.
+     * @author Claudio Spiess
      */
-    public List<Record> importRecords(Path file);
+    List<Record> importRecords(Path file);
 }

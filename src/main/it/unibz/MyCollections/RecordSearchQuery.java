@@ -26,8 +26,15 @@ public class RecordSearchQuery {
      * @version 1.0
      * @since 1.0
      */
+    private static final Logger logger = Logger.getLogger(Record.class.getName());
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     private String firstName;
-
     /**
      * Factory to create controls.
      *
@@ -36,7 +43,6 @@ public class RecordSearchQuery {
      * @since 1.0
      */
     private String lastName;
-
     /**
      * Factory to create controls.
      *
@@ -45,7 +51,6 @@ public class RecordSearchQuery {
      * @since 1.0
      */
     private String companyName;
-
     /**
      * Factory to create controls.
      *
@@ -54,7 +59,6 @@ public class RecordSearchQuery {
      * @since 1.0
      */
     private String address;
-
     /**
      * Factory to create controls.
      *
@@ -63,7 +67,6 @@ public class RecordSearchQuery {
      * @since 1.0
      */
     private String telephoneNumber;
-
     /**
      * Factory to create controls.
      *
@@ -72,7 +75,6 @@ public class RecordSearchQuery {
      * @since 1.0
      */
     private String emailAddress;
-
     /**
      * Factory to create controls.
      *
@@ -80,8 +82,7 @@ public class RecordSearchQuery {
      * @version 1.0
      * @since 1.0
      */
-    private ArrayList<String> parametreValueBuilder = new ArrayList<>();
-
+    private ArrayList<String> parametreValueBuilder;
     /**
      * Factory to create controls.
      *
@@ -90,26 +91,6 @@ public class RecordSearchQuery {
      * @since 1.0
      */
     private boolean exclusive;
-
-    /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
-     */
-    private static final Logger logger = Logger.getLogger(Record.class.getName());
-
-    /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
-     */
-    public boolean isExclusive() {
-        return exclusive;
-    }
 
     /**
      * Factory to create controls.
@@ -134,29 +115,18 @@ public class RecordSearchQuery {
     }
 
     /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
-     */
-    public void setParametreValueBuilder(ArrayList<String> parametreValueBuilder) {
-        this.parametreValueBuilder = parametreValueBuilder;
-    }
-
-    /**
      * Builds query to search SQLite database for records with matching parametres.
      * The caller sets the properties of a RecordSearchQuery and then
      * calls this method to create the SQL query needed to search
      * for the properties.
      *
-     * @author Claudio Spiess
      * @return String of SQL to search database.
+     * @author Claudio Spiess
      */
     public String toLikeQuery() {
         logger.entering(getClass().getName(), "toLikeQuery");
         StringBuilder likeQueryBuilder = new StringBuilder();
-
+        parametreValueBuilder = new ArrayList<>();
         HashMap<String, String> schemaMap = new HashMap<>();
         schemaMap.put("firstname", firstName);
         schemaMap.put("lastname", lastName);
@@ -197,19 +167,8 @@ public class RecordSearchQuery {
      * @version 1.0
      * @since 1.0
      */
-    public String wildcardToSQL(String searchString) {
+    private String wildcardToSQL(String searchString) {
         return searchString.replace("*", "%");
-    }
-
-    /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
-     */
-    public String getFirstName() {
-        return firstName;
     }
 
     /**
@@ -230,30 +189,8 @@ public class RecordSearchQuery {
      * @version 1.0
      * @since 1.0
      */
-    public String getLastName() {
-        return lastName;
-    }
-
-    /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
-     */
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
-     */
-    public String getCompanyName() {
-        return companyName;
     }
 
     /**
@@ -274,17 +211,6 @@ public class RecordSearchQuery {
      * @version 1.0
      * @since 1.0
      */
-    public String getAddress() {
-        return address;
-    }
-
-    /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
-     */
     public void setAddress(String address) {
         this.address = address;
     }
@@ -296,30 +222,8 @@ public class RecordSearchQuery {
      * @version 1.0
      * @since 1.0
      */
-    public String getTelephoneNumber() {
-        return telephoneNumber;
-    }
-
-    /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
-     */
     public void setTelephoneNumber(String telephoneNumber) {
         this.telephoneNumber = telephoneNumber;
-    }
-
-    /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
-     */
-    public String getEmailAddress() {
-        return emailAddress;
     }
 
     /**

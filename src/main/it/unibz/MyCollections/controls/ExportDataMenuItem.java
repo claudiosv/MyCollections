@@ -4,10 +4,6 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-import main.it.unibz.MyCollections.views.AboutView;
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Factory to create controls.
@@ -61,7 +57,7 @@ public class ExportDataMenuItem extends MenuItem implements AdvancedCustomMenuIt
      * @since 1.0
      */
     @Override
-    public void setVisibility(boolean visible) {
-        this.setVisible(visible);
+    public void setVisible() {
+        this.setVisible(true);
     }
 }

@@ -5,7 +5,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import main.it.unibz.MyCollections.Record;
-import main.it.unibz.MyCollections.SQLiteHandler;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,18 +17,18 @@ import java.util.logging.Logger;
  *
  * @author Claudio Spiess
  * @version 1.0
- * @since 1.0
  * @see main.it.unibz.MyCollections.views.RecordView
+ * @since 1.0
  */
-public class AddRecordView extends RecordView {
+class AddRecordView extends RecordView {
     private static final Logger logger = Logger.getLogger(AddRecordView.class.getName());
 
     /**
      * Instantiates the add record view.
      *
+     * @param passRecord  previously instantiated record to be added.
+     * @param parentStage Stage from which constructor is called.
      * @author Claudio Spiess
-     * @param passRecord previously instantiated record to be added.
-     * @param parentStage  Stage from which constructor is called.
      */
     public AddRecordView(Record passRecord, Stage parentStage) {
         super(passRecord, parentStage);

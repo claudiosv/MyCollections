@@ -4,11 +4,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-import main.it.unibz.MyCollections.views.AboutView;
 import main.it.unibz.MyCollections.views.ManageUsersView;
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Factory to create controls.
@@ -17,7 +13,7 @@ import java.util.logging.Logger;
  * @version 1.0
  * @since 1.0
  */
-public class ManageUsersMenuItem  extends MenuItem implements AdvancedCustomMenuItem {
+public class ManageUsersMenuItem extends MenuItem implements AdvancedCustomMenuItem {
     /**
      * Factory to create controls.
      *
@@ -63,7 +59,7 @@ public class ManageUsersMenuItem  extends MenuItem implements AdvancedCustomMenu
      * @since 1.0
      */
     @Override
-    public void setVisibility(boolean visible) {
-        this.setVisible(visible);
+    public void setVisible() {
+        this.setVisible(true);
     }
 }

@@ -18,7 +18,6 @@ import javafx.stage.Stage;
 import main.it.unibz.MyCollections.CsvExporter;
 import main.it.unibz.MyCollections.Exporter;
 import main.it.unibz.MyCollections.Record;
-import main.it.unibz.MyCollections.SQLiteHandler;
 
 import java.io.File;
 import java.nio.file.Path;
@@ -35,7 +34,7 @@ import java.util.logging.Logger;
  * @version 1.0
  * @since 1.0
  */
-public class ExportDataView {
+class ExportDataView {
     private static final Logger logger = Logger.getLogger(ExportDataView.class.getName());
 
     /**
@@ -43,9 +42,9 @@ public class ExportDataView {
      * controls to allow a user to export the records.
      * Accepts a list of records to export.
      *
+     * @param parentStage Stage from which constructor is called.
+     * @param records     list of records to export.
      * @author Claudio Spiess
-     * @param parentStage  Stage from which constructor is called.
-     * @param records list of records to export.
      */
     public ExportDataView(Stage parentStage, List<Record> records) {
         logger.entering(getClass().getName(), "ExportDataView");
@@ -62,6 +61,7 @@ public class ExportDataView {
 
 
         ComboBox fileTypeCombo = new ComboBox();
+        //noinspection unchecked
         fileTypeCombo.getItems().addAll("Comma-Separated Values", "Extensible Markup Language");
 
         Label filePathLabel = new Label("Path to file:");
@@ -88,8 +88,7 @@ public class ExportDataView {
                     fileTypeCombo.getSelectionModel().select(1);
                 }
                 filePath.setText(file.getPath());
-            }
-            else {
+            } else {
                 logger.log(Level.INFO, "File null: {0}", file);
             }
         });

@@ -1,14 +1,10 @@
 package main.it.unibz.MyCollections.controls;
 
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.scene.control.MenuItem;
-import javafx.scene.image.*;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import main.it.unibz.MyCollections.DatabaseSession;
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Factory to create controls.
@@ -67,7 +63,7 @@ public class ExitMenuItem extends MenuItem implements AdvancedCustomMenuItem {
      * @since 1.0
      */
     @Override
-    public void setVisibility(boolean visible) {
-        this.setVisible(visible);
+    public void setVisible() {
+        this.setVisible(true);
     }
 }

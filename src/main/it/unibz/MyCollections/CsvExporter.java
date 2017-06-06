@@ -1,7 +1,5 @@
 package main.it.unibz.MyCollections;
 
-import main.it.unibz.MyCollections.views.UserView;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -18,8 +16,8 @@ import java.util.logging.Logger;
  *
  * @author Claudio Spiess
  * @version 1.0
- * @since 1.0
  * @see Exporter
+ * @since 1.0
  */
 public class CsvExporter implements Exporter {
     /**

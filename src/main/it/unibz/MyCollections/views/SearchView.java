@@ -25,36 +25,33 @@ import java.util.logging.Logger;
  * @version 1.0
  * @since 1.0
  */
-public class SearchView {
-    protected GridPane grid;
-    protected Stage dialog;
-    protected TextField firstNameTxt;
-    protected TextField lastNameTxt;
-    protected TextField companyNameTxt;
-    protected TextField addressTxt;
-    protected TextField telephoneNumberTxt;
-    protected TextField emailAddressTxt;
-    protected RadioButton rb2;
-    protected RadioButton rb1;
+class SearchView {
     private static final Logger logger = Logger.getLogger(SearchView.class.getName());
+    private final Stage dialog;
+    private final TextField firstNameTxt;
+    private final TextField lastNameTxt;
+    private final TextField companyNameTxt;
+    private final TextField addressTxt;
+    private final TextField telephoneNumberTxt;
+    private final TextField emailAddressTxt;
+    private final RadioButton rb1;
 
     /**
      * Instantiates the search record view. Adds the controls
      * necessary to search all the text fields and wether to
      * search inclusively or exclusively.
      *
+     * @param parentStage Stage from which constructor is called.
      * @author Claudio Spiess
-     * @param parentStage  Stage from which constructor is called.
      */
-    public SearchView(Stage parentStage)
-    {
+    public SearchView(Stage parentStage) {
         logger.entering(getClass().getName(), "SearchView");
         dialog = new Stage();
         dialog.setTitle("Search Records");
         dialog.initOwner(parentStage);
         dialog.initModality(Modality.APPLICATION_MODAL);
         Scene scene = new Scene(new VBox(), 300, 350);
-        grid = new GridPane();
+        GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(10);
         grid.setVgap(10);
@@ -101,7 +98,7 @@ public class SearchView {
 
         grid.add(rb1, 0, 7, 2, 1);
 
-        rb2 = new RadioButton("Inclusive (This or this...)");
+        RadioButton rb2 = new RadioButton("Inclusive (This or this...)");
         rb2.setToggleGroup(group);
 
         grid.add(rb2, 0, 8, 2, 1);
@@ -120,13 +117,14 @@ public class SearchView {
         dialog.setScene(scene);
         logger.exiting(getClass().getName(), "SearchView");
     }
-    /** Instantiates the search record view.
+
+    /**
+     * Instantiates the search record view.
      *
-     * @author Claudio Spiess
      * @return object to query record handler.
+     * @author Claudio Spiess
      */
-    public RecordSearchQuery show()
-    {
+    public RecordSearchQuery show() {
         logger.entering(getClass().getName(), "show");
         dialog.showAndWait();
         RecordSearchQuery query = new RecordSearchQuery();

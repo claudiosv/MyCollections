@@ -14,8 +14,8 @@ public class HasherFactory {
      * specified by the caller.
      *
      * @param hasherType Which type of hashing algorithm to instantiate e.g. sha512
-     * @author Claudio Spiess
      * @return Hasher instance of the specified hasherType
+     * @author Claudio Spiess
      */
     public Hasher getHasher(String hasherType) {
         if (hasherType == null) {

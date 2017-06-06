@@ -14,8 +14,8 @@ public class DatabaseHandlerFactory {
      * specified by the caller.
      *
      * @param handlerType Which type of handler e.g. sqlite
-     * @author Claudio Spiess
      * @return DatabaseHandler instance of the specified handlerType
+     * @author Claudio Spiess
      * @see DatabaseHandler
      * @see SQLiteHandler
      */
