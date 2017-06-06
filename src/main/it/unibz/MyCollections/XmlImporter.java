@@ -11,6 +11,14 @@ import java.util.List;
  * @since 1.0
  */
 public class XmlImporter implements Importer {
+
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     @Override
     public List<Record> importRecords(Path file) {
         return null;

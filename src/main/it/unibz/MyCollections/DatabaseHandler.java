@@ -25,6 +25,13 @@ public interface DatabaseHandler {
      */
     public void initialise(String fileName);
 
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     public String getFileName();
 
     /**

@@ -21,6 +21,13 @@ import java.util.logging.Logger;
  * @since 1.0
  */
 public class CsvImporter implements Importer {
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     private static final Logger logger = Logger.getLogger(CsvImporter.class.getName());
 
     /**

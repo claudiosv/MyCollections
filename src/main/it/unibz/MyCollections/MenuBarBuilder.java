@@ -18,9 +18,20 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Created by Claudio on 06/06/2017.
+ * Factory to create controls.
+ *
+ * @author Claudio Spiess
+ * @version 1.0
+ * @since 1.0
  */
 public class MenuBarBuilder {
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     public CustomMenuBar prepareMainMenu(Stage primaryStage)
     {
         CustomMenuBar mainMenuBar = new CustomMenuBar();

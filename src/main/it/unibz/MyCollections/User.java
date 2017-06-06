@@ -21,12 +21,67 @@ import java.util.logging.Logger;
  * @since 1.0
  */
 public class User {
-    private SimpleStringProperty username = new SimpleStringProperty();;
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
+    private SimpleStringProperty username = new SimpleStringProperty();
+
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     private String passwordHash;
+
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     private Image image;
+
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     private ImageView imageView;
+
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     private int id;
+
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     private SimpleBooleanProperty isAdmin = new SimpleBooleanProperty(false);
+
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     private static final Logger logger = Logger.getLogger(User.class.getName());
 
     /**
@@ -42,42 +97,112 @@ public class User {
             imageView.setFitWidth(48);
     }
 
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     public SimpleStringProperty usernameProperty() {
         return username;
     }
 
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     public SimpleBooleanProperty isAdminProperty() {
         return isAdmin;
     }
 
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     public boolean isAdmin() {
         return isAdmin.get();
     }
 
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     public void setAdmin(boolean admin) {
         isAdmin.set(admin);
     }
 
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     public String getUsername() {
         return username.getValue();
     }
 
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     public void setUsername(String username) {
         this.username.set(username);
     }
 
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     public String getPasswordHash() {
         return passwordHash;
     }
 
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     public void setPassword(String passwordHash) {
         this.passwordHash = passwordHash;
     }
 
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     public Image getImage() {
         return image;
     }
 
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     public void setImage(Image image) {
         this.image = image;
         imageView = new ImageView(image);
@@ -108,10 +233,24 @@ public class User {
         }
     }
 
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     public void setId(int id) {
         this.id = id;
     }
@@ -127,6 +266,13 @@ public class User {
         return this.getUsername();
     }
 
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     public boolean isEmpty() {
         if (username != null && !username.getValue().trim().equals("")) return false;
         if (passwordHash != null && !passwordHash.trim().equals("")) return false;

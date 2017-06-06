@@ -27,16 +27,104 @@ import java.util.logging.Logger;
  * @since 1.0
  */
 public class Record {
+
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     private int recordId;
+
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     private int ownerUserId;
+
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     private SimpleStringProperty firstName = new SimpleStringProperty("");
+
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     private SimpleStringProperty lastName = new SimpleStringProperty("");
+
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     private SimpleStringProperty companyName = new SimpleStringProperty("");
+
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     private SimpleStringProperty address = new SimpleStringProperty("");
+
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     private SimpleStringProperty telephoneNumber = new SimpleStringProperty("");
+
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     private SimpleStringProperty emailAddress = new SimpleStringProperty("");
+
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     private Image image;
+
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     private ImageView imageView;
+
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     private static final Logger logger = Logger.getLogger(Record.class.getName());
 
     /**
@@ -52,104 +140,272 @@ public class Record {
             imageView.setFitWidth(48);
     }
 
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     @SuppressWarnings("unused")
     public SimpleStringProperty firstNameProperty() {
         return firstName;
     }
 
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     @SuppressWarnings("unused")
     public SimpleStringProperty lastNameProperty() {
         return lastName;
     }
 
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     @SuppressWarnings("unused")
     public SimpleStringProperty companyNameProperty() {
         return companyName;
     }
 
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     @SuppressWarnings("unused")
     public SimpleStringProperty addressProperty() {
         return address;
     }
 
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     @SuppressWarnings("unused")
     public SimpleStringProperty telephoneNumberProperty() {
         return telephoneNumber;
     }
 
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     @SuppressWarnings("unused")
     public SimpleStringProperty emailAddressProperty() {
         return emailAddress;
     }
 
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     public int getRecordId() {
         return recordId;
     }
 
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     public void setRecordId(int recordId) {
         this.recordId = recordId;
     }
 
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     public int getOwnerUserId() {
         return ownerUserId;
     }
 
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     public void setOwnerUserId(int ownerUserId) {
         this.ownerUserId = ownerUserId;
     }
 
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     public String getFirstName() {
         return firstName.get();
     }
 
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     public void setFirstName(String firstName) {
         this.firstName.set(firstName);
     }
 
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     public String getLastName() {
         return lastName.get();
     }
 
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     public void setLastName(String lastName) {
         this.lastName.set(lastName);
     }
 
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     public String getCompanyName() {
         return companyName.get();
     }
 
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     public void setCompanyName(String companyName) {
         this.companyName.set(companyName);
     }
 
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     public String getAddress() {
         return address.get();
     }
 
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     public void setAddress(String address) {
         this.address.set(address);
     }
 
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     public String getTelephoneNumber() {
         return telephoneNumber.get();
     }
 
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     public void setTelephoneNumber(String telephoneNumber) {
         this.telephoneNumber.set(telephoneNumber);
     }
 
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     public String getEmailAddress() {
         return emailAddress.get();
     }
 
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     public void setEmailAddress(String emailAddress) {
         this.emailAddress.set(emailAddress);
     }
 
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     public Image getImage() {
         return image;
     }
 
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     public void setImage(Image image) {
         this.image = image;
         imageView = new ImageView(image);
@@ -180,10 +436,24 @@ public class Record {
         }
     }
 
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     public ImageView getImageView() {
         return imageView;
     }
 
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     public boolean isEmpty() {
         if (firstName != null && !firstName.getValue().trim().equals("")) return false;
         if (lastName != null && !lastName.getValue().trim().equals("")) return false;

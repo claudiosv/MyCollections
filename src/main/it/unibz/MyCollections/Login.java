@@ -42,14 +42,31 @@ import java.util.logging.*;
  * @since 1.0
  */
 public class Login extends Application {
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     public Scene scene;
-    //public MenuItem importData;
-    //public MenuItem exportData;
-    public Stage primaryStage;
-    //public MenuItem summaryData;
-    //public MenuItem manageUsers;
-    public Menu menuFile;
 
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
+    public Stage primaryStage;
+
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     private CustomMenuBar menuBar;
 
     private static final Logger logger = Logger.getLogger("main.it.unibz.MyCollections");

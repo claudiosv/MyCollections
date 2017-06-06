@@ -11,6 +11,14 @@ import java.util.List;
  * @since 1.0
  */
 public class XmlExporter implements Exporter {
+
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     @Override
     public void exportRecords(List<Record> records, Path filePath) {
 

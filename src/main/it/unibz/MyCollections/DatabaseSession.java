@@ -8,8 +8,22 @@ package main.it.unibz.MyCollections;
  * @since 1.0
  */
 public class DatabaseSession {
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     private static DatabaseHandler instance = new SQLiteHandler();
 
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     private DatabaseSession() {
     }
 
