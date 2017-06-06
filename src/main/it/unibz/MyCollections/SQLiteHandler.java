@@ -6,7 +6,6 @@ import main.it.unibz.MyCollections.exceptions.UserAlreadyExistsException;
 import main.it.unibz.MyCollections.exceptions.UserNotFoundException;
 
 import javax.imageio.ImageIO;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
@@ -15,20 +14,22 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/** RecordsHandler implementation for SQLite JDBC.
+/** DatabaseHandler implementation for SQLite JDBC.
  * @author Claudio Spiess
  * @version 1.0
  * @since 1.0
  */
-public class SQLiteHandler implements RecordsHandler {
+public class SQLiteHandler implements DatabaseHandler {
     private static final Logger logger = Logger.getLogger(SQLiteHandler.class.getName());
     private Connection sqliteConnection = null;
+    private String fileName;
 
     @Override
     public void initialise(String fileName) {
         logger.entering(getClass().getName(), "initialise");
+        this.fileName = fileName;
         try {
-            logger.info("Creating connection");
+            logger.log(Level.INFO, "Creating connection, filename: {0}", fileName);
             Class.forName("org.sqlite.JDBC");
             sqliteConnection = DriverManager.getConnection("jdbc:sqlite:" + fileName);
 
@@ -68,6 +69,10 @@ public class SQLiteHandler implements RecordsHandler {
         }
         logger.info("Opened database successfully");
         logger.exiting(getClass().getName(), "initialise");
+    }
+
+    public String getFileName() {
+        return fileName;
     }
 
     @Override
@@ -146,7 +151,7 @@ public class SQLiteHandler implements RecordsHandler {
                 recordId = result.getInt(1);
             }
             lastId.close();
-            Session.incrementRecordsAdded();
+            Session.getInstance().incrementRecordsAdded();
             return getRecord(record.getOwnerUserId(), recordId);
 
     }
@@ -175,7 +180,7 @@ public class SQLiteHandler implements RecordsHandler {
             stmt.setInt(1, recordId);
             stmt.execute();
             stmt.close();
-            Session.setRecordsDeleted(Session.getRecordsDeleted() + 1);
+            Session.getInstance().setRecordsDeleted(Session.getInstance().getRecordsDeleted() + 1);
         } else {
             throw new RecordNotFoundException();
         }
@@ -344,7 +349,7 @@ public class SQLiteHandler implements RecordsHandler {
     @Override
     public List<Record> searchRecords(RecordSearchQuery query, int userId) throws SQLException, IOException {
         logger.entering(getClass().getName(), "searchRecords");
-        String sql = query.toLikeQuery(true);
+        String sql = query.toLikeQuery();
 
         PreparedStatement s = sqliteConnection.prepareStatement("SELECT * FROM records WHERE deleted = 0 AND userid = ? AND " + sql);
         int counter = 2;
@@ -360,7 +365,7 @@ public class SQLiteHandler implements RecordsHandler {
     @Override
     public List<Record> searchRecords(RecordSearchQuery query) throws SQLException, IOException {
         logger.entering(getClass().getName(), "searchRecords");
-        String sql = query.toLikeQuery(query.isExclusive());
+        String sql = query.toLikeQuery();
 
         PreparedStatement s = sqliteConnection.prepareStatement("SELECT * FROM records WHERE deleted = 0 AND " + sql);
         int counter = 1;

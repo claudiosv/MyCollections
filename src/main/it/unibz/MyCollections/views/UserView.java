@@ -20,10 +20,17 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/** Abstract view to manage a user.
+/**
+ * Abstract view to manage a user. The purpose of this class
+ * is to build the editable fields necessary to edit
+ * or add a user to the userbas.
+ *
  * @author Claudio Spiess
  * @version 1.0
  * @since 1.0
+ * @see User
+ * @see EditUserView
+ * @see AddUserView
  */
 public abstract class UserView {
     protected GridPane grid;
@@ -33,9 +40,12 @@ public abstract class UserView {
     protected PasswordField passwordFieldConf;
     protected CheckBox adminCheckbox;
     protected User user;
-
     private static final Logger logger = Logger.getLogger(UserView.class.getName());
-    /** Instantiates view to manage user.
+
+    /**
+     * Instantiates view to manage user. Adds the controls
+     * necessary to edit or add a user's properties to the
+     * database.
      *
      * @author Claudio Spiess
      * @param user previously instantiated record to be added.
@@ -112,12 +122,13 @@ public abstract class UserView {
         logger.exiting(getClass().getName(), "UserView");
     }
 
-    /** Shows dialog to manage user.
+    /**
+     * Shows dialog to manage user. This allows the user to easily edit
+     * the fields of a user. Returns the new or edited User instance.
      *
      * @author Claudio Spiess
-     * @returns User that was created or edited.
+     * @return User that was created or edited.
      */
-
     public User show() {
         logger.entering(getClass().getName(), "show");
         dialog.showAndWait();

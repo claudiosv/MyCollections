@@ -25,17 +25,24 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/** View to import data.
+/**
+ * View to import data. The purpose of this view
+ * is to allow the user to easily import
+ * data from a CSV or XML file into his records collection.
+ *
  * @author Claudio Spiess
  * @version 1.0
  * @since 1.0
  */
 public class ImportDataView {
-    private ComboBox fileTypeCombo = new ComboBox();
     private List<Record> importedRecords = new ArrayList<>();
     private Stage dialog;
     private static final Logger logger = Logger.getLogger(ImportDataView.class.getName());
-    /** Instantiates this import data view.
+
+    /**
+     * Instantiates this import data view. Creates the necessary controls
+     * and provides the logic to load the file and pass it to the right
+     * parser.
      *
      * @author Claudio Spiess
      * @param parentStage  Stage from which constructor is called.
@@ -53,6 +60,8 @@ public class ImportDataView {
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
 
+        ComboBox fileTypeCombo = new ComboBox();
+        fileTypeCombo.getItems().addAll("Comma-Separated Values", "Extensible Markup Language");
 
         Label filePathLabel = new Label("Path to file:");
         grid.add(filePathLabel, 0, 0, 2, 1);
@@ -86,8 +95,6 @@ public class ImportDataView {
         Label fileTypeLabel = new Label("File type:");
         fileTypeLabel.setPrefWidth(200);
         grid.add(fileTypeLabel, 0, 2, 2, 1);
-
-        fileTypeCombo.getItems().addAll("Comma-Separated Values", "Extensible Markup Language");
         grid.add(fileTypeCombo, 0, 3, 2, 1);
 
         Button btn = new Button("Close");
@@ -127,6 +134,14 @@ public class ImportDataView {
         logger.exiting(getClass().getName(), "ImportDataView");
     }
 
+    /**
+     * Shows the dialog to import data. Once the user has
+     * imported something, the method returns the list of
+     * imported records to the caller.
+     *
+     * @author Claudio Spiess
+     * @return Returns list of imported records.
+     */
     public List<Record> show() {
         dialog.showAndWait();
         return importedRecords;

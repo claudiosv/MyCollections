@@ -12,15 +12,25 @@ import main.it.unibz.MyCollections.Validator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/** View to edit user to userbase.
+/**
+ * View to edit user by extending the abstract
+ * class for all User activities. This class
+ * adds the necessary controls to Save the changes
+ * made on a user.
+ *
  * @author Claudio Spiess
  * @version 1.0
  * @since 1.0
  * @see main.it.unibz.MyCollections.views.UserView
+ * @see User
  */
 public class EditUserView extends UserView {
     private static final Logger logger = Logger.getLogger(EditUserView.class.getName());
-    /** Instantiates this edit user view.
+
+    /**
+     * Instantiates an edit user view. Creates the necessary controls
+     * and contains the calls the check if the user has entered
+     * valid details for a user.
      *
      * @author Claudio Spiess
      * @param user Previously instantiated user to be edited.

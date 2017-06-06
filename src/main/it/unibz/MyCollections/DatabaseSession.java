@@ -1,21 +1,25 @@
 package main.it.unibz.MyCollections;
 
-/** Singleton to hold RecordsHandler instances.
+/**
+ * Singleton to hold DatabaseHandler instance.
+ *
  * @author Claudio Spiess
  * @version 1.0
  * @since 1.0
  */
 public class DatabaseSession {
-    private static RecordsHandler instance = new SQLiteHandler();
+    private static DatabaseHandler instance = new SQLiteHandler();
 
     private DatabaseSession() {
     }
 
-    /** Returns single instance of RecordsHandler
+    /**
+     * Returns single instance of the DatabaseHandler
+     *
      * @author Claudio Spiess
      * @return Instance of RecordHandler
      */
-    public static RecordsHandler getInstance() {
+    public static DatabaseHandler getInstance() {
         return instance;
     }
 }

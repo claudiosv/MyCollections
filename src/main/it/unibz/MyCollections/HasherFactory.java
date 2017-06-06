@@ -1,6 +1,8 @@
 package main.it.unibz.MyCollections;
 
-/** Factory to create hashers.
+/**
+ * Factory to create hasher instances.
+ *
  * @author Claudio Spiess
  * @version 1.0
  * @since 1.0
@@ -8,10 +10,12 @@ package main.it.unibz.MyCollections;
 public class HasherFactory {
 
     /**
-     * Instantiates a hasher
+     * Instantiates a hasher depending on the type of hasher
+     * specified by the caller.
      *
      * @param hasherType Which type of hashing algorithm to instantiate e.g. sha512
      * @author Claudio Spiess
+     * @return Hasher instance of the specified hasherType
      */
     public Hasher getHasher(String hasherType) {
         if (hasherType == null) {

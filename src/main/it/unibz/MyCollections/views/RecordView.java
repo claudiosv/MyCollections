@@ -22,10 +22,17 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/** Abstract view to manage a record.
+/**
+ * Abstract view to manage a record. This class cannot
+ * be instantiated since it does not have buttons to Save
+ * or Add a record.
+ *
  * @author Claudio Spiess
  * @version 1.0
  * @since 1.0
+ * @see Record
+ * @see AddRecordView
+ * @see EditRecordView
  */
 public abstract class RecordView {
     protected GridPane grid;
@@ -38,7 +45,10 @@ public abstract class RecordView {
     protected TextField emailAddressTxt;
     protected Record record;
     private static final Logger logger = Logger.getLogger(RecordView.class.getName());
-    /** Instantiates this record view.
+
+    /**
+     * Instantiates this record view. Adds the controls
+     * needed for to display the image, labels, and fields.
      *
      * @author Claudio Spiess
      * @param record previously instantiated record to be added.
@@ -128,6 +138,13 @@ public abstract class RecordView {
         logger.exiting(getClass().getName(), "RecordView");
     }
 
+
+    /**
+     * Shows the record view and returns the edited or added record.
+     *
+     * @author Claudio Spiess
+     * @return Record that has been edited or added
+     */
     public Record show() {
         logger.entering(getClass().getName(), "show");
         dialog.showAndWait();

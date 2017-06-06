@@ -39,4 +39,38 @@ public class ValidatorTest {
             assertTrue(username, valid);
         }
     }
+
+    @Test
+    public void ValidPasswordTest()  {
+        String[] strings = new String[] {
+                "admin",
+                "admin.",
+                "admin-",
+                "admin_",
+                "00000",
+                "!#valid",
+                "tes%6",
+                "va lid"
+        };
+        for(String password : strings){
+            boolean valid = Validator.isValidPassword(password);
+            assertTrue(password, valid);
+        }
+    }
+    @Test
+    public void InvalidPasswordTest()  {
+        String[] strings = new String[] {
+                "af",
+                "agm.",
+                "Двв",
+                "00000Двв",
+                "ДввДввДввДвв",
+                "test"
+        };
+        for(String password : strings){
+            boolean valid = Validator.isValidPassword(password);
+            assertFalse(password, valid);
+        }
+    }
+
 }

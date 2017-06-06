@@ -18,6 +18,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import main.it.unibz.MyCollections.controls.CustomMenuBar;
 import main.it.unibz.MyCollections.exceptions.UserNotFoundException;
 import main.it.unibz.MyCollections.views.AboutView;
 import main.it.unibz.MyCollections.views.DataSummaryView;
@@ -26,50 +27,88 @@ import main.it.unibz.MyCollections.views.RecordsView;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.logging.*;
 
-/** Main application class/login view.
+/**
+ *  Main class to implement the task.
+ * This is the ultimate entry point of the application.
+ * Initialises database and starts JavaFX application.
+ * This is the core class of the application. It contains
+ * the main stage, the login view, the menus, and calls
+ * the next views upon successful login.
+ *
  * @author Claudio Spiess
  * @version 1.0
  * @since 1.0
  */
 public class Login extends Application {
-    private static final Logger logger = Logger.getLogger(Login.class.getName());
     public Scene scene;
-    public MenuItem importData;
-    public MenuItem exportData;
+    //public MenuItem importData;
+    //public MenuItem exportData;
     public Stage primaryStage;
-    public MenuItem summaryData;
-    public MenuItem manageUsers;
+    //public MenuItem summaryData;
+    //public MenuItem manageUsers;
     public Menu menuFile;
 
+    private CustomMenuBar menuBar;
+
+    private static final Logger logger = Logger.getLogger("main.it.unibz.MyCollections");
+
     /**
-     * Imports comma separated values file into records database.
+     * Main method. Entry point of application.
+     * Initialises database and starts JavaFX application.
      *
      * @author Claudio Spiess
-     * @param args Arguments to pass to Application launch
+     * @version 1.0
+     * @since 1.0
      */
-    public void main(String[] args) {
+    public static void main(String[] args) {
         launch(args);
     }
 
     /**
-     * Starts main stage and displays login form.
+     * Populates main stage with controls and displays login form.
+     * This method creates menus, and the view/controls to login.
      *
      * @author Claudio Spiess
      * @param parentStage Parent stage from JavaFX
      */
     @Override
     public void start(Stage parentStage) {
-        logger.entering(getClass().getName(), "start");
+        logger.setLevel(Level.ALL);
+        Handler consoleHandler = new ConsoleHandler();
+        consoleHandler.setLevel(Level.FINER);
+        logger.addHandler(consoleHandler);
+
+        try {
+            FileHandler handler = new FileHandler("MyCollections-log.%u.%g.txt", 1024 * 1024 * 8, 10, true);
+            handler.setFormatter(new SimpleFormatter());
+            logger.addHandler(handler);
+        } catch (IOException ex)
+        {
+            logger.log(Level.SEVERE, "Log file failed to open", ex);
+        }
+
+        logger.log(Level.INFO, "Logging started, opening database");
+        DatabaseSession.getInstance().initialise("user_records.db");
+
+        //TODO: Add Edit,Add options to context menu
+        //TODO: Correct titles, add icons
+        //TODO: Add button to end search mode, add view for ActiveUser
+        //TODO: Add check for username, passwords when adding users
+        //TODO: Check users for permissions when working with stuff
+        //TODO: refactor entry point a bit to be more logical
+        //TODO: fix double writing to console
+        //TODO: fix bug that opening a record erases the picture
+        //TODO: fix users list
+
 
         this.primaryStage = parentStage;
         scene = new Scene(new VBox(), 400, 350);
 
         this.primaryStage.setTitle("MyCollections Login");
 
-        MenuBar menuBar = new MenuBar();
+        /*MenuBar menuBar = new MenuBar();
 
         menuFile = new Menu("File");
 
@@ -107,8 +146,10 @@ public class Login extends Application {
 
         menuFile.getItems().addAll(about, separatorMenuItem, exit);
 
-        menuBar.getMenus().addAll(menuFile);
+        menuBar.getMenus().addAll(menuFile);*/
 
+        MenuBarBuilder builder = new MenuBarBuilder();
+        menuBar = builder.prepareMainMenu(primaryStage);
         ((VBox) scene.getRoot()).getChildren().addAll(menuBar);
         logger.log(Level.FINEST,"Built menu & added to vbox");
 
@@ -190,8 +231,10 @@ public class Login extends Application {
             }
 
             if (user != null) {
-                Session.setActiveUser(user);
+                Session.getInstance().setActiveUser(user);
                 logger.log(Level.INFO,"Session created");
+                menuBar.getFileMenu().setAdminVisibility(user.isAdmin());
+                menuBar.getFileMenu().setDataVisibility(true);
                 RecordsView view = new RecordsView();
                 Pane box = view.box(this);
                 ((VBox) scene.getRoot()).getChildren().remove(grid);
@@ -205,5 +248,9 @@ public class Login extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
         logger.exiting(getClass().getName(), "start");
+    }
+
+    public CustomMenuBar getMenuBar() {
+        return menuBar;
     }
 }

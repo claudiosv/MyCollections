@@ -20,7 +20,13 @@ import main.it.unibz.MyCollections.SQLiteHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/** View to show About information.
+/**
+ * View that creates a dialog which shows information about project &amp; author.
+ * This fulfills the requirement
+ * "About: pops up a dialogue that tells something about the developer of the application
+ (you)."
+ * The purpose of this class is to create the necessary controls and display the dialog.
+ *
  * @author Claudio Spiess
  * @version 1.0
  * @since 1.0
@@ -28,7 +34,12 @@ import java.util.logging.Logger;
 public class AboutView {
     private static final Logger logger = Logger.getLogger(AboutView.class.getName());
 
-    /** Instantiates AboutView which shows About information of project & author.
+    /**
+     * Instantiates an AboutView which shows information about project &amp; author.
+     * This fulfills the requirement
+     * "About: pops up a dialogue that tells something about the developer of the application
+     (you)."
+     *
      * @author Claudio Spiess
      * @param parentStage Stage from which constructor is called.
      */
@@ -38,7 +49,7 @@ public class AboutView {
         dialog.setTitle("About MyCollections");
         dialog.initOwner(parentStage);
         dialog.initModality(Modality.APPLICATION_MODAL);
-        Scene scene = new Scene(new VBox(), 550, 270);
+        Scene scene = new Scene(new VBox(), 600, 300);
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(10);
@@ -53,7 +64,8 @@ public class AboutView {
         grid.add(scenetitle, 1, 0);
 
         Text userName = new Text("Claudio Spiess is a first year computer science student at the Free University of Bolzano-Bozen. Claudio started programming in VB.NET and eventually began working in Java with the popular game \"Minecraft\", in 2011. He also has years of experience in PHP & C#. MyCollections is his exam project for the course \"Advanced Programming\" lectured by Prof. Marko Tkalčič. MyCollections is a JavaFX-based address book application using SQLite." +
-                "\nAll icons are © Yusuke Kamiyamane made licensed under a Creative Commons Attribution 3.0 License from http://p.yusukekamiyamane.com/");
+                "\nDefault user/record icon ©  Anna Litviniuk released in public domain from https://dribbble.com/shots/1883214-Flatflow-Icons-Free-Sketch3-Resource" +
+                "\nAll icons are © Yusuke Kamiyamane licensed under a Creative Commons Attribution 3.0 License from http://p.yusukekamiyamane.com/");
         userName.setWrappingWidth(350);
         grid.add(userName, 1, 1, 1, 1);
 

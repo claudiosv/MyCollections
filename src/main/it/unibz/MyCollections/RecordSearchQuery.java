@@ -6,7 +6,13 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/** Record search query builder.
+/**
+ * Record search query builder. This class represents
+ * a unique search of the database. It contains a map
+ * of all the parametres the user is searching for
+ * and the values they are looking for. It builds the right
+ * SQL query to search for the right properties.
+ *
  * @author Claudio Spiess
  * @version 1.0
  * @since 1.0
@@ -39,13 +45,15 @@ public class RecordSearchQuery {
     }
 
     /**
-     * Builds query to search SQLite database for records with matching parametres
+     * Builds query to search SQLite database for records with matching parametres.
+     * The caller sets the properties of a RecordSearchQuery and then
+     * calls this method to create the SQL query needed to search
+     * for the properties.
      *
      * @author Claudio Spiess
-     * @param exclusive To search exclusively or inclusively, i.e. AND vs OR, respectively
      * @return String of SQL to search database.
      */
-    public String toLikeQuery(boolean exclusive) {
+    public String toLikeQuery() {
         logger.entering(getClass().getName(), "toLikeQuery");
         StringBuilder likeQueryBuilder = new StringBuilder();
 
@@ -71,7 +79,7 @@ public class RecordSearchQuery {
         return likeQueryBuilder.toString();
     }
 
-    public boolean emptyString(String searchString) {
+    private boolean emptyString(String searchString) {
         return searchString == null || searchString.trim().isEmpty();
     }
 

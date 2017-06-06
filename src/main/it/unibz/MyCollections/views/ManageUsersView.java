@@ -32,14 +32,24 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/** View to manage users view.
+/**
+ * View to manage users view. The purpose of this view
+ * is to allow an administrator to easily edit
+ * all users in the system, allowing the user to
+ * change usernames, passwords, and administrator
+ * status.
+ *
  * @author Claudio Spiess
  * @version 1.0
  * @since 1.0
  */
 public class ManageUsersView {
     private static final Logger logger = Logger.getLogger(ManageUsersView.class.getName());
-    /** Instantiates this manage users view.
+
+    /**
+     * Instantiates this manage users view. Creates the necessary
+     * controls to edit users and open the appropriate dialogs
+     * for managing a user.
      *
      * @author Claudio Spiess
      * @param parentStage  Stage from which constructor is called.
@@ -119,7 +129,11 @@ public class ManageUsersView {
                         usersTable.getItems().remove(row.getItem());
                         try {
                             DatabaseSession.getInstance().deleteUser(row.getItem().getId());
-                        } catch (Exception ex) { //TODO: logger
+                        }  catch (SQLException ex) {
+                            //TODO: add dialogs for these errors
+                            logger.log(Level.SEVERE, "SQL error loading records", ex);
+                        } catch (UserNotFoundException ex) {
+                            logger.log(Level.SEVERE, "User not found", ex);
                         }
                 });
 

@@ -12,7 +12,16 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/** Represents a record.
+/**
+ * Represents a record. A record is an item
+ * in the collection. Each record has a unique
+ * id which represents the row id in the database.
+ * A record contains the unique user id of the owner
+ * of the Record, and contains the properties:
+ * first name, last name, company name,
+ * address, telephone number, and email address.
+ * It also stores the image of the record.
+ *
  * @author Claudio Spiess
  * @version 1.0
  * @since 1.0
@@ -31,7 +40,8 @@ public class Record {
     private static final Logger logger = Logger.getLogger(Record.class.getName());
 
     /**
-     * Instantiates Record object.
+     * Instantiates Record object. Sets the default image of the record
+     * and creates a JavaFX image view.
      *
      * @author Claudio Spiess
      */
@@ -42,26 +52,32 @@ public class Record {
             imageView.setFitWidth(48);
     }
 
+    @SuppressWarnings("unused")
     public SimpleStringProperty firstNameProperty() {
         return firstName;
     }
 
+    @SuppressWarnings("unused")
     public SimpleStringProperty lastNameProperty() {
         return lastName;
     }
 
+    @SuppressWarnings("unused")
     public SimpleStringProperty companyNameProperty() {
         return companyName;
     }
 
+    @SuppressWarnings("unused")
     public SimpleStringProperty addressProperty() {
         return address;
     }
 
+    @SuppressWarnings("unused")
     public SimpleStringProperty telephoneNumberProperty() {
         return telephoneNumber;
     }
 
+    @SuppressWarnings("unused")
     public SimpleStringProperty emailAddressProperty() {
         return emailAddress;
     }
@@ -182,7 +198,7 @@ public class Record {
      * Converts parametres of Record into a string.
      *
      * @author Claudio Spiess
-     * @return Bytes of the Record's image.
+     * @return String of the Record's parametres.
      */
     @Override
     public String toString() {

@@ -10,7 +10,12 @@ import main.it.unibz.MyCollections.SQLiteHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/** View to add records to collection.
+/**
+ * View to add records to collection. This view extends the
+ * abstract view RecordView, which contains all the fields necessary
+ * to edit or add a record. This class merely adds an "Add" button
+ * and the necessary logic to drive it.
+ *
  * @author Claudio Spiess
  * @version 1.0
  * @since 1.0
@@ -18,7 +23,9 @@ import java.util.logging.Logger;
  */
 public class AddRecordView extends RecordView {
     private static final Logger logger = Logger.getLogger(AddRecordView.class.getName());
-    /** Instantiates the add record view.
+
+    /**
+     * Instantiates the add record view.
      *
      * @author Claudio Spiess
      * @param passRecord previously instantiated record to be added.

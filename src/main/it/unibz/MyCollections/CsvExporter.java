@@ -13,10 +13,13 @@ import java.util.logging.Logger;
 
 /**
  * Exporter to export records to comma separated values file.
+ * This implementation of the Exporter interface exports
+ * only to CSV files.
  *
  * @author Claudio Spiess
  * @version 1.0
  * @since 1.0
+ * @see Exporter
  */
 public class CsvExporter implements Exporter {
     private static final Logger logger = Logger.getLogger(CsvExporter.class.getName());

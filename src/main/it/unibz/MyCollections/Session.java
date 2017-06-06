@@ -1,64 +1,78 @@
 package main.it.unibz.MyCollections;
 
-/** Singleton to hold active logged in user session.
+/**
+ * Singleton to hold active logged in user session.
+ *
  * @author Claudio Spiess
  * @version 1.0
  * @since 1.0
  */
 public class Session {
-    private static User activeUser;
-    private static boolean loggedIn;
-    private static int recordsAdded;
-    private static int recordsDeleted;
-    private static RecordsHandler recordsHandler;
 
-    public static User getActiveUser() {
+    private static Session instance = new Session();
+
+    private Session(){}
+
+    public static Session getInstance(){
+        return instance;
+    }
+    private User activeUser;
+    private boolean loggedIn;
+    private int recordsAdded;
+    private int recordsDeleted;
+    private DatabaseHandler databaseHandler;
+
+    public static void setInstance(Session instance) {
+        Session.instance = instance;
+    }
+
+    public User getActiveUser() {
         return activeUser;
     }
 
-    public static void setActiveUser(User activeUser) {
-        Session.activeUser = activeUser;
+    public void setActiveUser(User activeUser) {
+        this.activeUser = activeUser;
     }
 
-    public static int getRecordsAdded() {
-        return recordsAdded;
-    }
-
-    public static void setRecordsAdded(int recordsAdded) {
-        Session.recordsAdded = recordsAdded;
-    }
-
-    public static int getRecordsDeleted() {
-        return recordsDeleted;
-    }
-
-    public static void setRecordsDeleted(int recordsDeleted) {
-        Session.recordsDeleted = recordsDeleted;
-    }
-
-    public static void incrementRecordsAdded()
-    {
-        Session.recordsAdded++;
-    }
-
-    public static void incrementRecordsDeleted()
-    {
-        Session.recordsDeleted++;
-    }
-
-    public static RecordsHandler getRecordsHandler() {
-        return recordsHandler;
-    }
-
-    public static void setRecordsHandler(RecordsHandler recordsHandler) {
-        Session.recordsHandler = recordsHandler;
-    }
-
-    public static boolean isLoggedIn() {
+    public boolean isLoggedIn() {
         return loggedIn;
     }
 
-    public static void setLoggedIn(boolean loggedIn) {
-        Session.loggedIn = loggedIn;
+    public void setLoggedIn(boolean loggedIn) {
+        this.loggedIn = loggedIn;
+    }
+
+    public int getRecordsAdded() {
+        return recordsAdded;
+    }
+
+    public void setRecordsAdded(int recordsAdded) {
+        this.recordsAdded = recordsAdded;
+    }
+
+    public int getRecordsDeleted() {
+        return recordsDeleted;
+    }
+
+    public void setRecordsDeleted(int recordsDeleted) {
+        this.recordsDeleted = recordsDeleted;
+    }
+
+    public DatabaseHandler getDatabaseHandler() {
+        return databaseHandler;
+    }
+
+    public void setDatabaseHandler(DatabaseHandler databaseHandler) {
+        this.databaseHandler = databaseHandler;
+    }
+
+    public void incrementRecordsAdded()
+    {
+        this.recordsAdded++;
+    }
+
+    public void incrementRecordsDeleted()
+    {
+        this.recordsDeleted++;
     }
 }

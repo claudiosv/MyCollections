@@ -13,7 +13,12 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/** View to add users to userbase.
+/**
+ * View to add users to userbase. This view extends the abstract
+ * UserView which contains all the fields necessary to edit or add
+ * a user. The purpose of this class is to add an "Add" button
+ * and process all the logic necessary.
+ *
  * @author Claudio Spiess
  * @version 1.0
  * @since 1.0
@@ -21,7 +26,10 @@ import java.util.logging.Logger;
  */
 public class AddUserView extends UserView {
     private static final Logger logger = Logger.getLogger(AddUserView.class.getName());
-    /** Instantiates the add user view.
+
+    /**
+     * Instantiates the add user view by creating the necessary controls
+     * and adding them to the parent stage.
      *
      * @author Claudio Spiess
      * @param user1 Previously instantiated user to be added.

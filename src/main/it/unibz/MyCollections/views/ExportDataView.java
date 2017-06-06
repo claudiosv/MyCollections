@@ -26,15 +26,22 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/** View to show About information.
+/**
+ * View to show export data function. The purpose of this class
+ * is to allow the user to easily export records
+ * to a CSV or XML file.
+ *
  * @author Claudio Spiess
  * @version 1.0
  * @since 1.0
  */
 public class ExportDataView {
-    private  ComboBox fileTypeCombo;
     private static final Logger logger = Logger.getLogger(ExportDataView.class.getName());
-    /** Instantiates this export user view.
+
+    /**
+     * Instantiates an export user view. Creates the necessary
+     * controls to allow a user to export the records.
+     * Accepts a list of records to export.
      *
      * @author Claudio Spiess
      * @param parentStage  Stage from which constructor is called.
@@ -53,6 +60,9 @@ public class ExportDataView {
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
 
+
+        ComboBox fileTypeCombo = new ComboBox();
+        fileTypeCombo.getItems().addAll("Comma-Separated Values", "Extensible Markup Language");
 
         Label filePathLabel = new Label("Path to file:");
         grid.add(filePathLabel, 0, 0, 2, 1);
@@ -88,8 +98,6 @@ public class ExportDataView {
         Label fileTypeLabel = new Label("File type:");
         fileTypeLabel.setPrefWidth(200);
         grid.add(fileTypeLabel, 0, 2, 2, 1);
-        fileTypeCombo = new ComboBox();
-        fileTypeCombo.getItems().addAll("Comma-Separated Values", "Extensible Markup Language");
         grid.add(fileTypeCombo, 0, 3, 2, 1);
 
         Button btn = new Button("Close");

@@ -15,7 +15,12 @@ import main.it.unibz.MyCollections.RecordSearchQuery;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/** View to create record search query.
+/**
+ * View to create record search query. The purpose of this class
+ * is to create a view that allows the user to easily
+ * search all searchable properties of a Record in his
+ * collection.
+ *
  * @author Claudio Spiess
  * @version 1.0
  * @since 1.0
@@ -32,7 +37,11 @@ public class SearchView {
     protected RadioButton rb2;
     protected RadioButton rb1;
     private static final Logger logger = Logger.getLogger(SearchView.class.getName());
-    /** Instantiates the search record view.
+
+    /**
+     * Instantiates the search record view. Adds the controls
+     * necessary to search all the text fields and wether to
+     * search inclusively or exclusively.
      *
      * @author Claudio Spiess
      * @param parentStage  Stage from which constructor is called.
@@ -114,7 +123,7 @@ public class SearchView {
     /** Instantiates the search record view.
      *
      * @author Claudio Spiess
-     * @returns object to query record handler.
+     * @return object to query record handler.
      */
     public RecordSearchQuery show()
     {

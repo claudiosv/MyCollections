@@ -26,7 +26,13 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/** View to manage records.
+/**
+ * View to manage records. This is the central view,
+ * which builds a pane containing all the controls such
+ * as a tableview and necessary buttons to add records, search, etc.
+ * The purpose of this view is to allow users to easily manage
+ * his/her record(s).
+ *
  * @author Claudio Spiess
  * @version 1.0
  * @since 1.0
@@ -34,17 +40,21 @@ import java.util.logging.Logger;
 public class RecordsView {
     private static final Logger logger = Logger.getLogger(RecordsView.class.getName());
     public ObservableList<Record> data;
-    /** Instantiates this records view.
+
+    /**
+     * Builds a pane that contains all the main controls of the application
+     * record editing functionality.
      *
      * @author Claudio Spiess
      * @param parentStage  Stage from which constructor is called.
+     * @return Pane that contains all the main controls of the application.
      */
     public Pane box(Login parentStage) {
         logger.entering(getClass().getName(), "box");
         data = FXCollections.observableArrayList();
         try {
             logger.log(Level.INFO, "Loading records into ObservableList");
-            data.addAll(DatabaseSession.getInstance().getRecords(Session.getActiveUser().getId()));
+            data.addAll(DatabaseSession.getInstance().getRecords(Session.getInstance().getActiveUser().getId()));
         } catch (SQLException ex) {
             logger.log(Level.SEVERE, "SQL error loading records", ex);
         } catch (IOException ex) {
@@ -69,7 +79,7 @@ public class RecordsView {
             SearchView search = new SearchView(parentStage.primaryStage);
             RecordSearchQuery query = search.show();
             try {
-                data.setAll(DatabaseSession.getInstance().searchRecords(query, Session.getActiveUser().getId()));
+                data.setAll(DatabaseSession.getInstance().searchRecords(query, Session.getInstance().getActiveUser().getId()));
             } catch (SQLException ex) {
                 //TODO: add dialogs for these errors
                 logger.log(Level.SEVERE, "SQL error loading records", ex);
@@ -326,22 +336,17 @@ public class RecordsView {
 
         table.setItems(data);
         table.getColumns().addAll(imageCol, firstNameCol, lastNameCol, companyNameCol, addressCol, telephoneCol, emailCol);
-        parentStage.importData.setOnAction(event -> {
+        parentStage.getMenuBar().getFileMenu().getImportDataMenuItem().setOnAction(event -> {
             logger.log(Level.INFO, "Opening import data view");
             ImportDataView dataView = new ImportDataView(parentStage.primaryStage);
             data.addAll(dataView.show());
         });
 
-        parentStage.exportData.setOnAction(event ->
+        parentStage.getMenuBar().getFileMenu().getExportDataMenuItem().setOnAction(event ->
         {
             logger.log(Level.INFO, "Opening export data view");
             new ExportDataView(parentStage.primaryStage, data);
         });
-
-        parentStage.menuFile.getItems().add(1, parentStage.summaryData);
-        parentStage.menuFile.getItems().add(2, parentStage.exportData);
-        parentStage.menuFile.getItems().add(3, parentStage.importData);
-        if (Session.getActiveUser().isAdmin()) parentStage.menuFile.getItems().add(4, parentStage.manageUsers);
 
         return vbox;
     }

@@ -21,7 +21,7 @@ import java.util.logging.Logger;
  * @since 1.0
  */
 public class User {
-    private SimpleStringProperty username;
+    private SimpleStringProperty username = new SimpleStringProperty();;
     private String passwordHash;
     private Image image;
     private ImageView imageView;
@@ -29,8 +29,13 @@ public class User {
     private SimpleBooleanProperty isAdmin = new SimpleBooleanProperty(false);
     private static final Logger logger = Logger.getLogger(User.class.getName());
 
+    /**
+     * Instantiates User object. Sets the default image of the user
+     * and creates a JavaFX image view.
+     *
+     * @author Claudio Spiess
+     */
     public User() {
-        this.username = new SimpleStringProperty();
             this.image = new Image("default_user.png", 48, 48, true, true);
             imageView = new ImageView(image);
             imageView.setFitHeight(48);
@@ -80,6 +85,12 @@ public class User {
         imageView.setFitWidth(48);
     }
 
+    /**
+     * Writes User's image into a byte array for IO operations.
+     *
+     * @author Claudio Spiess
+     * @return Bytes of the Record's image.
+     */
     public byte[] getImageArray() {
         logger.entering(getClass().getName(), "getImageArray");
         try {
@@ -105,10 +116,16 @@ public class User {
         this.id = id;
     }
 
+    /**
+     * Converts username of User into a string.
+     *
+     * @author Claudio Spiess
+     * @return String of the User's username.
+     */
     @Override
     public String toString() {
         return this.getUsername();
-    } //TODO: write more!
+    }
 
     public boolean isEmpty() {
         if (username != null && !username.getValue().trim().equals("")) return false;

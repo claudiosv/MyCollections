@@ -11,7 +11,12 @@ import main.it.unibz.MyCollections.SQLiteHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/** View to edit record in collection.
+/**
+ * View to edit record in collection. The purpose of this class
+ * is to add the appropriate "Save" button to the abstract
+ * class RecordView, allowing the user to save the changes
+ * they made on a Record.
+ *
  * @author Claudio Spiess
  * @version 1.0
  * @since 1.0
@@ -20,7 +25,9 @@ import java.util.logging.Logger;
 public class EditRecordView extends RecordView {
     private static final Logger logger = Logger.getLogger(EditRecordView.class.getName());
 
-    /** Instantiates this edit record view.
+    /**
+     * Instantiates this edit record view. This creates the necessary
+     * controls and adds them to the stage.
      *
      * @author Claudio Spiess
      * @param passRecord previously instantiated record to be added.
