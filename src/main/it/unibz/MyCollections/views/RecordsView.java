@@ -99,7 +99,6 @@ public class RecordsView {
                 data.setAll(DatabaseSession.getInstance().searchRecords(query, Session.getInstance().getActiveUser().getId()));
                 cancelSearch.setVisible(true);
             } catch (SQLException ex) {
-                //TODO: add dialogs for these errors
                 logger.log(Level.SEVERE, "SQL error loading records", ex);
             } catch (IOException ex) {
                 logger.log(Level.SEVERE, "IO error loading records", ex);
@@ -144,7 +143,6 @@ public class RecordsView {
                     data.add(DatabaseSession.getInstance().insertRecord(rowData));
                     table.refresh();
                 } catch (SQLException ex) {
-                    //TODO: add dialogs for these errors
                     logger.log(Level.SEVERE, "SQL error loading records", ex);
                 } catch (IOException ex) {
                     logger.log(Level.SEVERE, "IO error loading records", ex);
@@ -173,7 +171,6 @@ public class RecordsView {
                     try {
                         DatabaseSession.getInstance().updateRecord(record);
                     } catch (SQLException ex) {
-                        //TODO: add dialogs for these errors
                         logger.log(Level.SEVERE, "SQL error loading records", ex);
                     
                     } catch (RecordNotFoundException ex) {
@@ -194,7 +191,6 @@ public class RecordsView {
                     try {
                         DatabaseSession.getInstance().updateRecord(record);
                     } catch (SQLException ex) {
-                        //TODO: add dialogs for these errors
                         logger.log(Level.SEVERE, "SQL error loading records", ex);
                     
                     } catch (RecordNotFoundException ex) {
@@ -215,7 +211,6 @@ public class RecordsView {
                     try {
                         DatabaseSession.getInstance().updateRecord(record);
                     } catch (SQLException ex) {
-                        //TODO: add dialogs for these errors
                         logger.log(Level.SEVERE, "SQL error loading records", ex);
                     
                     } catch (RecordNotFoundException ex) {
@@ -237,7 +232,6 @@ public class RecordsView {
                     try {
                         DatabaseSession.getInstance().updateRecord(record);
                     } catch (SQLException ex) {
-                        //TODO: add dialogs for these errors
                         logger.log(Level.SEVERE, "SQL error loading records", ex);
                     
                     } catch (RecordNotFoundException ex) {
@@ -258,7 +252,6 @@ public class RecordsView {
                     try {
                         DatabaseSession.getInstance().updateRecord(record);
                     } catch (SQLException ex) {
-                        //TODO: add dialogs for these errors
                         logger.log(Level.SEVERE, "SQL error loading records", ex);
                     
                     } catch (RecordNotFoundException ex) {
@@ -279,7 +272,6 @@ public class RecordsView {
                     try {
                         DatabaseSession.getInstance().updateRecord(record);
                     } catch (SQLException ex) {
-                        //TODO: add dialogs for these errors
                         logger.log(Level.SEVERE, "SQL error loading records", ex);
                     
                     } catch (RecordNotFoundException ex) {
@@ -313,7 +305,6 @@ public class RecordsView {
                     table.getItems().remove(row.getItem());
                     Session.getInstance().incrementRecordsDeleted();
                 } catch (SQLException ex) {
-                    //TODO: add dialogs for these errors
                     logger.log(Level.SEVERE, "SQL error loading records", ex);
                 } catch (RecordNotFoundException ex) {
                     logger.log(Level.SEVERE, "Inserted record not found", ex);
@@ -328,6 +319,18 @@ public class RecordsView {
                 ClipboardContent content = new ClipboardContent();
                 content.putString(row.getItem().toString());
                 Clipboard.getSystemClipboard().setContent(content);
+            });
+
+            final MenuItem addMenuItem = new MenuItem("Add Record");
+            addMenuItem.setGraphic(new ImageView(new Image("clipboard-sign.png")));
+            addMenuItem.setOnAction(event ->
+            {
+            });
+
+            final MenuItem editMenuItem = new MenuItem("Add Record");
+            editMenuItem.setGraphic(new ImageView(new Image("clipboard-sign.png")));
+            editMenuItem.setOnAction(event ->
+            {
             });
 
 
@@ -352,7 +355,6 @@ public class RecordsView {
                         try {
                             DatabaseSession.getInstance().updateRecord(row.getItem());
                         } catch (SQLException ex) {
-                            //TODO: add dialogs for these errors
                             logger.log(Level.SEVERE, "SQL error updating record", ex);
                         } catch (RecordNotFoundException ex) {
                             logger.log(Level.SEVERE, "Updated record not found", ex);
@@ -377,7 +379,6 @@ public class RecordsView {
                 {
                 DatabaseSession.getInstance().insertRecord(record);
                 } catch (SQLException ex) {
-                    //TODO: add dialogs for these errors
                     logger.log(Level.SEVERE, "SQL error updating record", ex);
                 } catch (UserNotFoundException ex) {
                     logger.log(Level.SEVERE, "Updated record not found", ex);

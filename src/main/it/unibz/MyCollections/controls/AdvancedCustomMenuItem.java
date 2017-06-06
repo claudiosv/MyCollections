@@ -33,5 +33,5 @@ interface AdvancedCustomMenuItem {
      * @version 1.0
      * @since 1.0
      */
-    void setVisible();
+    void setVisibility(boolean visible);
 }

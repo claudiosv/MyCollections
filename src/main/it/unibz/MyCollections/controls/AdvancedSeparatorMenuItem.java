@@ -43,7 +43,7 @@ public class AdvancedSeparatorMenuItem extends SeparatorMenuItem implements Adva
      * @since 1.0
      */
     @Override
-    public void setVisible() {
-        this.setVisible(true);
+    public void setVisibility(boolean visible) {
+        this.setVisible(visible);
     }
 }

@@ -59,12 +59,12 @@ public class FileMenu extends Menu {
      * @version 1.0
      * @since 1.0
      */
-    public void setAdminVisible() {
+    public void setAdminVisible(boolean visible) {
         ObservableList<MenuItem> items = this.getItems();
         for (MenuItem item : items) {
             AdvancedCustomMenuItem customMenuItem = (AdvancedCustomMenuItem) item;
             if (customMenuItem.isAdminOnly())
-                customMenuItem.setVisible();
+                customMenuItem.setVisibility(visible);
         }
     }
 
@@ -75,12 +75,12 @@ public class FileMenu extends Menu {
      * @version 1.0
      * @since 1.0
      */
-    public void setDataVisible() {
+    public void setDataVisible(boolean visible) {
         ObservableList<MenuItem> items = this.getItems();
         for (MenuItem item : items) {
             AdvancedCustomMenuItem customMenuItem = (AdvancedCustomMenuItem) item;
             if (customMenuItem.isDataOnly())
-                customMenuItem.setVisible();
+                customMenuItem.setVisibility(visible);
         }
     }
 

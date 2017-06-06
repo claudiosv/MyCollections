@@ -42,6 +42,7 @@ class EditUserView extends UserView {
         saveButton.setGraphic(new ImageView(new Image("disk-black.png")));
         saveButton.setOnAction((event) -> {
             logger.log(Level.INFO, "Save button clicked");
+            if(Validator.isValidUsername(usernameTxt.getText()))
             user.setUsername(usernameTxt.getText());
             if (passwordField.getText().equals(passwordFieldConf.getText()) && Validator.isValidPassword(passwordField.getText())) {
                 HasherFactory hasherFactory = new HasherFactory();

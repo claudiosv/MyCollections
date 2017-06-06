@@ -100,15 +100,19 @@ public class Login extends Application {
         logger.log(Level.INFO, "Logging started, opening database");
         DatabaseSession.getInstance().initialise("user_records.db");
 
-        //TODO: Add Edit,Add options to context menu
         //TODO: Correct titles, add icons
-        //TODO: Add button to end search mode, add view for ActiveUser
-        //TODO: Add check for username, passwords when adding users
-        //TODO: Check users for permissions when working with stuff
         //TODO: refactor entry point a bit to be more logical
         //TODO: fix double writing to console
         //TODO: fix bug that opening a record erases the picture
-        //TODO: fix users list
+        //TODO: fix users list images and shitty layout
+        //TODO: finish unit tests
+        /*
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setHeaderText("Error deleting record");
+                    alert.setContentText("There has been an error trying to delete the selected record. Please try again or restart the application.");
+                    alert.showAndWait();
+         */
 
 
         this.primaryStage = parentStage;
@@ -118,6 +122,8 @@ public class Login extends Application {
 
         MenuBarBuilder builder = new MenuBarBuilder();
         menuBar = builder.prepareMainMenu(primaryStage);
+        menuBar.getFileMenu().setAdminVisible(false);
+        menuBar.getFileMenu().setDataVisible(false);
         ((VBox) scene.getRoot()).getChildren().addAll(menuBar);
         logger.log(Level.FINEST, "Built menu & added to vbox");
 
@@ -201,8 +207,8 @@ public class Login extends Application {
             if (user != null) {
                 Session.getInstance().setActiveUser(user);
                 logger.log(Level.INFO, "Session created");
-                menuBar.getFileMenu().setAdminVisible();
-                menuBar.getFileMenu().setDataVisible();
+                if(Session.getInstance().getActiveUser().isAdmin()) menuBar.getFileMenu().setAdminVisible(true);
+                menuBar.getFileMenu().setDataVisible(true);
                 RecordsView view = new RecordsView();
                 Pane box = view.box(this);
                 ((VBox) scene.getRoot()).getChildren().remove(grid);

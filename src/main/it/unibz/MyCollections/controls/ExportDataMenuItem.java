@@ -57,7 +57,7 @@ public class ExportDataMenuItem extends MenuItem implements AdvancedCustomMenuIt
      * @since 1.0
      */
     @Override
-    public void setVisible() {
-        this.setVisible(true);
+    public void setVisibility(boolean visible) {
+        this.setVisible(visible);
     }
 }

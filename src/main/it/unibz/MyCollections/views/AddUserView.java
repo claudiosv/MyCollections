@@ -1,5 +1,6 @@
 package main.it.unibz.MyCollections.views;
 
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -43,7 +44,8 @@ class AddUserView extends UserView {
         saveButton.setGraphic(new ImageView(new Image("plus-button.png")));
         saveButton.setOnAction((event) -> {
             logger.log(Level.INFO, "Add button clicked");
-            user.setUsername(usernameTxt.getText());
+            if(Validator.isValidUsername(usernameTxt.getText()))
+                user.setUsername(usernameTxt.getText());
             if (passwordField.getText().equals(passwordFieldConf.getText()) && Validator.isValidPassword(passwordField.getText())) {
                 HasherFactory hasherFactory = new HasherFactory();
                 user.setPassword(hasherFactory.getHasher("sha512").hash(passwordField.getText()));
@@ -53,10 +55,14 @@ class AddUserView extends UserView {
             try {
                 DatabaseSession.getInstance().addUser(user);
             } catch (SQLException ex) {
-                //TODO: add dialogs for these errors
                 logger.log(Level.SEVERE, "SQL error loading records", ex);
             } catch (UserAlreadyExistsException ex) {
-                logger.log(Level.SEVERE, "User already exists", ex); //TODO: make better error window
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Error adding user");
+                alert.setContentText("A user with the name " + usernameTxt.getText() + " already exists.");
+                alert.showAndWait();
+                logger.log(Level.SEVERE, "User already exists", ex);
             }
             dialog.hide();
         });
