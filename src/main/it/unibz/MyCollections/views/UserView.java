@@ -55,6 +55,7 @@ abstract class UserView {
         logger.entering(getClass().getName(), "UserView");
         this.user = user;
         dialog = new Stage();
+        dialog.getIcons().add(new Image("user-pencil.png"));
         dialog.initOwner(parentStage);
         dialog.initModality(Modality.APPLICATION_MODAL);
         Scene scene = new Scene(new VBox(), 300, 350);
@@ -64,9 +65,10 @@ abstract class UserView {
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
 
-        ImageView imageView = new ImageView(user.getImage());
-        imageView.minHeight(128);
-        imageView.minWidth(128);
+        ImageView imageView = new ImageView();
+        imageView.setFitHeight(128);
+        imageView.setFitWidth(128);
+        imageView.setImage(user.getImage());
         grid.add(imageView, 0, 0);
         Button openButton = new Button("Open file...");
         openButton.setGraphic(new ImageView(new Image("blue-folder-open-image.png")));
@@ -86,7 +88,12 @@ abstract class UserView {
                     user.setImage(SwingFXUtils.toFXImage(ImageIO.read(file), null));
                     imageView.setImage(user.getImage());
                 } catch (IOException ex) {
-                    logger.log(Level.SEVERE, "IO error loading image", ex); //TODO: add dialog
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setHeaderText("Image error");
+                    alert.setContentText("Image could not be successfully loaded from file: " + file.toString() + "\n\nPlease try a valid JPG or PNG.");
+                    alert.showAndWait();
+                    logger.log(Level.SEVERE, "IO error loading image", ex);
                 }
             }
         });

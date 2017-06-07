@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -22,7 +23,10 @@ import main.it.unibz.MyCollections.views.RecordsView;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.logging.*;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 /**
  * Main class to implement the task.
@@ -45,7 +49,7 @@ public class Login extends Application {
      * @version 1.0
      * @since 1.0
      */
-    private Scene scene;
+    public Stage primaryStage;
     /**
      * Factory to create controls.
      *
@@ -53,7 +57,7 @@ public class Login extends Application {
      * @version 1.0
      * @since 1.0
      */
-    public Stage primaryStage;
+    private Scene scene;
     /**
      * Factory to create controls.
      *
@@ -85,9 +89,9 @@ public class Login extends Application {
     @Override
     public void start(Stage parentStage) {
         logger.setLevel(Level.ALL);
-        Handler consoleHandler = new ConsoleHandler();
-        consoleHandler.setLevel(Level.FINER);
-        logger.addHandler(consoleHandler);
+        //Handler consoleHandler = new ConsoleHandler();
+        //consoleHandler.setLevel(Level.FINER);
+        //logger.addHandler(consoleHandler);
 
         try {
             FileHandler handler = new FileHandler("MyCollections-log.%u.%g.txt", 1024 * 1024 * 8, 10, true);
@@ -100,26 +104,18 @@ public class Login extends Application {
         logger.log(Level.INFO, "Logging started, opening database");
         DatabaseSession.getInstance().initialise("user_records.db");
 
-        //TODO: Correct titles, add icons
         //TODO: refactor entry point a bit to be more logical
-        //TODO: fix double writing to console
-        //TODO: fix bug that opening a record erases the picture
-        //TODO: fix users list images and shitty layout
+        //TODO: write decorators
         //TODO: finish unit tests
-        /*
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error");
-                    alert.setHeaderText("Error deleting record");
-                    alert.setContentText("There has been an error trying to delete the selected record. Please try again or restart the application.");
-                    alert.showAndWait();
-         */
+        //TODO: rename all variables
+        //TODO: add feature to delete image
 
 
         this.primaryStage = parentStage;
         scene = new Scene(new VBox(), 400, 350);
 
         this.primaryStage.setTitle("MyCollections Login");
-
+        this.primaryStage.getIcons().add(new Image("address-book.png"));
         MenuBarBuilder builder = new MenuBarBuilder();
         menuBar = builder.prepareMainMenu(primaryStage);
         menuBar.getFileMenu().setAdminVisible(false);
@@ -190,6 +186,7 @@ public class Login extends Application {
         btn.setOnAction((event) -> {
             logger.log(Level.INFO, "Logging in");
             User user = null;
+
             try {
                 HasherFactory hasherFactory = new HasherFactory();
                 user = DatabaseSession.getInstance().getUser(userTextField.getText(), hasherFactory.getHasher("sha512").hash(pwBox.getText()));
@@ -207,8 +204,8 @@ public class Login extends Application {
             if (user != null) {
                 Session.getInstance().setActiveUser(user);
                 logger.log(Level.INFO, "Session created");
-                if(Session.getInstance().getActiveUser().isAdmin()) menuBar.getFileMenu().setAdminVisible(true);
                 menuBar.getFileMenu().setDataVisible(true);
+                menuBar.getFileMenu().setAdminVisible(Session.getInstance().getActiveUser().isAdmin());
                 RecordsView view = new RecordsView();
                 Pane box = view.box(this);
                 ((VBox) scene.getRoot()).getChildren().remove(grid);

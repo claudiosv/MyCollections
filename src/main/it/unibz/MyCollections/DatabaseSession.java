@@ -15,7 +15,7 @@ public class DatabaseSession {
      * @version 1.0
      * @since 1.0
      */
-    private static final DatabaseHandler instance = new SQLiteHandler();
+    private static final DatabaseHandler instance = new DatabaseHandlerFactory().getDatabaseHandler("sqlite");
 
     /**
      * Factory to create controls.

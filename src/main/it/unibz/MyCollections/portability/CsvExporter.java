@@ -1,4 +1,6 @@
-package main.it.unibz.MyCollections;
+package main.it.unibz.MyCollections.portability;
+
+import main.it.unibz.MyCollections.Record;
 
 import java.io.BufferedWriter;
 import java.io.File;

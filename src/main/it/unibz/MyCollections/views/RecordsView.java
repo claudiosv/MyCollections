@@ -83,7 +83,7 @@ public class RecordsView {
 
         final Button button = new Button("Add Record");
         button.setFont(new Font("Arial", 13));
-        button.setGraphic(new ImageView(new Image("plus-button.png")));
+        button.setGraphic(new ImageView(new Image("address-book-plus.png")));
         button.setPrefSize(110, 25);
 
         final Button buttonSearch = new Button("Search");
@@ -96,8 +96,10 @@ public class RecordsView {
             SearchView search = new SearchView(parentStage.primaryStage);
             RecordSearchQuery query = search.show();
             try {
-                data.setAll(DatabaseSession.getInstance().searchRecords(query, Session.getInstance().getActiveUser().getId()));
-                cancelSearch.setVisible(true);
+                if (query.toLikeQuery().trim().length() > 0) {
+                    data.setAll(DatabaseSession.getInstance().searchRecords(query, Session.getInstance().getActiveUser().getId()));
+                    cancelSearch.setVisible(true);
+                }
             } catch (SQLException ex) {
                 logger.log(Level.SEVERE, "SQL error loading records", ex);
             } catch (IOException ex) {
@@ -136,7 +138,10 @@ public class RecordsView {
         button.setOnAction(event -> {
             logger.log(Level.INFO, "Add record button clicked");
             Record rowData = new Record();
+            rowData.setDefaultImage();
+            rowData.setOwnerUserId(Session.getInstance().getActiveUser().getId());
             RecordView view = new AddRecordView(rowData, parentStage.primaryStage);
+
             Record newData = view.show();
             if (newData != null && !newData.isEmpty()) {
                 try {
@@ -172,7 +177,7 @@ public class RecordsView {
                         DatabaseSession.getInstance().updateRecord(record);
                     } catch (SQLException ex) {
                         logger.log(Level.SEVERE, "SQL error loading records", ex);
-                    
+
                     } catch (RecordNotFoundException ex) {
                         logger.log(Level.SEVERE, "Inserted record not found", ex);
                     }
@@ -192,7 +197,7 @@ public class RecordsView {
                         DatabaseSession.getInstance().updateRecord(record);
                     } catch (SQLException ex) {
                         logger.log(Level.SEVERE, "SQL error loading records", ex);
-                    
+
                     } catch (RecordNotFoundException ex) {
                         logger.log(Level.SEVERE, "Inserted record not found", ex);
                     }
@@ -212,7 +217,7 @@ public class RecordsView {
                         DatabaseSession.getInstance().updateRecord(record);
                     } catch (SQLException ex) {
                         logger.log(Level.SEVERE, "SQL error loading records", ex);
-                    
+
                     } catch (RecordNotFoundException ex) {
                         logger.log(Level.SEVERE, "Inserted record not found", ex);
                     }
@@ -233,7 +238,7 @@ public class RecordsView {
                         DatabaseSession.getInstance().updateRecord(record);
                     } catch (SQLException ex) {
                         logger.log(Level.SEVERE, "SQL error loading records", ex);
-                    
+
                     } catch (RecordNotFoundException ex) {
                         logger.log(Level.SEVERE, "Inserted record not found", ex);
                     }
@@ -253,7 +258,7 @@ public class RecordsView {
                         DatabaseSession.getInstance().updateRecord(record);
                     } catch (SQLException ex) {
                         logger.log(Level.SEVERE, "SQL error loading records", ex);
-                    
+
                     } catch (RecordNotFoundException ex) {
                         logger.log(Level.SEVERE, "Inserted record not found", ex);
                     }
@@ -273,7 +278,7 @@ public class RecordsView {
                         DatabaseSession.getInstance().updateRecord(record);
                     } catch (SQLException ex) {
                         logger.log(Level.SEVERE, "SQL error loading records", ex);
-                    
+
                     } catch (RecordNotFoundException ex) {
                         logger.log(Level.SEVERE, "Inserted record not found", ex);
                     }
@@ -285,8 +290,17 @@ public class RecordsView {
             if (selectedItem != null) {
                 if (keyEvent.getCode().equals(KeyCode.DELETE)) {
                     logger.log(Level.INFO, "Delete key pressed");
-                    data.removeAll(selectedItem);
-                    table.refresh();
+
+                    try {
+                        DatabaseSession.getInstance().deleteRecord(selectedItem.getRecordId());
+                        data.remove(selectedItem);
+                        table.refresh();
+                    } catch (SQLException ex) {
+                        logger.log(Level.SEVERE, "SQL error loading records", ex);
+                    } catch (RecordNotFoundException ex) {
+                        logger.log(Level.SEVERE, "Inserted record not found", ex);
+                    }
+
                 }
             }
         });
@@ -303,7 +317,6 @@ public class RecordsView {
                 try {
                     DatabaseSession.getInstance().deleteRecord(row.getItem().getRecordId());
                     table.getItems().remove(row.getItem());
-                    Session.getInstance().incrementRecordsDeleted();
                 } catch (SQLException ex) {
                     logger.log(Level.SEVERE, "SQL error loading records", ex);
                 } catch (RecordNotFoundException ex) {
@@ -373,11 +386,10 @@ public class RecordsView {
             logger.log(Level.INFO, "Opening import data view");
             ImportDataView dataView = new ImportDataView(parentStage.primaryStage);
             List<Record> importedRecords = dataView.show();
-            for(Record record : importedRecords)
-            {
-                try
-                {
-                DatabaseSession.getInstance().insertRecord(record);
+            for (Record record : importedRecords) {
+                try {
+                    record.setOwnerUserId(Session.getInstance().getActiveUser().getId());
+                    data.add(DatabaseSession.getInstance().insertRecord(record));
                 } catch (SQLException ex) {
                     logger.log(Level.SEVERE, "SQL error updating record", ex);
                 } catch (UserNotFoundException ex) {
@@ -388,7 +400,7 @@ public class RecordsView {
                     logger.log(Level.SEVERE, "Updated record not found", ex);
                 }
             }
-            data.addAll(importedRecords);
+
         });
 
         parentStage.getMenuBar().getFileMenu().getExportDataMenuItem().setOnAction(event ->

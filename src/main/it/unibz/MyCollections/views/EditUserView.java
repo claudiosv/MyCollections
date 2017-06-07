@@ -38,12 +38,14 @@ class EditUserView extends UserView {
     public EditUserView(User user, Stage parentStage) {
         super(user, parentStage);
         logger.entering(getClass().getName(), "EditUserView");
+        dialog.setTitle("Edit User");
+        dialog.getIcons().add(new Image("user-pencil.png"));
         Button saveButton = new Button("Save");
         saveButton.setGraphic(new ImageView(new Image("disk-black.png")));
         saveButton.setOnAction((event) -> {
             logger.log(Level.INFO, "Save button clicked");
-            if(Validator.isValidUsername(usernameTxt.getText()))
-            user.setUsername(usernameTxt.getText());
+            if (Validator.isValidUsername(usernameTxt.getText()))
+                user.setUsername(usernameTxt.getText());
             if (passwordField.getText().equals(passwordFieldConf.getText()) && Validator.isValidPassword(passwordField.getText())) {
                 HasherFactory hasherFactory = new HasherFactory();
                 user.setPassword(hasherFactory.getHasher("sha512").hash(passwordField.getText()));

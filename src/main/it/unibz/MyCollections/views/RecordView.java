@@ -4,6 +4,7 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -57,7 +58,9 @@ abstract class RecordView {
     RecordView(Record record, Stage parentStage) {
         logger.entering(getClass().getName(), "RecordView");
         this.record = record;
+
         dialog = new Stage();
+        dialog.getIcons().add(new Image("address-book-pencil.png"));
         dialog.initOwner(parentStage);
         dialog.initModality(Modality.APPLICATION_MODAL);
         Scene scene = new Scene(new VBox(), 300, 420);
@@ -78,7 +81,7 @@ abstract class RecordView {
         openButton.setGraphic(new ImageView(new Image("blue-folder-open-image.png")));
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Profile Picture");
-        fileChooser.setInitialDirectory(new File("C:\\Users\\claudio\\Downloads\\staff")); //TODO: fix
+        //fileChooser.setInitialDirectory(new File("C:\\Users\\claudio\\Downloads\\staff")); //TODO: fix
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("JPG", "*.jpg"),
                 new FileChooser.ExtensionFilter("PNG", "*.png"),
@@ -93,7 +96,12 @@ abstract class RecordView {
                     record.setImage(SwingFXUtils.toFXImage(ImageIO.read(file), null));
                     imageView.setImage(record.getImage());
                 } catch (IOException ex) {
-                    logger.log(Level.SEVERE, "IO error loading image", ex); //TODO: add dialog
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setHeaderText("Image error");
+                    alert.setContentText("Image could not be successfully loaded from file: " + file.toString() + "\n\nPlease try a valid JPG or PNG.");
+                    alert.showAndWait();
+                    logger.log(Level.SEVERE, "IO error loading image", ex);
                 }
             }
         });

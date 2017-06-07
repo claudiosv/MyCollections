@@ -43,22 +43,6 @@ public class Record {
      * @version 1.0
      * @since 1.0
      */
-    private int recordId;
-    /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
-     */
-    private int ownerUserId;
-    /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
-     */
     private final SimpleStringProperty firstName = new SimpleStringProperty("");
     /**
      * Factory to create controls.
@@ -107,6 +91,22 @@ public class Record {
      * @version 1.0
      * @since 1.0
      */
+    private int recordId;
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
+    private int ownerUserId;
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     private Image image;
     /**
      * Factory to create controls.
@@ -128,10 +128,14 @@ public class Record {
     }
 
     public void setDefaultImage() {
-        this.image = new Image("default_user.png", 48, 48, true, true);
-        imageView = new ImageView(image);
-        imageView.setFitHeight(48);
-        imageView.setFitWidth(48);
+        try {
+            this.image = new Image("default_user.png", 48, 48, true, true);
+            imageView = new ImageView(image);
+            imageView.setFitHeight(48);
+            imageView.setFitWidth(48);
+        } catch (Exception ex) {
+            logger.info(ex.getMessage());
+        }
     }
 
     /**
@@ -408,6 +412,17 @@ public class Record {
     }
 
     /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
+    public ImageView getImageView() {
+        return imageView;
+    }
+
+    /**
      * Writes Record's image into a byte array for IO operations.
      *
      * @return Bytes of the Record's image.
@@ -416,7 +431,7 @@ public class Record {
     public byte[] getImageArray() {
         logger.entering(getClass().getName(), "getImageArray");
         try {
-            if(image != null) {
+            if (image != null) {
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 BufferedImage bufImage = SwingFXUtils.fromFXImage(image, null);
                 if (bufImage == null) return null;

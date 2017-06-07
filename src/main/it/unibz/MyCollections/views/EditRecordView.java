@@ -36,6 +36,7 @@ class EditRecordView extends RecordView {
         super(passRecord, parentStage);
         dialog.setTitle("Edit Record");
         logger.entering(getClass().getName(), "EditRecordView");
+        dialog.getIcons().add(new Image("address-book-pencil.png"));
         Button saveButton = new Button("Save");
         saveButton.setGraphic(new ImageView(new Image("disk-black.png")));
         saveButton.setOnAction(event -> {

@@ -22,8 +22,8 @@ class MenuBarBuilder {
         CustomMenuBar mainMenuBar = new CustomMenuBar();
         FileMenu fileMenu = new FileMenu();
         fileMenu.addItem(new AboutMenuItem(primaryStage));
-        fileMenu.addItem(new ImportDataMenuItem(primaryStage));
         fileMenu.addItem(new ExportDataMenuItem(primaryStage));
+        fileMenu.addItem(new ImportDataMenuItem(primaryStage));
         fileMenu.addItem(new DataSummaryMenuItem(primaryStage));
         fileMenu.addItem(new ManageUsersMenuItem(primaryStage));
         fileMenu.addItem(new AdvancedSeparatorMenuItem());

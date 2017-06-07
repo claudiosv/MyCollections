@@ -1,17 +1,15 @@
 package main.it.unibz.MyCollections.controls;
 
-import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import main.it.unibz.MyCollections.views.AboutView;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 /**
- * Factory to create controls.
+ * Menu item that for the About view. This class
+ * is an AdvancedCustomMenu item that acts as a
+ * JavaFX MenuItem to be used in the MainMenuBuilder.
  *
  * @author Claudio Spiess
  * @version 1.0
@@ -20,26 +18,24 @@ import java.util.logging.Logger;
 public class AboutMenuItem extends MenuItem implements AdvancedCustomMenuItem {
 
     /**
-     * Factory to create controls.
+     * Constructs AboutMenuItem by setting the MenuItem's graphic
+     * and its action.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @param primaryStage The primary stage of the JavaFX Application.
      */
     public AboutMenuItem(Stage primaryStage) {
         super("About");
         this.setOnAction(event ->
-            new AboutView(primaryStage)
+                new AboutView(primaryStage)
         );
         this.setGraphic(new ImageView(new Image("information-button.png")));
     }
 
     /**
-     * Factory to create controls.
+     * Gets whether this <code>MenuItem</code> is restricted only to admin users.
+     * This ensures the menu item will be visible to non-admin users too.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @return <code>false</code> to represent that AboutMenuItem is visible to everyone.
      */
     @Override
     public boolean isAdminOnly() {
@@ -47,11 +43,10 @@ public class AboutMenuItem extends MenuItem implements AdvancedCustomMenuItem {
     }
 
     /**
-     * Factory to create controls.
+     * Gets whether this <code>MenuItem</code> is dependant on data being loaded.
+     * This ensures the menu item will be hidden to non-logged in users.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @return <code>false</code> to represent that AboutMenuItem is visible at all times.
      */
     @Override
     public boolean isDataOnly() {
@@ -59,11 +54,9 @@ public class AboutMenuItem extends MenuItem implements AdvancedCustomMenuItem {
     }
 
     /**
-     * Factory to create controls.
+     * Sets the control's visibility. Makes parent class's setVisible function accessible.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @param visible Whether the control should be visible or not.
      */
     @Override
     public void setVisibility(boolean visible) {

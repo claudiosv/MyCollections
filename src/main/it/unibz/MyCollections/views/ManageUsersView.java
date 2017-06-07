@@ -1,6 +1,7 @@
 package main.it.unibz.MyCollections.views;
 
 import javafx.beans.binding.Bindings;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -19,6 +20,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import main.it.unibz.MyCollections.DatabaseSession;
 import main.it.unibz.MyCollections.User;
 import main.it.unibz.MyCollections.exceptions.UserNotFoundException;
@@ -53,6 +55,7 @@ public class ManageUsersView {
     public ManageUsersView(Stage parentStage) {
         logger.entering(getClass().getName(), "ManageUsersView");
         Stage dialog = new Stage();
+        dialog.getIcons().add(new Image("user-business.png"));
         dialog.setTitle("Manage Users");
         dialog.initOwner(parentStage);
         dialog.initModality(Modality.APPLICATION_MODAL);
@@ -83,7 +86,6 @@ public class ManageUsersView {
                     try {
                         DatabaseSession.getInstance().updateUser(user);
                     } catch (SQLException ex) {
-                        //TODO: add dialogs for these errors
                         logger.log(Level.SEVERE, "SQL error loading records", ex);
                     } catch (UserNotFoundException ex) {
                         logger.log(Level.SEVERE, "User not found", ex);
@@ -91,8 +93,22 @@ public class ManageUsersView {
                 });
 
         TableColumn<User, Boolean> isAdminCol = new TableColumn<User, Boolean>("Admin");
-        isAdminCol.setCellValueFactory(
-                new PropertyValueFactory<>("isAdmin"));
+        //isAdminCol.setCellValueFactory(
+        //        new PropertyValueFactory<>("isAdmin"));
+        isAdminCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<User, Boolean>, ObservableValue<Boolean>>() {
+
+            @Override
+            public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<User, Boolean> param) {
+                try {
+                    DatabaseSession.getInstance().updateUser(param.getValue());
+                } catch (SQLException ex) {
+                    logger.log(Level.SEVERE, "SQL error loading records", ex);
+                } catch (UserNotFoundException ex) {
+                    logger.log(Level.SEVERE, "User not found", ex);
+                }
+                return param.getValue().isAdminProperty();
+            }
+        });
         isAdminCol.setCellFactory(CheckBoxTableCell.forTableColumn(isAdminCol));
         isAdminCol.setOnEditCommit(
                 t -> {
@@ -102,7 +118,6 @@ public class ManageUsersView {
                     try {
                         DatabaseSession.getInstance().updateUser(user);
                     } catch (SQLException ex) {
-                        //TODO: add dialogs for these errors
                         logger.log(Level.SEVERE, "SQL error loading records", ex);
                     } catch (UserNotFoundException ex) {
                         logger.log(Level.SEVERE, "User not found", ex);
@@ -117,11 +132,11 @@ public class ManageUsersView {
             removeMenuItem.setGraphic(new ImageView(new Image("minus-button.png")));
             removeMenuItem.setOnAction(event -> {
                 logger.log(Level.INFO, "Removing item (context menu)");
-                usersTable.getItems().remove(row.getItem());
+
                 try {
                     DatabaseSession.getInstance().deleteUser(row.getItem().getId());
+                    usersTable.getItems().remove(row.getItem());
                 } catch (SQLException ex) {
-                    //TODO: add dialogs for these errors
                     logger.log(Level.SEVERE, "SQL error loading records", ex);
                 } catch (UserNotFoundException ex) {
                     logger.log(Level.SEVERE, "User not found", ex);
@@ -148,7 +163,7 @@ public class ManageUsersView {
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (!row.isEmpty())) {
                     User userData = row.getItem();
-                    EditUserView view = new EditUserView(userData, parentStage);
+                    UserView view = new EditUserView(userData, parentStage);
                     User newRec = view.show();
                     if (!newRec.isEmpty()) {
                         row.setItem(newRec);
@@ -156,7 +171,6 @@ public class ManageUsersView {
                         try {
                             DatabaseSession.getInstance().updateUser(row.getItem());
                         } catch (SQLException ex) {
-                            //TODO: add dialogs for these errors
                             logger.log(Level.SEVERE, "SQL error updating record", ex);
                         } catch (UserNotFoundException ex) {
                             logger.log(Level.SEVERE, "Updated user not found", ex);
@@ -199,8 +213,8 @@ public class ManageUsersView {
         btnAddUser.setOnAction(event -> {
             logger.log(Level.INFO, "Add user button clicked");
             User user = new User();
-            AddUserView addUser = new AddUserView(user, parentStage);
-            //noinspection unchecked
+            user.setDefaultImage();
+            UserView addUser = new AddUserView(user, parentStage);
             usersTable.getItems().add(addUser.show());
         });
 

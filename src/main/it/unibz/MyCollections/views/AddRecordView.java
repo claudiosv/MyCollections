@@ -33,8 +33,10 @@ class AddRecordView extends RecordView {
     public AddRecordView(Record passRecord, Stage parentStage) {
         super(passRecord, parentStage);
         logger.entering(getClass().getName(), "AddRecordView");
+        dialog.setTitle("Add Record");
+        dialog.getIcons().add(new Image("address-book-plus.png"));
         Button saveButton = new Button("Add");
-        saveButton.setGraphic(new ImageView(new Image("plus-button.png")));
+        saveButton.setGraphic(new ImageView(new Image("address-book-plus.png")));
         saveButton.setOnAction((event) -> {
             logger.log(Level.INFO, "Add button clicked");
             record.setFirstName(firstNameTxt.getText());

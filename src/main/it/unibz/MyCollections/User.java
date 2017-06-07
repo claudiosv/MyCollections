@@ -44,6 +44,14 @@ public class User {
      * @version 1.0
      * @since 1.0
      */
+    private final SimpleBooleanProperty isAdmin = new SimpleBooleanProperty(false);
+    /**
+     * Factory to create controls.
+     *
+     * @author Claudio Spiess
+     * @version 1.0
+     * @since 1.0
+     */
     private String passwordHash;
     /**
      * Factory to create controls.
@@ -69,14 +77,6 @@ public class User {
      * @since 1.0
      */
     private int id;
-    /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
-     */
-    private final SimpleBooleanProperty isAdmin = new SimpleBooleanProperty(false);
 
     /**
      * Instantiates User object. Sets the default image of the user
@@ -90,10 +90,14 @@ public class User {
 
     @SuppressWarnings("unused")
     public void setDefaultImage() {
-        this.image = new Image("default_user.png", 48, 48, true, true);
-        imageView = new ImageView(image);
-        imageView.setFitHeight(48);
-        imageView.setFitWidth(48);
+        try {
+            this.image = new Image("default_user.png", 48, 48, true, true);
+            imageView = new ImageView(image);
+            imageView.setFitHeight(48);
+            imageView.setFitWidth(48);
+        } catch (Exception ex) {
+            logger.info(ex.getMessage());
+        }
     }
 
     /**
@@ -220,7 +224,7 @@ public class User {
     public byte[] getImageArray() {
         logger.entering(getClass().getName(), "getImageArray");
         try {
-            if(image != null) {
+            if (image != null) {
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 BufferedImage bufImage = SwingFXUtils.fromFXImage(image, null);
                 if (bufImage == null) return null;
@@ -276,5 +280,9 @@ public class User {
     public boolean isEmpty() {
         if (username != null && !username.getValue().trim().equals("")) return false;
         return !(passwordHash != null && !passwordHash.trim().equals(""));
+    }
+
+    public ImageView getImageView() {
+        return imageView;
     }
 }

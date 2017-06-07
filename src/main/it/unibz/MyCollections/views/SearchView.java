@@ -47,6 +47,7 @@ class SearchView {
     public SearchView(Stage parentStage) {
         logger.entering(getClass().getName(), "SearchView");
         dialog = new Stage();
+        dialog.getIcons().add(new Image("magnifier.png"));
         dialog.setTitle("Search Records");
         dialog.initOwner(parentStage);
         dialog.initModality(Modality.APPLICATION_MODAL);

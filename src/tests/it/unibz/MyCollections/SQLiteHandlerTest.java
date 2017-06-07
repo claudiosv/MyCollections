@@ -6,13 +6,14 @@ import main.it.unibz.MyCollections.exceptions.UserAlreadyExistsException;
 import main.it.unibz.MyCollections.exceptions.UserNotFoundException;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
+import static org.junit.Assert.*;
 
 /**
  * TODO: Interface to manage records/users in a database or file.
@@ -35,7 +36,7 @@ public class SQLiteHandlerTest {
     @Test
     public void SQLiteHandlerTest() throws SQLException, UserAlreadyExistsException, UserNotFoundException, IOException, RecordNotFoundException {
         SQLiteHandler sqliteHandler = new SQLiteHandler();
-        String randomFilename = new SimpleDateFormat("yyyyMMddHHmmsS'_TestDatabase.db'").format(new Date());
+        String randomFilename = Paths.get("tests", new SimpleDateFormat("yyyyMMddHHmmsS'_TestDatabase.db'").format(new Date())).toString();
         sqliteHandler.initialise(randomFilename);
         assertEquals(randomFilename, sqliteHandler.getFileName());
 

@@ -24,7 +24,7 @@ public class ManageUsersMenuItem extends MenuItem implements AdvancedCustomMenuI
     public ManageUsersMenuItem(Stage primaryStage) {
         super("Manage Users");
         this.setOnAction((event -> new ManageUsersView(primaryStage)));
-        this.setGraphic(new ImageView(new Image("user.png")));
+        this.setGraphic(new ImageView(new Image("user-business.png")));
     }
 
     /**

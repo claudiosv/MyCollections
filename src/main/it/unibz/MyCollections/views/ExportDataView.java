@@ -3,10 +3,7 @@ package main.it.unibz.MyCollections.views;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -15,9 +12,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import main.it.unibz.MyCollections.CsvExporter;
-import main.it.unibz.MyCollections.Exporter;
 import main.it.unibz.MyCollections.Record;
+import main.it.unibz.MyCollections.portability.Exporter;
+import main.it.unibz.MyCollections.portability.ExporterFactory;
 
 import java.io.File;
 import java.nio.file.Path;
@@ -49,6 +46,8 @@ class ExportDataView {
     public ExportDataView(Stage parentStage, List<Record> records) {
         logger.entering(getClass().getName(), "ExportDataView");
         Stage dialog = new Stage();
+
+        dialog.getIcons().add(new Image("address-book-arrow.png"));
         dialog.setTitle("Export Data");
         dialog.initOwner(parentStage);
         dialog.initModality(Modality.APPLICATION_MODAL);
@@ -107,15 +106,31 @@ class ExportDataView {
         });
 
         Button btnExport = new Button("Export");
-        btnExport.setGraphic(new ImageView(new Image("card-export.png")));
+        btnExport.setGraphic(new ImageView(new Image("address-book-arrow.png")));
         btnExport.setOnAction((event) -> {
             logger.log(Level.INFO, "Export button clicked: {0}", fileTypeCombo.getValue());
-            switch (fileTypeCombo.getValue().toString()) {
-                case "Comma-Separated Values":
-                    Exporter csvExport = new CsvExporter();
-                    Path file = new File(filePath.getText()).toPath();
+            Path file = new File(filePath.getText()).toPath();
+            switch (fileTypeCombo.getSelectionModel().getSelectedIndex()) {
+                case 0:
+                    Exporter csvExport = new ExporterFactory().getExporter("csv");
                     csvExport.exportRecords(records, file);
-                    //TODO: maybe add a count of how many records added, etc?
+
+                    Alert csvAlert = new Alert(Alert.AlertType.INFORMATION);
+                    csvAlert.setTitle("Export Successful");
+                    csvAlert.setHeaderText("Export Successful");
+                    csvAlert.setContentText(records.size() + " records successfully exported to CSV file: " + file.toString());
+                    csvAlert.showAndWait();
+                    logger.log(Level.INFO, "Records exported: {0}", file);
+                    break;
+                case 1:
+                    Exporter xmlExporter = new ExporterFactory().getExporter("xml");
+                    xmlExporter.exportRecords(records, file);
+
+                    Alert xmlAlert = new Alert(Alert.AlertType.INFORMATION);
+                    xmlAlert.setTitle("Export Successful");
+                    xmlAlert.setHeaderText("Export Successful");
+                    xmlAlert.setContentText(records.size() + " records successfully exported to XML file: " + file.toString());
+                    xmlAlert.showAndWait();
                     logger.log(Level.INFO, "Records exported: {0}", file);
                     break;
                 default:

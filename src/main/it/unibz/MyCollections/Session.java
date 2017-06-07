@@ -158,17 +158,6 @@ public class Session {
      * @version 1.0
      * @since 1.0
      */
-    public void setRecordsDeleted(int recordsDeleted) {
-        this.recordsDeleted = recordsDeleted;
-    }
-
-    /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
-     */
     public void incrementRecordsAdded() {
         this.recordsAdded++;
     }

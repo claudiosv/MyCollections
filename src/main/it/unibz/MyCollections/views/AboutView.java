@@ -45,10 +45,11 @@ public class AboutView {
     public AboutView(Stage parentStage) {
         logger.entering(getClass().getName(), "AboutView");
         Stage dialog = new Stage();
+        dialog.getIcons().add(new Image("information-button.png"));
         dialog.setTitle("About MyCollections");
         dialog.initOwner(parentStage);
         dialog.initModality(Modality.APPLICATION_MODAL);
-        Scene scene = new Scene(new VBox(), 600, 300);
+        Scene scene = new Scene(new VBox(), 600, 350);
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(10);

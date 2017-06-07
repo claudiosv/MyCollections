@@ -1,14 +1,13 @@
-package main.it.unibz.MyCollections;
+package main.it.unibz.MyCollections.portability;
 
-import main.it.unibz.MyCollections.exceptions.RecordNotFoundException;
-import main.it.unibz.MyCollections.exceptions.UserNotFoundException;
+import main.it.unibz.MyCollections.Importer;
+import main.it.unibz.MyCollections.Record;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -55,6 +54,7 @@ public class CsvImporter implements Importer {
 
                 Record newRecord = new Record();
                 try {
+                    newRecord.setDefaultImage();
                     newRecord.setFirstName(recordData[0]);
                     newRecord.setLastName(recordData[1]);
                     newRecord.setCompanyName(recordData[2]);
@@ -62,7 +62,7 @@ public class CsvImporter implements Importer {
                     newRecord.setTelephoneNumber(recordData[4]);
                     newRecord.setEmailAddress(recordData[5]);
                 } catch (ArrayIndexOutOfBoundsException ex) {
-                    //TODO: logger
+                    logger.log(Level.SEVERE, "Error importing CSV", ex);
                 }
 
                 records.add(newRecord);

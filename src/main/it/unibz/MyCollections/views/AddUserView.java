@@ -12,6 +12,7 @@ import main.it.unibz.MyCollections.Validator;
 import main.it.unibz.MyCollections.exceptions.UserAlreadyExistsException;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -40,11 +41,13 @@ class AddUserView extends UserView {
     public AddUserView(User user1, Stage parentStage) {
         super(user1, parentStage);
         logger.entering(getClass().getName(), "AddUserView");
+        dialog.setTitle("Add User");
+        dialog.getIcons().add(new Image("plus-circle.png"));
         Button saveButton = new Button("Add");
-        saveButton.setGraphic(new ImageView(new Image("plus-button.png")));
+        saveButton.setGraphic(new ImageView(new Image("user-plus.png")));
         saveButton.setOnAction((event) -> {
             logger.log(Level.INFO, "Add button clicked");
-            if(Validator.isValidUsername(usernameTxt.getText()))
+            if (Validator.isValidUsername(usernameTxt.getText()))
                 user.setUsername(usernameTxt.getText());
             if (passwordField.getText().equals(passwordFieldConf.getText()) && Validator.isValidPassword(passwordField.getText())) {
                 HasherFactory hasherFactory = new HasherFactory();
@@ -68,5 +71,9 @@ class AddUserView extends UserView {
         });
         grid.add(saveButton, 1, 5);
         logger.exiting(getClass().getName(), "AddUserView");
+    }
+
+    public List<User> getResults() {
+        return null;
     }
 }

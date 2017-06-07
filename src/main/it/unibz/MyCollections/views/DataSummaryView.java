@@ -47,7 +47,9 @@ public class DataSummaryView {
      */
     public DataSummaryView(Stage parentStage) {
         logger.entering(getClass().getName(), "DataSummaryView");
+
         Stage dialog = new Stage();
+        dialog.getIcons().add(new Image("dashboard.png"));
         dialog.setTitle("Summary of data");
         dialog.initOwner(parentStage);
         dialog.initModality(Modality.APPLICATION_MODAL);
@@ -70,7 +72,6 @@ public class DataSummaryView {
             Label number1 = new Label(Integer.toString(DatabaseSession.getInstance().getRecordCount()));
             grid.add(number1, 1, 1);
         } catch (SQLException ex) {
-            //TODO: add dialogs for these errors
             logger.log(Level.SEVERE, "SQL error loading record count", ex);
         }
         Label number2 = new Label("Total number of added records:");

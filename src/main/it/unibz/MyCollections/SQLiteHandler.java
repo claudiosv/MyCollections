@@ -275,7 +275,7 @@ public class SQLiteHandler implements DatabaseHandler {
             stmt.setInt(1, recordId);
             stmt.execute();
             stmt.close();
-            Session.getInstance().setRecordsDeleted(Session.getInstance().getRecordsDeleted() + 1);
+            Session.getInstance().incrementRecordsDeleted();
         } else {
             throw new RecordNotFoundException();
         }
@@ -457,6 +457,7 @@ public class SQLiteHandler implements DatabaseHandler {
         ResultSet result = s.executeQuery("SELECT * FROM users WHERE deleted = 0");
         while (result.next()) {
             User user = new User();
+            user.setDefaultImage();
             user.setId(result.getInt("id"));
             user.setUsername(result.getString("username"));
             user.setPassword(result.getString("password"));
@@ -498,6 +499,7 @@ public class SQLiteHandler implements DatabaseHandler {
 
         while (set.next()) {
             user = new User();
+            user.setDefaultImage();
             user.setId(id);
             user.setUsername(set.getString("username"));
             user.setPassword(set.getString("password"));
@@ -672,6 +674,7 @@ public class SQLiteHandler implements DatabaseHandler {
 
         if (result.next()) {
             Record databaseRecord = new Record();
+            databaseRecord.setDefaultImage();
             databaseRecord.setRecordId(result.getInt("id"));
             databaseRecord.setOwnerUserId(result.getInt("userid"));
             databaseRecord.setFirstName(result.getString("firstname"));
@@ -728,6 +731,7 @@ public class SQLiteHandler implements DatabaseHandler {
         List<Record> records = new ArrayList<>();
         while (result.next()) {
             Record databaseRecord = new Record();
+            databaseRecord.setDefaultImage();
             databaseRecord.setRecordId(result.getInt("id"));
             databaseRecord.setOwnerUserId(result.getInt("userid"));
             databaseRecord.setFirstName(result.getString("firstname"));

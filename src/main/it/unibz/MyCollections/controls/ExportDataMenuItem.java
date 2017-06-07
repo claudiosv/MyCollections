@@ -22,7 +22,7 @@ public class ExportDataMenuItem extends MenuItem implements AdvancedCustomMenuIt
      */
     public ExportDataMenuItem(Stage primaryStage) {
         super("Export");
-        this.setGraphic(new ImageView(new Image("card-export.png")));
+        this.setGraphic(new ImageView(new Image("address-book-arrow.png")));
     }
 
     /**

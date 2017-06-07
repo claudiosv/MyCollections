@@ -28,6 +28,7 @@ public class FileMenu extends Menu {
      * @since 1.0
      */
     private ExportDataMenuItem exportDataMenuItem;
+
     /**
      * Factory to create controls.
      *

@@ -1,4 +1,4 @@
-package main.it.unibz.MyCollections;
+package main.it.unibz.MyCollections.portability;
 
 /**
  * Factory to instantiate exporter(s).
@@ -26,6 +26,10 @@ public class ExporterFactory {
 
         if (exporterType.equalsIgnoreCase("csv")) {
             return new CsvExporter();
+        }
+
+        if (exporterType.equalsIgnoreCase("xml")) {
+            return new XmlExporter();
         }
 
         return null;

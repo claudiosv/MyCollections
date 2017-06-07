@@ -1,4 +1,6 @@
-package main.it.unibz.MyCollections;
+package main.it.unibz.MyCollections.portability;
+
+import main.it.unibz.MyCollections.Importer;
 
 /**
  * Factory to instantiate Importer(s).
@@ -26,6 +28,10 @@ public class ImporterFactory {
 
         if (importerType.equalsIgnoreCase("csv")) {
             return new CsvImporter();
+        }
+
+        if (importerType.equalsIgnoreCase("xml")) {
+            return new XmlImporter();
         }
 
         return null;

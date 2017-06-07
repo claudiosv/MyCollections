@@ -3,10 +3,7 @@ package main.it.unibz.MyCollections.views;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -15,11 +12,12 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import main.it.unibz.MyCollections.CsvImporter;
 import main.it.unibz.MyCollections.Importer;
 import main.it.unibz.MyCollections.Record;
+import main.it.unibz.MyCollections.portability.ImporterFactory;
 
 import java.io.File;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -36,8 +34,8 @@ import java.util.logging.Logger;
  */
 class ImportDataView {
     private static final Logger logger = Logger.getLogger(ImportDataView.class.getName());
-    private List<Record> importedRecords = new ArrayList<>();
     private final Stage dialog;
+    private List<Record> importedRecords = new ArrayList<>();
 
     /**
      * Instantiates this import data view. Creates the necessary controls
@@ -50,6 +48,7 @@ class ImportDataView {
     public ImportDataView(Stage parentStage) {
         logger.entering(getClass().getName(), "ImportDataView");
         dialog = new Stage();
+        dialog.getIcons().add(new Image("card-import-big.png"));
         dialog.setTitle("Import Data");
         dialog.initOwner(parentStage);
         dialog.initModality(Modality.APPLICATION_MODAL);
@@ -109,13 +108,31 @@ class ImportDataView {
         btnExport.setGraphic(new ImageView(new Image("card-import.png")));
         btnExport.setOnAction((event) -> {
             logger.log(Level.INFO, "Import button clicked: {0}", fileTypeCombo.getValue());
-            switch (fileTypeCombo.getValue().toString()) {
-                case "Comma-Separated Values":
-                    Importer csvImport = new CsvImporter();
-                    importedRecords = csvImport.importRecords(new File(filePath.getText()).toPath());
-                    //TODO: maybe add a count of how many records added, etc?
+            Path file = new File(filePath.getText()).toPath();
+            switch (fileTypeCombo.getSelectionModel().getSelectedIndex()) {
+                case 0:
+                    Importer csvImporter = new ImporterFactory().getImporter("csv");
+                    importedRecords = csvImporter.importRecords(file);
                     dialog.hide();
+                    Alert csvAlert = new Alert(Alert.AlertType.INFORMATION);
+                    csvAlert.setTitle("Export Successful");
+                    csvAlert.setHeaderText("Export Successful");
+                    csvAlert.setContentText(importedRecords.size() + " records successfully imported from CSV file: " + file.toString());
+                    csvAlert.showAndWait();
                     logger.log(Level.INFO, "Records imported");
+                    break;
+
+                case 1:
+                    Importer xmlImporter = new ImporterFactory().getImporter("xml");
+                    importedRecords = xmlImporter.importRecords(file);
+                    dialog.hide();
+                    Alert xmlAlert = new Alert(Alert.AlertType.INFORMATION);
+                    xmlAlert.setTitle("Export Successful");
+                    xmlAlert.setHeaderText("Export Successful");
+                    xmlAlert.setContentText(importedRecords.size() + " records successfully imported from XML file: " + file.toString());
+                    xmlAlert.showAndWait();
+                    logger.log(Level.INFO, "Records imported");
+                    break;
                 default:
                     break;
             }
