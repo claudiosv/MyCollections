@@ -56,7 +56,7 @@ public class Session {
     /**
      * Sets the active user.
      *
-     * @return Sets the active user.
+     * @param activeUser Active user to set.
      */
     public void setActiveUser(User activeUser) {
         this.activeUser = activeUser;

@@ -80,9 +80,7 @@ public class FileMenu extends Menu {
     /**
      * Gets the {@link ImportDataMenuItem}.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @return The ImportDataMenuItem of this FileMenu.
      */
     public ImportDataMenuItem getImportDataMenuItem() {
         return this.importDataMenuItem;
@@ -91,9 +89,7 @@ public class FileMenu extends Menu {
     /**
      * Gets the {@link ExportDataMenuItem}.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @return The ExportDataMenuItem of this FileMenu.
      */
     public ExportDataMenuItem getExportDataMenuItem() {
         return this.exportDataMenuItem;

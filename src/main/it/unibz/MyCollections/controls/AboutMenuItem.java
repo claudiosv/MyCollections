@@ -7,7 +7,7 @@ import javafx.stage.Stage;
 import main.it.unibz.MyCollections.views.AboutView;
 
 /**
- * Menu item that for the About view. This class
+ * Menu item for the About view. This class
  * is an AdvancedCustomMenu item that acts as a
  * JavaFX MenuItem to be used in the MainMenuBuilder.
  *

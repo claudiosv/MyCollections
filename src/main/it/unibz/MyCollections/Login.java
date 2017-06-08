@@ -62,6 +62,8 @@ public class Login extends Application {
     /**
      * Main method. Entry point of application.
      * Initialises database and starts JavaFX application.
+     *
+     * @param args System command line arguments. Not used.
      */
     public static void main(String[] args) {
         launch(args);

@@ -20,7 +20,8 @@ public class Validator {
      * <li>Minimum length of a username is 5.</li>
      * </ul>
      *
-     * @return String of the User's username.
+     * @param username String of the User's username.
+     * @return <code>true</code> if the username is valid.
      * @author Claudio Spiess
      * @author <a href="https://stackoverflow.com/a/6782475">sarkiroka</a>
      */
@@ -51,7 +52,8 @@ public class Validator {
      * <li>Password may contain only ASCII characters.</li>
      * </ul>
      *
-     * @return boolean True if password is valid, false if password is invalid.
+     * @param password The password to be validated.
+     * @return <code>true</code> if password is valid, false if password is invalid.
      * @author Claudio Spiess
      * @author <a href="https://stackoverflow.com/a/3585284">Arne</a>
      */

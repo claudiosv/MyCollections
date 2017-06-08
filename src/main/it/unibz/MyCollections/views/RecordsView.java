@@ -59,6 +59,7 @@ public class RecordsView {
      */
     public Pane box(Login parentStage) {
         logger.entering(getClass().getName(), "box");
+        parentStage.primaryStage.setTitle("MyCollections");
         data = FXCollections.observableArrayList();
         try {
             logger.log(Level.INFO, "Loading records into ObservableList");

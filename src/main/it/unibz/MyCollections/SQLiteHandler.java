@@ -134,7 +134,6 @@ public class SQLiteHandler implements DatabaseHandler {
      * @param user object to edit in the database.
      * @throws SQLException          If there is an exception in JDBC.
      * @throws UserNotFoundException If a user with that id doesn't already exist.
-     * @throws IOException           If there is an error writing the user's image to a buffer.
      * @author Claudio Spiess
      * @see User
      */
@@ -276,7 +275,6 @@ public class SQLiteHandler implements DatabaseHandler {
      * @param record record update in database.
      * @throws SQLException            If there is an exception in JDBC.
      * @throws RecordNotFoundException If the record couldn't be found in the database.
-     * @throws IOException             If the record's image couldn't be written to a buffer.
      * @author Claudio Spiess
      * @see Record
      */

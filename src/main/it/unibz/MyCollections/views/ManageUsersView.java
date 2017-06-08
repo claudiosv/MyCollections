@@ -64,7 +64,7 @@ public class ManageUsersView {
         dialog.setTitle("Manage Users");
         dialog.initOwner(parentStage);
         dialog.initModality(Modality.APPLICATION_MODAL);
-        Scene scene = new Scene(new VBox(), 250, 200);
+        Scene scene = new Scene(new VBox(), 350, 300);
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(10);

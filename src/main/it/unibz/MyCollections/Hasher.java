@@ -15,10 +15,8 @@ public interface Hasher {
     /**
      * Hashes input string, for use in password storage.
      *
-     * @return String that has been hashed
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @param input String to be hashed.
+     * @return String that has been hashed.
      */
     String hash(String input);
 }

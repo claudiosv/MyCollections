@@ -23,6 +23,12 @@ public class SQLiteHandlerTest {
     /**
      * Extensive testing of every database function available. This ensures that the core functionality
      * of the application works as expected.
+     *
+     * @throws SQLException If there was an SQL error.
+     * @throws UserAlreadyExistsException
+     * @throws UserNotFoundException
+     * @throws IOException
+     * @throws RecordNotFoundException
      */
     @Test
     public void SQLiteHandlerTest() throws SQLException, UserAlreadyExistsException, UserNotFoundException, IOException, RecordNotFoundException {

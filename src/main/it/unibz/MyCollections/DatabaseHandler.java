@@ -69,6 +69,7 @@ public interface DatabaseHandler {
      * @throws IOException             If the record's image couldn't be written to a buffer.
      * @throws UserNotFoundException   If the record's owner id doesn't exist
      * @author Claudio Spiess
+     * @return The newly inserted record with the correct id.
      * @see Record
      */
     Record insertRecord(Record record) throws SQLException, RecordNotFoundException, IOException, UserNotFoundException;
