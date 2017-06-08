@@ -15,9 +15,14 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 /**
- * Created by Claudio on 06/06/2017.
+ * Tests whether the exporters and importers work.
  */
 public class ExportAndImportTest {
+
+    /**
+     * Tests whether the csv exporter, csv importer, xml exporter, and xml importer
+     * produce the same values as their input.
+     */
     @Test
     public void ExportAndImportCsvTest() {
         Exporter csvExporter = new CsvExporter();

@@ -23,29 +23,17 @@ import java.util.logging.Logger;
  */
 public class SQLiteHandler implements DatabaseHandler {
     /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * Holds the logger of this class.
      */
     private static final Logger logger = Logger.getLogger(SQLiteHandler.class.getName());
 
     /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * Holds the JDBC {@link Connection} of this class.
      */
     private Connection sqliteConnection = null;
 
     /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * Holds the file name of the database.
      */
     private String fileName;
 
@@ -538,7 +526,7 @@ public class SQLiteHandler implements DatabaseHandler {
         PreparedStatement s = sqliteConnection.prepareStatement("SELECT * FROM records WHERE deleted = 0 AND userid = ? AND " + sql);
         int counter = 2;
         s.setInt(1, userId);
-        for (String part : query.getParametreValueBuilder()) {
+        for (String part : query.getParameterValueBuilder()) {
             s.setString(counter, part);
             counter++;
         }
@@ -565,7 +553,7 @@ public class SQLiteHandler implements DatabaseHandler {
 
         PreparedStatement s = sqliteConnection.prepareStatement("SELECT * FROM records WHERE deleted = 0 AND " + sql);
         int counter = 1;
-        for (String part : query.getParametreValueBuilder()) {
+        for (String part : query.getParameterValueBuilder()) {
             s.setString(counter, part);
             counter++;
         }

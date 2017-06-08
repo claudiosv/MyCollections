@@ -32,6 +32,9 @@ import java.util.logging.Logger;
  * @since 1.0
  */
 class ExportDataView {
+    /**
+     * Holds logger for this class.
+     */
     private static final Logger logger = Logger.getLogger(ExportDataView.class.getName());
 
     /**

@@ -10,9 +10,12 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Created by Claudio on 06/06/2017.
+ * Tests whether the ImporterFactory works as expected.
  */
 public class ImporterFactoryTest {
+    /**
+     * Tests whether the ImporterFactory works as expected.
+     */
     @Test
     public void ImporterFactoryTest() {
         ImporterFactory factory = new ImporterFactory();

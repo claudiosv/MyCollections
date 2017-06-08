@@ -22,6 +22,9 @@ import java.util.logging.Logger;
  * @since 1.0
  */
 class EditRecordView extends RecordView {
+    /**
+     * Holds logger for this class.
+     */
     private static final Logger logger = Logger.getLogger(EditRecordView.class.getName());
 
     /**

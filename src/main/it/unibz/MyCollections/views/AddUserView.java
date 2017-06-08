@@ -28,6 +28,9 @@ import java.util.logging.Logger;
  * @since 1.0
  */
 class AddUserView extends UserView {
+    /**
+     * Holds logger for this class.
+     */
     private static final Logger logger = Logger.getLogger(AddUserView.class.getName());
 
     /**
@@ -71,9 +74,5 @@ class AddUserView extends UserView {
         });
         grid.add(saveButton, 1, 5);
         logger.exiting(getClass().getName(), "AddUserView");
-    }
-
-    public List<User> getResults() {
-        return null;
     }
 }

@@ -6,7 +6,8 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 /**
- * Factory to create controls.
+ * This class represents the Import Data menu item. This allows the user to import data
+ * into their collection.
  *
  * @author Claudio Spiess
  * @version 1.0
@@ -14,11 +15,9 @@ import javafx.stage.Stage;
  */
 public class ImportDataMenuItem extends MenuItem implements AdvancedCustomMenuItem {
     /**
-     * Factory to create controls.
+     * Constructs an {@link ImportDataMenuItem} by setting the text and graphic.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @param primaryStage The primary stage of the JavaFX Application.
      */
     public ImportDataMenuItem(Stage primaryStage) {
         super("Import");
@@ -26,11 +25,10 @@ public class ImportDataMenuItem extends MenuItem implements AdvancedCustomMenuIt
     }
 
     /**
-     * Factory to create controls.
+     * Gets whether this <code>MenuItem</code> is only visible to admins.
+     * This ensures the menu item will be visible to non-admin users.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @return <code>false</code> to represent that {@link ImportDataMenuItem} is visible to everyone.
      */
     @Override
     public boolean isAdminOnly() {
@@ -38,11 +36,10 @@ public class ImportDataMenuItem extends MenuItem implements AdvancedCustomMenuIt
     }
 
     /**
-     * Factory to create controls.
+     * Gets whether this <code>MenuItem</code> is only visible to logged in users.
+     * This ensures the menu item will be visible to non-admin users.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @return <code>true</code> to represent that {@link ImportDataMenuItem} is visible to non admin users.
      */
     @Override
     public boolean isDataOnly() {
@@ -50,11 +47,9 @@ public class ImportDataMenuItem extends MenuItem implements AdvancedCustomMenuIt
     }
 
     /**
-     * Factory to create controls.
+     * Sets the control's visibility. Makes parent class's setVisible function accessible.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @param visible Whether the control should be visible or not.
      */
     @Override
     public void setVisibility(boolean visible) {

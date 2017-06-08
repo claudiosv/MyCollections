@@ -33,8 +33,19 @@ import java.util.logging.Logger;
  * @since 1.0
  */
 class ImportDataView {
+    /**
+     * Holds logger for this class.
+     */
     private static final Logger logger = Logger.getLogger(ImportDataView.class.getName());
+
+    /**
+     * Holds the JavaFX dialog of this view. This is necessary to close the view later.
+     */
     private final Stage dialog;
+
+    /**
+     * Holds the imported records. This is necessary to return the records later.
+     */
     private List<Record> importedRecords = new ArrayList<>();
 
     /**

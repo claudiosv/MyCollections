@@ -10,6 +10,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import main.it.unibz.MyCollections.Record;
 import main.it.unibz.MyCollections.RecordSearchQuery;
 
 import java.util.logging.Level;
@@ -26,14 +27,49 @@ import java.util.logging.Logger;
  * @since 1.0
  */
 class SearchView {
-    private static final Logger logger = Logger.getLogger(SearchView.class.getName());
-    private final Stage dialog;
-    private final TextField firstNameTxt;
-    private final TextField lastNameTxt;
-    private final TextField companyNameTxt;
-    private final TextField addressTxt;
-    private final TextField telephoneNumberTxt;
-    private final TextField emailAddressTxt;
+    /**
+     * Holds logger for this class.
+     */
+    private static final Logger logger = Logger.getLogger(RecordView.class.getName());
+
+    /**
+     * Holds JavaFX dialog of this view.
+     */
+    final Stage dialog;
+
+    /**
+     * Holds the TextField for the firstName in the record.
+     */
+    final TextField firstNameTxt;
+
+    /**
+     * Holds the TextField for the lastName in the record.
+     */
+    final TextField lastNameTxt;
+
+    /**
+     * Holds the TextField for the companyName in the record.
+     */
+    final TextField companyNameTxt;
+
+    /**
+     * Holds the TextField for the address in the record.
+     */
+    final TextField addressTxt;
+
+    /**
+     * Holds the TextField for the telephone number in the record.
+     */
+    final TextField telephoneNumberTxt;
+
+    /**
+     * Holds the TextField for the email address in the record.
+     */
+    final TextField emailAddressTxt;
+
+    /**
+     * Holds the RadioButton to search exclusively.
+     */
     private final RadioButton rb1;
 
     /**
@@ -120,7 +156,7 @@ class SearchView {
     }
 
     /**
-     * Instantiates the search record view.
+     * Instantiates the search record view. Returns a search query.
      *
      * @return object to query record handler.
      * @author Claudio Spiess

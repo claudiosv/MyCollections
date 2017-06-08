@@ -7,9 +7,12 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Created by claudio on 30/05/2017.
+ * Tests if the Validator class works as expected.
  */
 public class ValidatorTest {
+    /**
+     * Tests if the Validator class works as expected.
+     */
     @Test
     public void InvalidUsernameTest() {
         String[] strings = new String[]{
@@ -28,6 +31,9 @@ public class ValidatorTest {
         }
     }
 
+    /**
+     * Tests if the Validator class works as expected.
+     */
     @Test
     public void ValidUsernameTest() {
         String[] strings = new String[]{
@@ -43,6 +49,9 @@ public class ValidatorTest {
         }
     }
 
+    /**
+     * Tests if the Validator class works as expected.
+     */
     @Test
     public void ValidPasswordTest() {
         String[] strings = new String[]{
@@ -61,6 +70,9 @@ public class ValidatorTest {
         }
     }
 
+    /**
+     * Tests if the Validator class works as expected.
+     */
     @Test
     public void InvalidPasswordTest() {
         String[] strings = new String[]{

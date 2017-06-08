@@ -5,7 +5,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 
 /**
- * Factory to create controls.
+ * This class implements a custom (extended) menu, allowing the menu to have easily accessible properties.
  *
  * @author Claudio Spiess
  * @version 1.0
@@ -13,39 +13,33 @@ import javafx.scene.control.MenuItem;
  */
 public class FileMenu extends Menu {
     /**
-     * Factory to create controls.
+     * Holds this FileMenu's Import Data Menu Item. This is necessary so it can be
+     * easily accessed once its action needs to be set.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @see MenuItem
      */
     private ImportDataMenuItem importDataMenuItem;
+
     /**
-     * Factory to create controls.
+     * Holds this FileMenu's Export Data Menu Item. This is necessary so it can be
+     * easily accessed once its action needs to be set.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @see MenuItem
      */
     private ExportDataMenuItem exportDataMenuItem;
 
     /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * Constructs a FileMenu by calling the super constructor with the appropriate text.
      */
     public FileMenu() {
         super("File");
     }
 
     /**
-     * Factory to create controls.
+     * Adds an item to this FileMenu. If the item being added is a special item (export/import),
+     * the appropriate parameter is set.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @param item The AdvancedCustomMenuItem to add to the FileMenu.
      */
     public void addItem(AdvancedCustomMenuItem item) {
         if (item instanceof ImportDataMenuItem) this.importDataMenuItem = (ImportDataMenuItem) item;
@@ -54,11 +48,10 @@ public class FileMenu extends Menu {
     }
 
     /**
-     * Factory to create controls.
+     * Sets the control's visibility for admin-only items. This allows admin-only items to be shown
+     * or hidden as needed.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @param visible Whether the admin controls should be visible or not.
      */
     public void setAdminVisible(boolean visible) {
         ObservableList<MenuItem> items = this.getItems();
@@ -70,11 +63,10 @@ public class FileMenu extends Menu {
     }
 
     /**
-     * Factory to create controls.
+     * Sets the control's visibility for data-only items. This allows data-only items to be shown
+     * or hidden as needed.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @param visible Whether the data controls should be visible or not.
      */
     public void setDataVisible(boolean visible) {
         ObservableList<MenuItem> items = this.getItems();
@@ -86,7 +78,7 @@ public class FileMenu extends Menu {
     }
 
     /**
-     * Factory to create controls.
+     * Gets the {@link ImportDataMenuItem}.
      *
      * @author Claudio Spiess
      * @version 1.0
@@ -97,7 +89,7 @@ public class FileMenu extends Menu {
     }
 
     /**
-     * Factory to create controls.
+     * Gets the {@link ExportDataMenuItem}.
      *
      * @author Claudio Spiess
      * @version 1.0

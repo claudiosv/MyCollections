@@ -40,20 +40,12 @@ import java.util.logging.Logger;
  */
 public class RecordsView {
     /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * Holds logger for this class.
      */
     private static final Logger logger = Logger.getLogger(RecordsView.class.getName());
 
     /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * Holds the {@link Record}s in a JavaFX friendly observable List.
      */
     private ObservableList<Record> data;
 
@@ -122,8 +114,6 @@ public class RecordsView {
             } catch (IOException ex) {
                 logger.log(Level.SEVERE, "IO error loading records", ex);
             }
-//TODO: clean up code reuse
-
         });
         hbox.getChildren().addAll(label, button, buttonSearch, cancelSearch);
 
@@ -305,7 +295,6 @@ public class RecordsView {
             }
         });
 
-        //noinspection unchecked
         table.setRowFactory(tableView -> {
             final TableRow<Record> row = new TableRow<>();
             final ContextMenu contextMenu = new ContextMenu();
@@ -349,7 +338,6 @@ public class RecordsView {
 
             contextMenu.getItems().addAll(copyMenuItem, removeMenuItem);
 
-            // Set context menu on row, but use a binding to make it only show for non-empty rows:
             row.contextMenuProperty().bind(
                     Bindings.when(row.emptyProperty())
                             .then((ContextMenu) null)
@@ -378,9 +366,7 @@ public class RecordsView {
             return row;
         });
 
-        //noinspection unchecked
         table.setItems(data);
-        //noinspection unchecked
         table.getColumns().addAll(imageCol, firstNameCol, lastNameCol, companyNameCol, addressCol, telephoneCol, emailCol);
         parentStage.getMenuBar().getFileMenu().getImportDataMenuItem().setOnAction(event -> {
             logger.log(Level.INFO, "Opening import data view");

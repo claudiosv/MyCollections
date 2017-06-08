@@ -29,104 +29,63 @@ import java.util.logging.Logger;
 public class Record {
 
     /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * Holds the logger for this class.
      */
     private static final Logger logger = Logger.getLogger(Record.class.getName());
+
     /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * Holds the firstName of this record.
      */
     private final SimpleStringProperty firstName = new SimpleStringProperty("");
+
     /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * Holds the lastName of this record.
      */
     private final SimpleStringProperty lastName = new SimpleStringProperty("");
+
     /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * Holds the companyName of this record.
      */
     private final SimpleStringProperty companyName = new SimpleStringProperty("");
+
     /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * Holds the address of this record.
      */
     private final SimpleStringProperty address = new SimpleStringProperty("");
+
     /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * Holds the telephone number of this record.
      */
     private final SimpleStringProperty telephoneNumber = new SimpleStringProperty("");
+
     /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * Holds the email address of this record.
      */
     private final SimpleStringProperty emailAddress = new SimpleStringProperty("");
+
     /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * Holds the database id of this record.
      */
     private int recordId;
+
     /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * Holds the id of the user who owns/created this record.
      */
     private int ownerUserId;
+
     /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * Holds the JavaFX image of this record.
      */
     private Image image;
+
     /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * Holds the JavaFX {@link ImageView} of this record.
      */
     private ImageView imageView;
 
     /**
-     * Instantiates Record object. Sets the default image of the record
-     * and creates a JavaFX image view.
-     *
-     * @author Claudio Spiess
+     * Sets the default image of the record and creates a JavaFX image view.
      */
-    public Record() {
-
-    }
-
     public void setDefaultImage() {
         try {
             this.image = new Image("default_user.png", 48, 48, true, true);
@@ -139,11 +98,9 @@ public class Record {
     }
 
     /**
-     * Factory to create controls.
+     * Gets the first name. Required because JavaFX uses reflection to get columnNameProperty().
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @return Record's first name property.
      */
     @SuppressWarnings("unused")
     public SimpleStringProperty firstNameProperty() {
@@ -151,11 +108,9 @@ public class Record {
     }
 
     /**
-     * Factory to create controls.
+     * Gets the last name. Required because JavaFX uses reflection to get columnNameProperty().
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @return Record's last name property.
      */
     @SuppressWarnings("unused")
     public SimpleStringProperty lastNameProperty() {
@@ -163,11 +118,9 @@ public class Record {
     }
 
     /**
-     * Factory to create controls.
+     * Gets the company name. Required because JavaFX uses reflection to get columnNameProperty().
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @return Record's company name property.
      */
     @SuppressWarnings("unused")
     public SimpleStringProperty companyNameProperty() {
@@ -175,11 +128,9 @@ public class Record {
     }
 
     /**
-     * Factory to create controls.
+     * Gets the address. Required because JavaFX uses reflection to get columnNameProperty().
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @return Record's address property.
      */
     @SuppressWarnings("unused")
     public SimpleStringProperty addressProperty() {
@@ -187,11 +138,9 @@ public class Record {
     }
 
     /**
-     * Factory to create controls.
+     * Gets the telephone number. Required because JavaFX uses reflection to get columnNameProperty().
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @return Record's telephone number property.
      */
     @SuppressWarnings("unused")
     public SimpleStringProperty telephoneNumberProperty() {
@@ -199,11 +148,9 @@ public class Record {
     }
 
     /**
-     * Factory to create controls.
+     * Gets the email address. Required because JavaFX uses reflection to get columnNameProperty().
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @return Record's email address property.
      */
     @SuppressWarnings("unused")
     public SimpleStringProperty emailAddressProperty() {
@@ -211,198 +158,162 @@ public class Record {
     }
 
     /**
-     * Factory to create controls.
+     * Gets the record Id. This is the id of the row in the database.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @return <code>int</code> id of the record
      */
     public int getRecordId() {
         return recordId;
     }
 
     /**
-     * Factory to create controls.
+     * Sets the record Id.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @param recordId The new record Id value to set.
      */
     public void setRecordId(int recordId) {
         this.recordId = recordId;
     }
 
     /**
-     * Factory to create controls.
+     * Gets the owner user Id. This is the id of the user who owns/created the record in the database.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @return <code>int</code> id of the owner user Id.
      */
     public int getOwnerUserId() {
         return ownerUserId;
     }
 
     /**
-     * Factory to create controls.
+     * Sets the owner user Id.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @param ownerUserId The new owner user Id value to set.
      */
     public void setOwnerUserId(int ownerUserId) {
         this.ownerUserId = ownerUserId;
     }
 
     /**
-     * Factory to create controls.
+     * Gets the first name string.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @return Record's first name
      */
     public String getFirstName() {
         return firstName.get();
     }
 
     /**
-     * Factory to create controls.
+     * Sets the first name.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @param firstName The new first name value to set.
      */
     public void setFirstName(String firstName) {
         this.firstName.set(firstName);
     }
 
     /**
-     * Factory to create controls.
+     * Gets the last name string.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @return Record's last name
      */
     public String getLastName() {
         return lastName.get();
     }
 
     /**
-     * Factory to create controls.
+     * Sets the last name.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @param lastName The new last name value to set.
      */
     public void setLastName(String lastName) {
         this.lastName.set(lastName);
     }
 
     /**
-     * Factory to create controls.
+     * Gets the company name string.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @return Record's company name
      */
     public String getCompanyName() {
         return companyName.get();
     }
 
     /**
-     * Factory to create controls.
+     * Sets the company name.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @param companyName The new company name value to set.
      */
     public void setCompanyName(String companyName) {
         this.companyName.set(companyName);
     }
 
     /**
-     * Factory to create controls.
+     * Gets the address string.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @return Record's address
      */
     public String getAddress() {
         return address.get();
     }
 
     /**
-     * Factory to create controls.
+     * Sets the address.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @param address The new address value to set.
      */
     public void setAddress(String address) {
         this.address.set(address);
     }
 
     /**
-     * Factory to create controls.
+     * Gets the telephone number.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @return Record's telephone number
      */
     public String getTelephoneNumber() {
         return telephoneNumber.get();
     }
 
     /**
-     * Factory to create controls.
+     * Sets the telephone number.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @param telephoneNumber The new telephone number value to set.
      */
     public void setTelephoneNumber(String telephoneNumber) {
         this.telephoneNumber.set(telephoneNumber);
     }
 
     /**
-     * Factory to create controls.
+     * Gets the email address.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @return Record's email address
      */
     public String getEmailAddress() {
         return emailAddress.get();
     }
 
     /**
-     * Factory to create controls.
+     * Sets the email address.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @param emailAddress The new email address value to set.
      */
     public void setEmailAddress(String emailAddress) {
         this.emailAddress.set(emailAddress);
     }
 
     /**
-     * Factory to create controls.
+     * Gets the Record's image.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @return Record's image
      */
     public Image getImage() {
         return image;
     }
 
     /**
-     * Factory to create controls.
+     * Sets the Record's image.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @param image The new image to set.
      */
     public void setImage(Image image) {
         this.image = image;
@@ -412,11 +323,9 @@ public class Record {
     }
 
     /**
-     * Factory to create controls.
+     * Gets the image view.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @return An {@link ImageView} of the Record
      */
     public ImageView getImageView() {
         return imageView;
@@ -445,11 +354,10 @@ public class Record {
     }
 
     /**
-     * Factory to create controls.
+     * Gets whether a Record is considered empty.
+     * A record is considered empty when all of its text fields are blank.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @return Returns <code>true</code> if all text fields are blank, otherwise <code>false</code>.
      */
     public boolean isEmpty() {
         if (firstName != null && !firstName.getValue().trim().equals("")) return false;
@@ -460,6 +368,12 @@ public class Record {
         return !(emailAddress != null && !emailAddress.getValue().trim().equals(""));
     }
 
+    /**
+     * Compares this object against another object.
+     *
+     * @param o Object to compare
+     * @return Returns whether the object O is considered equal.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

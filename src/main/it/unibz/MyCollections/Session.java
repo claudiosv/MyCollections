@@ -10,164 +10,85 @@ package main.it.unibz.MyCollections;
 public class Session {
 
     /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * Holds the instance of the singleton Session.
      */
     private static Session instance = new Session();
+
     /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * Holds the active user of the application.
      */
     private User activeUser;
+
     /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
-     */
-    private boolean loggedIn;
-    /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * Holds the number of records added in a session.
      */
     private int recordsAdded;
+
     /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * Holds the number of records deleted in a session.
      */
     private int recordsDeleted;
 
     /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * Private constructor to ensure no outside class can instantiate the singleton.
      */
     private Session() {
     }
 
     /**
-     * Factory to create controls.
+     * Gets the instance of the singleton.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @return The instance of the singleton.
      */
     public static Session getInstance() {
         return instance;
     }
 
     /**
-     * Factory to create controls.
+     * Gets the active user.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
-     */
-    @SuppressWarnings("unused")
-    public static void setInstance(Session instance) {
-        Session.instance = instance;
-    }
-
-    /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @return The active User instance.
      */
     public User getActiveUser() {
         return activeUser;
     }
 
     /**
-     * Factory to create controls.
+     * Sets the active user.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @return Sets the active user.
      */
     public void setActiveUser(User activeUser) {
         this.activeUser = activeUser;
     }
 
     /**
-     * Factory to create controls.
+     * Gets the number of records added.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
-     */
-    @SuppressWarnings("unused")
-    public boolean isLoggedIn() {
-        return loggedIn;
-    }
-
-    /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
-     */
-    @SuppressWarnings("unused")
-    public void setLoggedIn(boolean loggedIn) {
-        this.loggedIn = loggedIn;
-    }
-
-    /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @return Numbers of records added.
      */
     public int getRecordsAdded() {
         return recordsAdded;
     }
 
     /**
-     * Factory to create controls.
+     * Gets the number of records deleted.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @return Numbers of records deleted.
      */
     public int getRecordsDeleted() {
         return recordsDeleted;
     }
 
     /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * Increments the number of records added.
      */
     public void incrementRecordsAdded() {
         this.recordsAdded++;
     }
 
     /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * Increments the number of records deleted.
      */
     public void incrementRecordsDeleted() {
         this.recordsDeleted++;

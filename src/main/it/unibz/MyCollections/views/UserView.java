@@ -23,7 +23,7 @@ import java.util.logging.Logger;
 /**
  * Abstract view to manage a user. The purpose of this class
  * is to build the editable fields necessary to edit
- * or add a user to the userbas.
+ * or add a user to the userbase.
  *
  * @author Claudio Spiess
  * @version 1.0
@@ -33,13 +33,44 @@ import java.util.logging.Logger;
  * @since 1.0
  */
 abstract class UserView {
+    /**
+     * Holds logger for this class.
+     */
     private static final Logger logger = Logger.getLogger(UserView.class.getName());
+
+    /**
+     * Holds the GridPane for the JavaFX Stage.
+     */
     final GridPane grid;
+
+    /**
+     * Holds the JavaFX Stage.
+     */
     final Stage dialog;
+
+    /**
+     * Holds the TextField to edit the username.
+     */
     final TextField usernameTxt;
+
+    /**
+     * Holds the PasswordField to edit the password.
+     */
     final PasswordField passwordField;
+
+    /**
+     * Holds the PasswordField to confirm that the password is typed correctly.
+     */
     final PasswordField passwordFieldConf;
+
+    /**
+     * Holds the CheckBox to determine whether the user is an admin or not.
+     */
     final CheckBox adminCheckbox;
+
+    /**
+     * Holds the {@link User} which is being edited.
+     */
     final User user;
 
     /**

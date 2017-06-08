@@ -14,11 +14,7 @@ import java.util.logging.Logger;
  */
 public class SHA512Hasher implements Hasher {
     /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * Holds the logger of this class
      */
     private static final Logger logger = Logger.getLogger(SHA512Hasher.class.getName());
 

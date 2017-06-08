@@ -9,9 +9,13 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Created by Claudio on 06/06/2017.
+ * Tests for {@link DatabaseHandlerFactory}.
  */
 public class DatabaseHandlerFactoryTest {
+
+    /**
+     * Tests whether the DatabaseHandlerFactory is working as expected.
+     */
     @Test
     public void DatabaseHandlerFactoryTest() {
         DatabaseHandlerFactory factory = new DatabaseHandlerFactory();

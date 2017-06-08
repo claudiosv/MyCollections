@@ -21,6 +21,9 @@ import java.util.logging.Logger;
  * @since 1.0
  */
 class AddRecordView extends RecordView {
+    /**
+     * Holds logger for this class.
+     */
     private static final Logger logger = Logger.getLogger(AddRecordView.class.getName());
 
     /**

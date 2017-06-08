@@ -42,6 +42,9 @@ import java.util.logging.Logger;
  * @since 1.0
  */
 public class ManageUsersView {
+    /**
+     * Holds logger for this class.
+     */
     private static final Logger logger = Logger.getLogger(ManageUsersView.class.getName());
 
     /**
@@ -193,12 +196,9 @@ public class ManageUsersView {
         }
 
         userNameCol.setStyle("-fx-alignment: CENTER-LEFT;");
-        //noinspection unchecked
         usersTable.setItems(data);
-        //noinspection unchecked
         usersTable.getColumns().addAll(imageCol, userNameCol, isAdminCol);
         grid.add(usersTable, 0, 0);
-
 
         Button btn = new Button("Close");
         btn.setGraphic(new ImageView(new Image("cross-button.png")));

@@ -44,7 +44,7 @@ public class AboutMenuItem extends MenuItem implements AdvancedCustomMenuItem {
 
     /**
      * Gets whether this <code>MenuItem</code> is dependant on data being loaded.
-     * This ensures the menu item will be hidden to non-logged in users.
+     * This ensures the menu item will be visible to non-logged in users.
      *
      * @return <code>false</code> to represent that AboutMenuItem is visible at all times.
      */

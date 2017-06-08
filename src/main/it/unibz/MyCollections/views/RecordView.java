@@ -36,15 +36,54 @@ import java.util.logging.Logger;
  * @since 1.0
  */
 abstract class RecordView {
+    /**
+     * Holds logger for this class.
+     */
     private static final Logger logger = Logger.getLogger(RecordView.class.getName());
+
+    /**
+     * Holds the grid pane of this view. This is the layout of the JavaFX stage.
+     */
     final GridPane grid;
+
+    /**
+     * Holds JavaFX dialog of this view.
+     */
     final Stage dialog;
+
+    /**
+     * Holds the TextField for the firstName in the record.
+     */
     final TextField firstNameTxt;
+
+    /**
+     * Holds the TextField for the lastName in the record.
+     */
     final TextField lastNameTxt;
+
+    /**
+     * Holds the TextField for the companyName in the record.
+     */
     final TextField companyNameTxt;
+
+    /**
+     * Holds the TextField for the address in the record.
+     */
     final TextField addressTxt;
+
+    /**
+     * Holds the TextField for the telephone number in the record.
+     */
     final TextField telephoneNumberTxt;
+
+    /**
+     * Holds the TextField for the email address in the record.
+     */
     final TextField emailAddressTxt;
+
+    /**
+     * Holds the {@link Record} to be edited.
+     */
     final Record record;
 
     /**

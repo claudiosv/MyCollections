@@ -31,6 +31,9 @@ import java.util.logging.Logger;
  * @since 1.0
  */
 public class AboutView {
+    /**
+     * Holds logger for this class.
+     */
     private static final Logger logger = Logger.getLogger(AboutView.class.getName());
 
     /**

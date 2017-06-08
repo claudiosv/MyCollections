@@ -6,7 +6,8 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 /**
- * Factory to create controls.
+ * This class creates the Export Data Menu Item, allowing the user to export
+ * his/her data to a file of their choice.
  *
  * @author Claudio Spiess
  * @version 1.0
@@ -14,11 +15,10 @@ import javafx.stage.Stage;
  */
 public class ExportDataMenuItem extends MenuItem implements AdvancedCustomMenuItem {
     /**
-     * Factory to create controls.
+     * Constructs {@link ExportDataMenuItem} by setting the MenuItem's graphic.
+     * The action is set later down the execution chain once a user and data is known.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @param primaryStage The primary stage of the JavaFX Application.
      */
     public ExportDataMenuItem(Stage primaryStage) {
         super("Export");
@@ -26,11 +26,10 @@ public class ExportDataMenuItem extends MenuItem implements AdvancedCustomMenuIt
     }
 
     /**
-     * Factory to create controls.
+     * Gets whether this <code>MenuItem</code> is only visible to admins.
+     * This ensures the menu item will be hidden to non-admin users.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @return <code>false</code> to represent that {@link ExportDataMenuItem} is visible to everyone.
      */
     @Override
     public boolean isAdminOnly() {
@@ -38,11 +37,10 @@ public class ExportDataMenuItem extends MenuItem implements AdvancedCustomMenuIt
     }
 
     /**
-     * Factory to create controls.
+     * Gets whether this <code>MenuItem</code> is dependant on data being loaded.
+     * This ensures the menu item will be hidden from non-logged in users.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @return <code>true</code> to represent that {@link ExportDataMenuItem} is visible only when a user is logged in.
      */
     @Override
     public boolean isDataOnly() {
@@ -50,11 +48,9 @@ public class ExportDataMenuItem extends MenuItem implements AdvancedCustomMenuIt
     }
 
     /**
-     * Factory to create controls.
+     * Sets the control's visibility. Makes parent class's setVisible function accessible.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @param visible Whether the control should be visible or not.
      */
     @Override
     public void setVisibility(boolean visible) {

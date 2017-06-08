@@ -27,49 +27,33 @@ import java.util.logging.Logger;
 public class XmlImporter implements Importer {
 
     /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * Holds logger for this class.
      */
-    private static final Logger logger = Logger.getLogger(CsvImporter.class.getName());
+    private static final Logger logger = Logger.getLogger(XmlImporter.class.getName());
 
     /**
-     * Factory to create controls.
+     * Imports extensible markup language file into records database.
      *
+     * @param file Path to XML file to import from.
      * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
      */
     @Override
     public List<Record> importRecords(Path file) {
         logger.entering(getClass().getName(), "importRecords");
 
         List<Record> records = new ArrayList<>();
-
-
         try {
-
-            File fXmlFile = file.toFile();
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(fXmlFile);
-
-            //optional, but recommended
-            //read this - http://stackoverflow.com/questions/13786607/normalization-in-dom-parsing-with-java-how-does-it-work
+            Document doc = dBuilder.parse(file.toFile());
             doc.getDocumentElement().normalize();
-            NodeList nList = doc.getElementsByTagName("Record");
+            NodeList recordNodes = doc.getElementsByTagName("Record");
+            for (int temp = 0; temp < recordNodes.getLength(); temp++) {
 
+                Node recordNode = recordNodes.item(temp);
 
-            for (int temp = 0; temp < nList.getLength(); temp++) {
-
-                Node nNode = nList.item(temp);
-
-                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-
-
-                    Element eElement = (Element) nNode;
+                if (recordNode.getNodeType() == Node.ELEMENT_NODE) {
+                    Element eElement = (Element) recordNode;
                     Record newRecord = new Record();
                     newRecord.setDefaultImage();
                     newRecord.setFirstName(eElement.getElementsByTagName("firstName").item(0).getTextContent());
@@ -78,8 +62,6 @@ public class XmlImporter implements Importer {
                     newRecord.setAddress(eElement.getElementsByTagName("address").item(0).getTextContent());
                     newRecord.setTelephoneNumber(eElement.getElementsByTagName("telephone").item(0).getTextContent());
                     newRecord.setEmailAddress(eElement.getElementsByTagName("email").item(0).getTextContent());
-
-
                     records.add(newRecord);
                 }
             }

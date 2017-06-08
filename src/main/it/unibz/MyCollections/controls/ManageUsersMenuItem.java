@@ -7,7 +7,7 @@ import javafx.stage.Stage;
 import main.it.unibz.MyCollections.views.ManageUsersView;
 
 /**
- * Factory to create controls.
+ * This class represents the menu item to Manage Users.
  *
  * @author Claudio Spiess
  * @version 1.0
@@ -15,11 +15,9 @@ import main.it.unibz.MyCollections.views.ManageUsersView;
  */
 public class ManageUsersMenuItem extends MenuItem implements AdvancedCustomMenuItem {
     /**
-     * Factory to create controls.
+     * Constructs a MangeUsersMenuItem by setting the text, action, and graphic.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @param primaryStage The primary stage of the JavaFX Application.
      */
     public ManageUsersMenuItem(Stage primaryStage) {
         super("Manage Users");
@@ -28,11 +26,10 @@ public class ManageUsersMenuItem extends MenuItem implements AdvancedCustomMenuI
     }
 
     /**
-     * Factory to create controls.
+     * Gets whether this <code>MenuItem</code> is only visible to admins.
+     * This ensures the menu item will be hidden to non-admin users.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @return <code>true</code> to represent that {@link ManageUsersMenuItem} is visible only to admins.
      */
     @Override
     public boolean isAdminOnly() {
@@ -40,11 +37,10 @@ public class ManageUsersMenuItem extends MenuItem implements AdvancedCustomMenuI
     }
 
     /**
-     * Factory to create controls.
+     * Gets whether this <code>MenuItem</code> is only visible to logged in users.
+     * This ensures the menu item will be hidden to non-logged in users.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @return <code>true</code> to represent that {@link ManageUsersMenuItem} is only visible to logged in users.
      */
     @Override
     public boolean isDataOnly() {
@@ -52,11 +48,9 @@ public class ManageUsersMenuItem extends MenuItem implements AdvancedCustomMenuI
     }
 
     /**
-     * Factory to create controls.
+     * Sets the control's visibility. Makes parent class's setVisible function accessible.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @param visible Whether the control should be visible or not.
      */
     @Override
     public void setVisibility(boolean visible) {

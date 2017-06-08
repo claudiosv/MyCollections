@@ -4,7 +4,7 @@ import javafx.stage.Stage;
 import main.it.unibz.MyCollections.controls.*;
 
 /**
- * Factory to create controls.
+ * Builds MenuBars. This class builds MenuBars for use in the main application bits.
  *
  * @author Claudio Spiess
  * @version 1.0
@@ -12,11 +12,10 @@ import main.it.unibz.MyCollections.controls.*;
  */
 class MenuBarBuilder {
     /**
-     * Factory to create controls.
+     * Prepares a MainMenu object with the required MenuItems.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @param primaryStage The primary Stage of the JavaFX application.
+     * @return The prepared CustomMenuBar containing the menu items.
      */
     public CustomMenuBar prepareMainMenu(Stage primaryStage) {
         CustomMenuBar mainMenuBar = new CustomMenuBar();

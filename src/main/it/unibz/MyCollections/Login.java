@@ -43,37 +43,25 @@ import java.util.logging.SimpleFormatter;
 public class Login extends Application {
     private static final Logger logger = Logger.getLogger("main.it.unibz.MyCollections");
     /**
-     * Factory to create controls.
+     * Holds the primary JavaFX Stage of the application.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @see Stage
      */
     public Stage primaryStage;
+
     /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * Holds the scene of the main window (login).
      */
     private Scene scene;
+
     /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * Holds the {@link CustomMenuBar} which contains the appropriate menus.
      */
     private CustomMenuBar menuBar;
 
     /**
      * Main method. Entry point of application.
      * Initialises database and starts JavaFX application.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
      */
     public static void main(String[] args) {
         launch(args);
@@ -89,9 +77,6 @@ public class Login extends Application {
     @Override
     public void start(Stage parentStage) {
         logger.setLevel(Level.ALL);
-        //Handler consoleHandler = new ConsoleHandler();
-        //consoleHandler.setLevel(Level.FINER);
-        //logger.addHandler(consoleHandler);
 
         try {
             FileHandler handler = new FileHandler("MyCollections-log.%u.%g.txt", 1024 * 1024 * 8, 10, true);
@@ -102,16 +87,13 @@ public class Login extends Application {
         }
 
         logger.log(Level.INFO, "Logging started, opening database");
-        DatabaseSession.getInstance().initialise("user_records.db");
+        this.primaryStage = parentStage;
 
         //TODO: refactor entry point a bit to be more logical
-        //TODO: write decorators
-        //TODO: finish unit tests
-        //TODO: rename all variables
         //TODO: add feature to delete image
 
 
-        this.primaryStage = parentStage;
+
         scene = new Scene(new VBox(), 400, 350);
 
         this.primaryStage.setTitle("MyCollections Login");
@@ -217,10 +199,16 @@ public class Login extends Application {
         });
 
         primaryStage.setScene(scene);
+        DatabaseSession.getInstance().initialise("user_records.db");
         primaryStage.show();
         logger.exiting(getClass().getName(), "start");
     }
 
+    /**
+     * Gets the {@link CustomMenuBar} of this class.
+     *
+     * @return The CustomMenuBar of this class.
+     */
     public CustomMenuBar getMenuBar() {
         return menuBar;
     }

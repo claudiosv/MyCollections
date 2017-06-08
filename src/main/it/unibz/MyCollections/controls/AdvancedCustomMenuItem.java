@@ -13,7 +13,7 @@ interface AdvancedCustomMenuItem {
 
     /**
      * Gets whether the menu item is restricted only to admin users.
-     * This ensures the menu item will be hidden to non-admin users.
+     * This ensures the menu item will be hidden or visible to non-admin users.
      *
      * @return <code>false</code> to represent that <code>AdvancedCustomMenuItem</code> is visible only to admins.
      */
@@ -21,7 +21,7 @@ interface AdvancedCustomMenuItem {
 
     /**
      * Gets whether the menu item is dependant on data being loaded.
-     * This ensures the menu item will be hidden to non-logged in users.
+     * This ensures the menu item will be hidden or visible to non-logged in users.
      *
      * @return <code>false</code> to represent that <code>AdvancedCustomMenuItem</code> is visible at all times.
      */

@@ -10,10 +10,12 @@ import java.util.Map;
 import static org.junit.Assert.assertEquals;
 
 /**
- * Created by Claudio on 06/06/2017.
+ * Tests whether SHA512 implementation produces accurate output.
  */
 public class SHA512Test {
-
+    /**
+     * Tests whether SHA512 implementation produces accurate output.
+     */
     @Test
     public void SHAHasherTest() {
         HasherFactory factory = new HasherFactory();

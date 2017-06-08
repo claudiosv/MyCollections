@@ -7,7 +7,8 @@ import javafx.scene.image.ImageView;
 import main.it.unibz.MyCollections.DatabaseSession;
 
 /**
- * Factory to create controls.
+ * This class creates a {@link MenuItem} intended for Exiting the application.
+ * It sets the text, graphic, and action needed.
  *
  * @author Claudio Spiess
  * @version 1.0
@@ -15,11 +16,8 @@ import main.it.unibz.MyCollections.DatabaseSession;
  */
 public class ExitMenuItem extends MenuItem implements AdvancedCustomMenuItem {
     /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * Constructs a {@link ExitMenuItem} by setting the right properties
+     * of the {@link MenuItem}.
      */
     public ExitMenuItem() {
         super("Exit");
@@ -32,11 +30,10 @@ public class ExitMenuItem extends MenuItem implements AdvancedCustomMenuItem {
     }
 
     /**
-     * Factory to create controls.
+     * Gets whether this <code>MenuItem</code> is visible to admins only.
+     * This ensures the menu item will be visible to non-admin users.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @return <code>false</code> to represent that {@link ExitMenuItem} is visible to everyone.
      */
     @Override
     public boolean isAdminOnly() {
@@ -44,11 +41,10 @@ public class ExitMenuItem extends MenuItem implements AdvancedCustomMenuItem {
     }
 
     /**
-     * Factory to create controls.
+     * Gets whether this <code>MenuItem</code> is dependant on data being loaded.
+     * This ensures the menu item will be hidden from non-logged in users.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @return <code>false</code> to represent that {@link ExitMenuItem} is visible only when a user is logged in.
      */
     @Override
     public boolean isDataOnly() {
@@ -56,11 +52,9 @@ public class ExitMenuItem extends MenuItem implements AdvancedCustomMenuItem {
     }
 
     /**
-     * Factory to create controls.
+     * Sets the control's visibility. Makes parent class's setVisible function accessible.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @param visible Whether the control should be visible or not.
      */
     @Override
     public void setVisibility(boolean visible) {

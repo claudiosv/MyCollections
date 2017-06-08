@@ -14,7 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Importer to import records to comma separated values file.
+ * Importer to import records from comma separated values file.
  *
  * @author Claudio Spiess
  * @version 1.0
@@ -22,11 +22,7 @@ import java.util.logging.Logger;
  */
 public class CsvImporter implements Importer {
     /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * Holds the logger for this class.
      */
     private static final Logger logger = Logger.getLogger(CsvImporter.class.getName());
 

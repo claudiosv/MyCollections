@@ -16,22 +16,13 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 /**
- * TODO: Interface to manage records/users in a database or file.
- *
- * @author Claudio Spiess
- * @version 1.0
- * @since 1.0
+ * Tests whether the core functionality of the application works as expected.
  */
 public class SQLiteHandlerTest {
 
     /**
-     * Adds a new user to the database.
-     *
-     * @param user object to add to database.
-     * @throws SQLException               If there is an exception in JDBC.
-     * @throws UserAlreadyExistsException If a user with the same username or id already exists.
-     * @author Claudio Spiess
-     * @see User
+     * Extensive testing of every database function available. This ensures that the core functionality
+     * of the application works as expected.
      */
     @Test
     public void SQLiteHandlerTest() throws SQLException, UserAlreadyExistsException, UserNotFoundException, IOException, RecordNotFoundException {

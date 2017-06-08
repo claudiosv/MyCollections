@@ -18,100 +18,68 @@ import java.util.logging.Logger;
  * @since 1.0
  */
 public class RecordSearchQuery {
-
     /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * Holds the logger for this class.
      */
     private static final Logger logger = Logger.getLogger(Record.class.getName());
+
     /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * Holds the firstName to search for.
      */
     private String firstName;
+
     /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * Holds the lasfName to search for.
      */
     private String lastName;
+
     /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * Holds the companyName to search for.
      */
     private String companyName;
+
     /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * Holds the address to search for.
      */
     private String address;
+
     /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * Holds the telephoneNumber to search for.
      */
     private String telephoneNumber;
+
     /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * Holds the emailAddress to search for.
      */
     private String emailAddress;
+
     /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * Holds the SQL parameters to search for. i.e. the list of parameters to pass to the
+     * PreparedStatement.
      */
-    private ArrayList<String> parametreValueBuilder;
+    private ArrayList<String> parameterValueBuilder;
+
     /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * Holds the whether the search should be exclusive or not.
      */
     private boolean exclusive;
 
     /**
-     * Factory to create controls.
+     * Sets whether the search is exclusive.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @param exclusive Whether to search exclusively or not.
      */
     public void setExclusive(boolean exclusive) {
         this.exclusive = exclusive;
     }
 
     /**
-     * Factory to create controls.
+     * Gets the parameter value builder.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @return Parameters to pass to PreparedStatement
      */
-    public ArrayList<String> getParametreValueBuilder() {
-        return parametreValueBuilder;
+    public ArrayList<String> getParameterValueBuilder() {
+        return parameterValueBuilder;
     }
 
     /**
@@ -126,7 +94,7 @@ public class RecordSearchQuery {
     public String toLikeQuery() {
         logger.entering(getClass().getName(), "toLikeQuery");
         StringBuilder likeQueryBuilder = new StringBuilder();
-        parametreValueBuilder = new ArrayList<>();
+        parameterValueBuilder = new ArrayList<>();
         HashMap<String, String> schemaMap = new HashMap<>();
         schemaMap.put("firstname", firstName);
         schemaMap.put("lastname", lastName);
@@ -141,7 +109,7 @@ public class RecordSearchQuery {
                 if (counter > 0) likeQueryBuilder.append(exclusive ? " AND " : " OR ");
                 likeQueryBuilder.append(entry.getKey());
                 likeQueryBuilder.append(" LIKE ?");
-                parametreValueBuilder.add(wildcardToSQL(entry.getValue()));
+                parameterValueBuilder.add(wildcardToSQL(entry.getValue()));
                 counter++;
             }
         }
@@ -150,88 +118,74 @@ public class RecordSearchQuery {
     }
 
     /**
-     * Factory to create controls.
+     * Gets whether a string is considered empty/whitespace
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @param searchString String to check for emptiness.
+     * @return <code>true</code> if the searchString is empty.
      */
     private boolean emptyString(String searchString) {
         return searchString == null || searchString.trim().isEmpty();
     }
 
     /**
-     * Factory to create controls.
+     * Replaces wildcards with SQL wildcards.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @param searchString String to replace wildcards with SQL wildcards.
+     * @return String with replaced wildcards.
      */
     private String wildcardToSQL(String searchString) {
         return searchString.replace("*", "%");
     }
 
     /**
-     * Factory to create controls.
+     * Sets the firstName.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @param firstName The new firstName value.
      */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
     /**
-     * Factory to create controls.
+     * Sets the lastName.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @param lastName The new lastName value.
      */
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
     /**
-     * Factory to create controls.
+     * Sets the companyName.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @param companyName The new companyName value.
      */
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
     }
 
     /**
-     * Factory to create controls.
+     * Sets the address.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @param address The new address value.
      */
     public void setAddress(String address) {
         this.address = address;
     }
 
     /**
-     * Factory to create controls.
+     * Sets the telephone number.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @param telephoneNumber The new telephoneNumber value.
      */
     public void setTelephoneNumber(String telephoneNumber) {
         this.telephoneNumber = telephoneNumber;
     }
 
     /**
-     * Factory to create controls.
+     * Sets the emailAddress.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @param emailAddress The new emailAddress value.
      */
     public void setEmailAddress(String emailAddress) {
         this.emailAddress = emailAddress;

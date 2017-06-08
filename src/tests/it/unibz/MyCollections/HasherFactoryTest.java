@@ -9,9 +9,12 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Created by Claudio on 06/06/2017.
+ * Tests whether the HasherFactory works.
  */
 public class HasherFactoryTest {
+    /**
+     * Tests whether the HasherFactory acts as expected.
+     */
     @Test
     public void HasherFactoryTest() {
         HasherFactory factory = new HasherFactory();

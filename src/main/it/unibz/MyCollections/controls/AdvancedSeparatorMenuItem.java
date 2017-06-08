@@ -25,7 +25,7 @@ public class AdvancedSeparatorMenuItem extends SeparatorMenuItem implements Adva
 
     /**
      * Gets whether the menu item is dependant on data being loaded.
-     * This ensures the menu item will be hidden to non-logged in users.
+     * This ensures the menu item will be visible to non-logged in users.
      *
      * @return <code>false</code> to represent that <code>{@link AdvancedSeparatorMenuItem}</code> is visible at all times.
      */

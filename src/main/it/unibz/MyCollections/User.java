@@ -14,7 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Represents a user.
+ * Represents a user. A User
  *
  * @author Claudio Spiess
  * @version 1.0
@@ -22,73 +22,44 @@ import java.util.logging.Logger;
  */
 public class User {
     /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * Holds the logger for this class.
      */
     private static final Logger logger = Logger.getLogger(User.class.getName());
+
     /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * Holds the username property of the user.
      */
     private final SimpleStringProperty username = new SimpleStringProperty();
+
     /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * Holds the admin property of the user.
      */
     private final SimpleBooleanProperty isAdmin = new SimpleBooleanProperty(false);
+
     /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * Holds the password hash string.
      */
     private String passwordHash;
+
     /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * Holds the user's image.
      */
     private Image image;
+
     /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * Holds the JavaFX {@link ImageView} of the user.
      */
     private ImageView imageView;
+
     /**
-     * Factory to create controls.
-     *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * Holds the user id. This is the id of the user in the database.
      */
     private int id;
 
-    /**
-     * Instantiates User object. Sets the default image of the user
-     * and creates a JavaFX image view.
-     *
-     * @author Claudio Spiess
+
+    /*
+     * Sets the default image of the user and creates a JavaFX image view.
      */
-    public User() {
-
-    }
-
-    @SuppressWarnings("unused")
     public void setDefaultImage() {
         try {
             this.image = new Image("default_user.png", 48, 48, true, true);
@@ -101,11 +72,9 @@ public class User {
     }
 
     /**
-     * Factory to create controls.
+     * Gets the username. Required because JavaFX uses reflection to get columnNameProperty().
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @return User's username property.
      */
     @SuppressWarnings("unused")
     public SimpleStringProperty usernameProperty() {
@@ -113,11 +82,9 @@ public class User {
     }
 
     /**
-     * Factory to create controls.
+     * Gets the admin property. Required because JavaFX uses reflection to get columnNameProperty().
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @return User's admin property.
      */
     @SuppressWarnings("unused")
     public SimpleBooleanProperty isAdminProperty() {
@@ -125,88 +92,72 @@ public class User {
     }
 
     /**
-     * Factory to create controls.
+     * Gets whether the user is an admin or not.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @return <code>true</code> if the user is an admin.
      */
     public boolean isAdmin() {
         return isAdmin.get();
     }
 
     /**
-     * Factory to create controls.
+     * Sets whether a user is an admin or not.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @param admin Whether the user is an admin or not.
      */
     public void setAdmin(boolean admin) {
         isAdmin.set(admin);
     }
 
     /**
-     * Factory to create controls.
+     * Gets the username value.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @return Username string.
      */
     public String getUsername() {
         return username.getValue();
     }
 
     /**
-     * Factory to create controls.
+     * Sets the username.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @param username New username value to set.
      */
     public void setUsername(String username) {
         this.username.set(username);
     }
 
     /**
-     * Factory to create controls.
+     * Gets the password hash.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @return Password hash string.
      */
     public String getPasswordHash() {
         return passwordHash;
     }
 
     /**
-     * Factory to create controls.
+     * Sets the password hash of the user.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @param passwordHash The new hash value to set.
      */
     public void setPassword(String passwordHash) {
         this.passwordHash = passwordHash;
     }
 
     /**
-     * Factory to create controls.
+     * Gets the user's image.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @return User's image.
      */
     public Image getImage() {
         return image;
     }
 
     /**
-     * Factory to create controls.
+     * Sets the user's image and builds an {@link ImageView}.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @param image New image to set.
      */
     public void setImage(Image image) {
         this.image = image;
@@ -238,22 +189,18 @@ public class User {
     }
 
     /**
-     * Factory to create controls.
+     * Gets the user's id.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @return User's id.
      */
     public int getId() {
         return id;
     }
 
     /**
-     * Factory to create controls.
+     * Sets the user's id.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @param id The new id to set.
      */
     public void setId(int id) {
         this.id = id;
@@ -271,17 +218,20 @@ public class User {
     }
 
     /**
-     * Factory to create controls.
+     * Checks whether the user is considered empty or not.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @return <code>true</code> if the username and password are blank.
      */
     public boolean isEmpty() {
         if (username != null && !username.getValue().trim().equals("")) return false;
         return !(passwordHash != null && !passwordHash.trim().equals(""));
     }
 
+    /**
+     * Gets the image view to be used by the JavaFX table view.
+     *
+     * @return ImageView containing the User's image.
+     */
     public ImageView getImageView() {
         return imageView;
     }

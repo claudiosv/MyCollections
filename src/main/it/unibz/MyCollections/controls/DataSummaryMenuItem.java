@@ -7,7 +7,8 @@ import javafx.stage.Stage;
 import main.it.unibz.MyCollections.views.DataSummaryView;
 
 /**
- * Factory to create controls.
+ * Menu item for the {@link DataSummaryView} menu item. This class
+ * ensures that the control text, graphic, and action are appropriate.
  *
  * @author Claudio Spiess
  * @version 1.0
@@ -15,11 +16,10 @@ import main.it.unibz.MyCollections.views.DataSummaryView;
  */
 public class DataSummaryMenuItem extends MenuItem implements AdvancedCustomMenuItem {
     /**
-     * Factory to create controls.
+     * Constructs {@link DataSummaryMenuItem} by setting the MenuItem's graphic
+     * and its action.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @param primaryStage The primary stage of the JavaFX Application.
      */
     public DataSummaryMenuItem(Stage primaryStage) {
         super("Summary of data");
@@ -28,11 +28,10 @@ public class DataSummaryMenuItem extends MenuItem implements AdvancedCustomMenuI
     }
 
     /**
-     * Factory to create controls.
+     * Gets whether this <code>MenuItem</code> is restricted only to admin users.
+     * This ensures the menu item will be visible to non-admin users too.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @return <code>false</code> to represent that {@link DataSummaryMenuItem} is visible to everyone.
      */
     @Override
     public boolean isAdminOnly() {
@@ -40,11 +39,10 @@ public class DataSummaryMenuItem extends MenuItem implements AdvancedCustomMenuI
     }
 
     /**
-     * Factory to create controls.
+     * Gets whether this <code>MenuItem</code> is dependant on data being loaded.
+     * This ensures the menu item will be hidden to non-logged in users.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @return <code>true</code> to represent that {@link DataSummaryMenuItem} is visible only when a user is logged in.
      */
     @Override
     public boolean isDataOnly() {
@@ -52,11 +50,9 @@ public class DataSummaryMenuItem extends MenuItem implements AdvancedCustomMenuI
     }
 
     /**
-     * Factory to create controls.
+     * Sets the control's visibility. Makes parent class's setVisible function accessible.
      *
-     * @author Claudio Spiess
-     * @version 1.0
-     * @since 1.0
+     * @param visible Whether the control should be visible or not.
      */
     @Override
     public void setVisibility(boolean visible) {
