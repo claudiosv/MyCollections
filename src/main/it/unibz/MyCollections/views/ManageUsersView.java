@@ -21,8 +21,10 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import main.it.unibz.MyCollections.DatabaseHandler;
 import main.it.unibz.MyCollections.DatabaseSession;
 import main.it.unibz.MyCollections.User;
+import main.it.unibz.MyCollections.exceptions.UserAlreadyExistsException;
 import main.it.unibz.MyCollections.exceptions.UserNotFoundException;
 
 import java.io.IOException;
@@ -174,7 +176,7 @@ public class ManageUsersView {
                         try {
                             DatabaseSession.getInstance().updateUser(row.getItem());
                         } catch (SQLException ex) {
-                            logger.log(Level.SEVERE, "SQL error updating record", ex);
+                            logger.log(Level.SEVERE, "SQL error updating user", ex);
                         } catch (UserNotFoundException ex) {
                             logger.log(Level.SEVERE, "Updated user not found", ex);
                         }
@@ -215,7 +217,22 @@ public class ManageUsersView {
             User user = new User();
             user.setDefaultImage();
             UserView addUser = new AddUserView(user, parentStage);
-            usersTable.getItems().add(addUser.show());
+            user = addUser.show();
+            if(!user.isEmpty()) {
+
+                try
+                {
+                usersTable.getItems().add(DatabaseSession.getInstance().getUser(user.getUsername(), user.getPasswordHash()));
+            } catch (SQLException ex) {
+                logger.log(Level.SEVERE, "SQL error loading user", ex);
+            }
+                catch (UserNotFoundException ex) {
+                    logger.log(Level.SEVERE, "User not found", ex);
+                }
+                catch (IOException ex) {
+                    logger.log(Level.SEVERE, "IO error loading user", ex);
+                }
+            }
         });
 
 

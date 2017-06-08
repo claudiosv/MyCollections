@@ -45,30 +45,30 @@ class AddUserView extends UserView {
         super(user1, parentStage);
         logger.entering(getClass().getName(), "AddUserView");
         dialog.setTitle("Add User");
-        dialog.getIcons().add(new Image("plus-circle.png"));
+        dialog.getIcons().add(new Image("user-plus.png"));
         Button saveButton = new Button("Add");
         saveButton.setGraphic(new ImageView(new Image("user-plus.png")));
         saveButton.setOnAction((event) -> {
             logger.log(Level.INFO, "Add button clicked");
-            if (Validator.isValidUsername(usernameTxt.getText()))
+            if (Validator.isValidUsername(usernameTxt.getText())) {
                 user.setUsername(usernameTxt.getText());
-            if (passwordField.getText().equals(passwordFieldConf.getText()) && Validator.isValidPassword(passwordField.getText())) {
-                HasherFactory hasherFactory = new HasherFactory();
-                user.setPassword(hasherFactory.getHasher("sha512").hash(passwordField.getText()));
-            }
-
-            user.setAdmin(adminCheckbox.selectedProperty().get());
-            try {
-                DatabaseSession.getInstance().addUser(user);
-            } catch (SQLException ex) {
-                logger.log(Level.SEVERE, "SQL error loading records", ex);
-            } catch (UserAlreadyExistsException ex) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText("Error adding user");
-                alert.setContentText("A user with the name " + usernameTxt.getText() + " already exists.");
-                alert.showAndWait();
-                logger.log(Level.SEVERE, "User already exists", ex);
+                if (passwordField.getText().equals(passwordFieldConf.getText()) && Validator.isValidPassword(passwordField.getText())) {
+                    HasherFactory hasherFactory = new HasherFactory();
+                    user.setPassword(hasherFactory.getHasher("sha512").hash(passwordField.getText()));
+                    user.setAdmin(adminCheckbox.selectedProperty().get());
+                    try {
+                        DatabaseSession.getInstance().addUser(user);
+                    } catch (SQLException ex) {
+                        logger.log(Level.SEVERE, "SQL error loading records", ex);
+                    } catch (UserAlreadyExistsException ex) {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Error");
+                        alert.setHeaderText("Error adding user");
+                        alert.setContentText("A user with the name " + usernameTxt.getText() + " already exists.");
+                        alert.showAndWait();
+                        logger.log(Level.SEVERE, "User already exists", ex);
+                    }
+                }
             }
             dialog.hide();
         });

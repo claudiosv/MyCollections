@@ -25,6 +25,7 @@ public class Validator {
      * @author <a href="https://stackoverflow.com/a/6782475">sarkiroka</a>
      */
     public static boolean isValidUsername(String username) {
+        if(username == null || username.equals("")) return  false;
         return username.matches("^[a-zA-Z0-9._-]{5,}$") && stringMatchesChars(username, Arrays.asList('-', '_', '.'));
     }
 
@@ -55,6 +56,7 @@ public class Validator {
      * @author <a href="https://stackoverflow.com/a/3585284">Arne</a>
      */
     public static boolean isValidPassword(String password) {
+        if(password == null || password.equals("")) return  false;
         return password.length() >= 5 && password.matches("\\A\\p{ASCII}*\\z");
     }
 }
