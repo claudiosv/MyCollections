@@ -65,7 +65,7 @@ public class DataSummaryView {
 
         Label dataF = new Label("File path to the data file:");
         grid.add(dataF, 0, 0);
-        Label path = new Label(Paths.get(System.getProperty("user.dir"), DatabaseSession.getInstance().getFileName()).toString()); //TODO: rewrite where db is saved
+        Label path = new Label(Paths.get(System.getProperty("user.dir"), DatabaseSession.getInstance().getFileName()).toString());
         path.setWrapText(true);
         grid.add(path, 1, 0);
 

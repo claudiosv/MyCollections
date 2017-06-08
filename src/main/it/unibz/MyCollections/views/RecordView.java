@@ -120,7 +120,7 @@ abstract class RecordView {
         openButton.setGraphic(new ImageView(new Image("blue-folder-open-image.png")));
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Profile Picture");
-        //fileChooser.setInitialDirectory(new File("C:\\Users\\claudio\\Downloads\\staff")); //TODO: fix
+        fileChooser.setInitialDirectory(new File("C:\\Users\\claudio\\Downloads\\staff")); //TODO: fix
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("JPG", "*.jpg"),
                 new FileChooser.ExtensionFilter("PNG", "*.png"),

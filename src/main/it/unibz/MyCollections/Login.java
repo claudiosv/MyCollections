@@ -88,12 +88,6 @@ public class Login extends Application {
 
         logger.log(Level.INFO, "Logging started, opening database");
         this.primaryStage = parentStage;
-
-        //TODO: refactor entry point a bit to be more logical
-        //TODO: add feature to delete image
-
-
-
         scene = new Scene(new VBox(), 400, 350);
 
         this.primaryStage.setTitle("MyCollections Login");
@@ -119,21 +113,18 @@ public class Login extends Application {
         grid.add(userName, 0, 1);
 
         TextField userTextField = new TextField();
-        userTextField.setText("admin");
-        //userTextField.setPromptText("admin");
+        userTextField.setPromptText("admin");
         grid.add(userTextField, 1, 1);
 
         Label pw = new Label("Password:");
         grid.add(pw, 0, 2);
 
         PasswordField pwBox = new PasswordField();
-
-        pwBox.setText("admin");
-        //pwBox.setPromptText("admin");
+        pwBox.setPromptText("admin");
         grid.add(pwBox, 1, 2);
 
         Button btn = new Button("Sign in");
-        //TODO: btn.setDisable(true);
+        TODO: btn.setDisable(true);
         pwBox.setOnKeyPressed((event) -> {
             if (event.getCode() == KeyCode.ENTER) {
                 logger.log(Level.FINE, "Enter key pressed");
