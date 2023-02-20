@@ -1,7 +1,7 @@
 package tests.it.unibz.MyCollections;
 
-import main.it.unibz.MyCollections.Hasher;
-import main.it.unibz.MyCollections.HasherFactory;
+import it.unibz.MyCollections.Hasher;
+import it.unibz.MyCollections.HasherFactory;
 import org.junit.Test;
 
 import java.util.HashMap;

@@ -1,8 +1,8 @@
 package tests.it.unibz.MyCollections;
 
-import main.it.unibz.MyCollections.DatabaseHandler;
-import main.it.unibz.MyCollections.DatabaseHandlerFactory;
-import main.it.unibz.MyCollections.SQLiteHandler;
+import it.unibz.MyCollections.DatabaseHandler;
+import it.unibz.MyCollections.DatabaseHandlerFactory;
+import it.unibz.MyCollections.SQLiteHandler;
 import org.junit.Test;
 
 import static org.junit.Assert.assertNull;

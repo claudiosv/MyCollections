@@ -1,9 +1,9 @@
 package tests.it.unibz.MyCollections;
 
-import main.it.unibz.MyCollections.portability.CsvExporter;
-import main.it.unibz.MyCollections.portability.Exporter;
-import main.it.unibz.MyCollections.portability.ExporterFactory;
-import main.it.unibz.MyCollections.portability.XmlExporter;
+import it.unibz.MyCollections.portability.CsvExporter;
+import it.unibz.MyCollections.portability.Exporter;
+import it.unibz.MyCollections.portability.ExporterFactory;
+import it.unibz.MyCollections.portability.XmlExporter;
 import org.junit.Test;
 
 import static org.junit.Assert.assertNull;

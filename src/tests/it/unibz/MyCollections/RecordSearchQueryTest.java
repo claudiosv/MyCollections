@@ -1,7 +1,7 @@
 package tests.it.unibz.MyCollections;
 
 
-import main.it.unibz.MyCollections.RecordSearchQuery;
+import it.unibz.MyCollections.AddressRecordSearchQuery;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

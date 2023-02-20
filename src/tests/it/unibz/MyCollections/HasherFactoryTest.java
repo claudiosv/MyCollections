@@ -1,8 +1,8 @@
 package tests.it.unibz.MyCollections;
 
-import main.it.unibz.MyCollections.Hasher;
-import main.it.unibz.MyCollections.HasherFactory;
-import main.it.unibz.MyCollections.SHA512Hasher;
+import it.unibz.MyCollections.Hasher;
+import it.unibz.MyCollections.HasherFactory;
+import it.unibz.MyCollections.SHA512Hasher;
 import org.junit.Test;
 
 import static org.junit.Assert.assertNull;

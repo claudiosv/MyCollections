@@ -1,8 +1,8 @@
 package tests.it.unibz.MyCollections;
 
-import main.it.unibz.MyCollections.Importer;
-import main.it.unibz.MyCollections.Record;
-import main.it.unibz.MyCollections.portability.*;
+import it.unibz.MyCollections.Importer;
+import it.unibz.MyCollections.AddressRecord;
+import it.unibz.MyCollections.portability.*;
 import org.junit.Test;
 
 import java.nio.file.Path;
@@ -26,7 +26,7 @@ public class ExportAndImportTest {
     @Test
     public void ExportAndImportCsvTest() {
         Exporter csvExporter = new CsvExporter();
-        ArrayList<Record> recordsTest = new ArrayList<>();
+        ArrayList<AddressRecord> recordsTest = new ArrayList<>();
 
         Record testRecord = new Record();
         final String testFirstname = "Test firstname";
@@ -47,7 +47,7 @@ public class ExportAndImportTest {
         csvExporter.exportRecords(recordsTest, testPath);
 
         Importer csvImporter = new CsvImporter();
-        List<Record> importedRecords = csvImporter.importRecords(testPath);
+        List<AddressRecord> importedRecords = csvImporter.importRecords(testPath);
 
         for (int i = 0; i < recordsTest.size(); i++) {
             assertEquals(recordsTest.get(i), importedRecords.get(i));
@@ -57,7 +57,7 @@ public class ExportAndImportTest {
     @Test
     public void ExportAndImportXmlTest() {
         Exporter xmlExporter = new XmlExporter();
-        ArrayList<Record> recordsTest = new ArrayList<>();
+        ArrayList<AddressRecord> recordsTest = new ArrayList<>();
 
         Record testRecord = new Record();
         final String testFirstname = "Test firstname";
@@ -78,7 +78,7 @@ public class ExportAndImportTest {
         xmlExporter.exportRecords(recordsTest, testPath);
 
         Importer xmlImporter = new XmlImporter();
-        List<Record> importedRecords = xmlImporter.importRecords(testPath);
+        List<AddressRecord> importedRecords = xmlImporter.importRecords(testPath);
 
         for (int i = 0; i < recordsTest.size(); i++) {
             assertEquals(recordsTest.get(i), importedRecords.get(i));

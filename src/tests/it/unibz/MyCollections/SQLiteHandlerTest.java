@@ -1,9 +1,9 @@
 package tests.it.unibz.MyCollections;
 
-import main.it.unibz.MyCollections.*;
-import main.it.unibz.MyCollections.exceptions.RecordNotFoundException;
-import main.it.unibz.MyCollections.exceptions.UserAlreadyExistsException;
-import main.it.unibz.MyCollections.exceptions.UserNotFoundException;
+import it.unibz.MyCollections.*;
+import it.unibz.MyCollections.exceptions.RecordNotFoundException;
+import it.unibz.MyCollections.exceptions.UserAlreadyExistsException;
+import it.unibz.MyCollections.exceptions.UserNotFoundException;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -142,7 +142,7 @@ public class SQLiteHandlerTest {
         query1.setFirstName("Tup*");
 
         assertEquals(updatedRecord, sqliteHandler.searchRecords(query1).get(0));
-        List<Record> records = sqliteHandler.searchRecords(query1, updatedRecord.getOwnerUserId());
+        List<AddressRecord> records = sqliteHandler.searchRecords(query1, updatedRecord.getOwnerUserId());
         assertEquals(updatedRecord, records.get(0));
         sqliteHandler.save();
 
