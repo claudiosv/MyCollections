@@ -1,5 +1,6 @@
 # MyCollections
 Simple Java collections manager. MyCollections helps you organise your items, such as movies or music.
+<img width="871" alt="Screenshot of MyCollections" src="https://user-images.githubusercontent.com/8250468/220177960-2a273681-0019-44f5-98b1-b657b2aba116.png">
 
 # Functionalities
 • Graphical User Interface
@@ -25,7 +26,7 @@ Simple Java collections manager. MyCollections helps you organise your items, su
 • Summary of data
 
 • Login/registration
-•   u: admin, p: admin (must have)
+•   u: ricky, p: admin (must have)
 
 • Add/remove users
 
